@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.params=produto\ cliente\ quantidade\ infoPromo\ mes\ filial
+comment0.target=Venda(java.lang.String,\ java.lang.String,\ int,\ char,\ int,\ int)
+comment1.params=
+comment1.target=Venda()
+comment10.params=obj
+comment10.target=boolean\ equals(java.lang.Object)
+comment2.params=a
+comment2.target=Venda(Venda)
+comment3.params=
+comment3.target=java.lang.String\ getProduto()
+comment4.params=
+comment4.target=java.lang.String\ getCliente()
+comment5.params=
+comment5.target=int\ getQuantidade()
+comment6.params=
+comment6.target=char\ getInfoPromo()
+comment7.params=
+comment7.target=int\ getMes()
+comment8.params=
+comment8.target=int\ getFilial()
+comment9.params=
+comment9.target=Venda\ clone()
+numComments=11
