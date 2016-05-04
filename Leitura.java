@@ -14,12 +14,19 @@ public class Leitura{
        System.out.println(Crono.print());*/
        
        // BufferedReader
+       System.out.println("----------------------------");
+       System.out.println("Leitura do ficheiro: Vendas_3M.txt");
        Crono.start();
        ArrayList<String> listaBufferedReader = readLinesWithBuff("Vendas_3M.txt");
        Crono.stop();
-       System.out.println(Crono.print());
+       // Falta as linhas lidas.
+       System.out.println("Tempo: " + Crono.print() + "segundos.");
        
        ArrayList<Venda> v = parseAllLinhas(listaBufferedReader);
+       for(Venda venda: v){
+           System.out.println(venda);
+       }
+       
        return v;
    } 
     
@@ -54,43 +61,44 @@ public class Leitura{
    }
    
    public static Venda parseLinhaVenda(String linha){
-    int i,quantidade=0,mes=0,filial=0;
-    double preco=0;
-    String produto=null; 
-    String cliente=null;
-    char infoPromo='-';
+       
+       int i,quantidade=0,mes=0,filial=0;
+       double preco=0;
+       String produto=null; 
+       String cliente=null;
+       char infoPromo='-';
     
-    String[] pars = linha.split(" ");
+       String[] pars = linha.split(" ");
     
-    for(i=0;i<7;i++){
-        switch(i){
-            case 0: produto=pars[0];
-                    break;
-            case 1: preco=Double.parseDouble(pars[1]);
-                    break;
-            case 2: quantidade=Integer.parseInt(pars[2]);
-                    break;
-            case 3: infoPromo=pars[3].charAt(0);
-                    break;
-            case 4: cliente=pars[4];
-                    break;
-            case 5: mes=Integer.parseInt(pars[5]);
-                    break;
-            case 6: filial=Integer.parseInt(pars[6]);
-                    break;
+       for(i=0;i<7;i++){
+           switch(i){
+               case 0: produto=pars[0];
+                       break;
+               case 1: preco=Double.parseDouble(pars[1]);
+                       break;
+               case 2: quantidade=Integer.parseInt(pars[2]);
+                       break;
+               case 3: infoPromo=pars[3].charAt(0);
+                       break;
+               case 4: cliente=pars[4];
+                       break;
+               case 5: mes=Integer.parseInt(pars[5]);
+                       break;
+               case 6: filial=Integer.parseInt(pars[6]);
+                       break;
         }
     }
     
-    Venda v = new Venda(produto,cliente,preco,quantidade,infoPromo,mes,filial);
-    
-    return v;
+        Venda v = new Venda(produto,cliente,preco,quantidade,infoPromo,mes,filial);
+        return v;
    }
    
    public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas){
+      
       ArrayList<Venda> listV = new ArrayList<Venda>();
       
       for(String linha: linhas){
-          listV.add( listV.size(),parseLinhaVenda(linha) );
+          listV.add(listV.size(),parseLinhaVenda(linha));
       }
       
       return listV;
