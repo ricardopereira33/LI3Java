@@ -17,21 +17,24 @@ public class Leitura{
        System.out.println("----------------------------");
        System.out.println("Leitura do ficheiro: Vendas_3M.txt");
        Crono.start();
-       ArrayList<String> listaBufferedReader = readLinesWithBuff("../Vendas_3M.txt");
+       ArrayList<Venda> vendas = readVendasWithBuff("Vendas_3M.txt");
        Crono.stop();
-       // Falta as linhas lidas.
+       System.out.println("Linhas lidas: " + vendas.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        
+       return vendas;
+   } 
+   
+   public static ArrayList<Venda> readVendasWithBuff(String fich) {
+       ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
+       
        ArrayList<Venda> v = parseAllLinhas(listaBufferedReader);
-       for(Venda venda: v){
-           System.out.println(venda);
-       }
        
        return v;
    } 
+   
     
-   public static ArrayList<String>
-            readLinesArrayWithScanner(String ficheiro) {
+   public static ArrayList<String> readLinesArrayWithScanner(String ficheiro) {
         ArrayList<String> linhas = new ArrayList<>();
         Scanner scanFile = null;
         try {
