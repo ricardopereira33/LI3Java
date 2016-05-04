@@ -17,7 +17,7 @@ public class Leitura{
        System.out.println("----------------------------");
        System.out.println("Leitura do ficheiro: Vendas_3M.txt");
        Crono.start();
-       ArrayList<String> listaBufferedReader = readLinesWithBuff("Vendas_3M.txt");
+       ArrayList<String> listaBufferedReader = readLinesWithBuff("../Vendas_3M.txt");
        Crono.stop();
        // Falta as linhas lidas.
        System.out.println("Tempo: " + Crono.print() + "segundos.");

@@ -80,4 +80,27 @@ public class Venda{
                a.getMes() == this.mes &&
                a.getFilial() == this.filial;
     }
+    
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Produto: ");
+        sb.append(produto.toString());
+        sb.append("\n");
+        sb.append("Cliente: ");
+        sb.append(cliente.toString());
+        sb.append("\n");
+        sb.append("Quantidade: ");
+        sb.append(quantidade);
+        sb.append("\n");
+        sb.append("Preço: ");
+        sb.append(preco);
+        sb.append("\n");
+        sb.append("Info Promoção: ");
+        sb.append(infoPromo);
+        sb.append("\n");
+        sb.append("Mês: ");
+        sb.append(mes);
+        sb.append("\n");
+        return sb.toString();
+    }
 }
