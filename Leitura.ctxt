@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.params=args
-comment0.target=java.util.ArrayList\ main(java.lang.String[])
+comment0.target=void\ main(java.lang.String[])
 comment1.params=fich
 comment1.target=java.util.ArrayList\ readVendasWithBuff(java.lang.String)
 comment2.params=ficheiro
@@ -11,4 +11,11 @@ comment4.params=linha
 comment4.target=Venda\ parseLinhaVenda(java.lang.String)
 comment5.params=linhas
 comment5.target=java.util.ArrayList\ parseAllLinhas(java.util.ArrayList)
-numComments=6
+comment6.params=lista\ filial
+comment6.target=int\ comprasFilial(java.util.ArrayList,\ int)
+comment6.text=Consultas
+comment7.params=lista
+comment7.target=int\ custoZero(java.util.ArrayList)
+comment8.params=lista\ letra
+comment8.target=int\ produtosLetra(java.util.ArrayList,\ char)
+numComments=9

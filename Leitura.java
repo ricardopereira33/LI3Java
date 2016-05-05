@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 
 public class Leitura{
    
-   public static ArrayList<Venda> main(String[] args){
+   public static void main(String[] args){
        // Scanner
        /*Crono.start();
        ArrayList<String> listaScanner = readLinesArrayWithScanner("Vendas_3M.txt");
@@ -22,7 +22,23 @@ public class Leitura{
        System.out.println("Linhas lidas: " + vendas.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        
-       return vendas;
+       /*Consulta 1**/
+       Scanner s = new Scanner(System.in);
+       int filial = s.nextInt();
+       System.out.println("Número total de compras realizadas na filial"+filial+" :" + comprasFilial(vendas,filial));  
+      
+       
+       /*Consulta 2*/
+       System.out.println("Número total de compras a custo zero:" + custoZero(vendas));  
+
+       /*Consulta 3*/
+       
+       /*Consulta 4*/
+       char letra=s.next().charAt(0);
+       System.out.println("Número de produtos começados pela letra"+letra+" :" + produtosLetra(vendas,letra));
+       
+       
+       s.close();
    } 
    
    public static ArrayList<Venda> readVendasWithBuff(String fich) {
@@ -31,8 +47,7 @@ public class Leitura{
        ArrayList<Venda> v = parseAllLinhas(listaBufferedReader);
        
        return v;
-   } 
-   
+   }    
     
    public static ArrayList<String> readLinesArrayWithScanner(String ficheiro) {
         ArrayList<String> linhas = new ArrayList<>();
@@ -107,4 +122,21 @@ public class Leitura{
       return listV;
    }
    
+   
+   
+   /*Consultas*/
+   
+   private static int comprasFilial (ArrayList<Venda> lista, int filial){  
+     return (int) lista.stream().filter(v-> v.getFilial()==filial).count();
+    }
+    
+   private static int custoZero (ArrayList<Venda> lista){
+     return (int) lista.stream().filter(v-> v.getPreco()==0).count();
+    }
+    
+   private static int produtosLetra (ArrayList<Venda> lista,char letra){
+     return (int) lista.stream().filter(v-> v.getProduto().charAt(0)==letra).count();
+    }
+    
+    
 }
