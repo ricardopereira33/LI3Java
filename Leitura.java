@@ -92,17 +92,29 @@ public class Leitura{
            switch(i){
                case 0: produto=pars[0];
                        break;
-               case 1: preco=Double.parseDouble(pars[1]);
+               case 1: try{preco=Double.parseDouble(pars[1].trim());}
+                       catch(NullPointerException | NumberFormatException e ){
+                        return null;
+                        }
                        break;
-               case 2: quantidade=Integer.parseInt(pars[2]);
+               case 2: try{quantidade=Integer.parseInt(pars[2].trim());}
+                       catch(NullPointerException | NumberFormatException e ){
+                        return null;
+                        }
                        break;
-               case 3: infoPromo=pars[3].charAt(0);
+               case 3: infoPromo=pars[3].trim().charAt(0);
                        break;
-               case 4: cliente=pars[4];
+               case 4: cliente=pars[4].trim();
                        break;
-               case 5: mes=Integer.parseInt(pars[5]);
+               case 5: try{mes=Integer.parseInt(pars[5].trim());}
+                       catch(NullPointerException | NumberFormatException e ){
+                          return null;
+                        }
                        break;
-               case 6: filial=Integer.parseInt(pars[6]);
+               case 6: try{filial=Integer.parseInt(pars[6].trim());}
+                       catch(NullPointerException | NumberFormatException e){
+                         return null;
+                        }
                        break;
         }
     }
