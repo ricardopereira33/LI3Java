@@ -3,21 +3,18 @@ import java.util.Scanner;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.util.HashSet;
+import java.util.TreeSet;
+
 
 public class Leitura{
    
    public static void main(String[] args){
-       // Scanner
-       /*Crono.start();
-       ArrayList<String> listaScanner = readLinesArrayWithScanner("Vendas_3M.txt");
-       Crono.stop();
-       System.out.println(Crono.print());*/
-       
        // BufferedReader
        System.out.println("----------------------------");
        System.out.println("Leitura do ficheiro: Vendas_3M.txt");
        Crono.start();
-       ArrayList<Venda> vendas = readVendasWithBuff("Vendas_3M.txt");
+       ArrayList<Venda> vendas = readVendasWithBuff("../Vendas_3M.txt");
        Crono.stop();
        System.out.println("Linhas lidas: " + vendas.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
@@ -25,20 +22,34 @@ public class Leitura{
        /*Consulta 1**/
        Scanner s = new Scanner(System.in);
        int filial = s.nextInt();
+       Crono.start();
        System.out.println("Número total de compras realizadas na filial"+filial+" :" + comprasFilial(vendas,filial));  
-      
+       Crono.stop();
+       System.out.println("Tempo: " + Crono.print() + "segundos.");
+       s.close();
        
        /*Consulta 2*/
-       System.out.println("Número total de compras a custo zero:" + custoZero(vendas));  
+       //System.out.println("Número total de compras a custo zero:" + custoZero(vendas));  
 
        /*Consulta 3*/
        
        /*Consulta 4*/
-       char letra=s.next().charAt(0);
-       System.out.println("Número de produtos começados pela letra"+letra+" :" + produtosLetra(vendas,letra));
+       //char letra=s.next().charAt(0);
+       //System.out.println("Número de produtos começados pela letra"+letra+" :" + produtosLetra(vendas,letra));
        
-       
+       /* Clientes - HashSet */
+       /*System.out.printf("Número da filial: ");
+       Scanner s = new Scanner(System.in);
+       int filial = s.nextInt();
+       Crono.start();
+       HashSet<String> lista = clientesFilial(vendas,filial);
+       Crono.stop();
+       System.out.println("Tempo: " + Crono.print() + "segundos.");
+       System.out.println("TOTAL: " + lista.size());
        s.close();
+       */
+       
+       
    } 
    
    public static ArrayList<Venda> readVendasWithBuff(String fich) {
@@ -134,12 +145,17 @@ public class Leitura{
       return listV;
    }
    
-   
-   
    /*Consultas*/
    
-   private static int comprasFilial (ArrayList<Venda> lista, int filial){  
+   private static int comprasFilialStream (ArrayList<Venda> lista, int filial){  
      return (int) lista.stream().filter(v-> v.getFilial()==filial).count();
+    }
+    
+   private static int comprasFilial(ArrayList<Venda> lista, int filial){
+       int contador=0;
+       for(Venda v: lista)
+            if(v.getFilial() == filial) contador++;
+       return contador;
     }
     
    private static int custoZero (ArrayList<Venda> lista){
@@ -150,5 +166,23 @@ public class Leitura{
      return (int) lista.stream().filter(v-> v.getProduto().charAt(0)==letra).count();
     }
     
-    
+   private static HashSet<String> clientesFilialHash(ArrayList<Venda> lista, int filial){
+       
+       HashSet<String> hash = new HashSet<String>();
+       
+       for(Venda v: lista)
+           if(v.getFilial() == filial) hash.add(v.getCliente());
+           
+       return hash;
+   }
+   
+   private static TreeSet<String> clientesFilialTree(ArrayList<Venda> lista, int filial){
+       // Falta comparator //
+       TreeSet<String> tree = new TreeSet<String>();
+
+       for(Venda v: lista)
+            if(v.getFilial() == filial) tree.add(v.getCliente());
+            
+       return tree;
+   }
 }
