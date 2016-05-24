@@ -8,7 +8,8 @@ import java.util.TreeSet;
 
 
 public class Leitura{
-   
+    
+    
    public static void main(String[] args){
        // BufferedReader
        System.out.println("----------------------------");
@@ -19,7 +20,7 @@ public class Leitura{
        System.out.println("Linhas lidas: " + vendas.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        
-       /*Consulta 1**/
+       /*Consulta 1
        Scanner s = new Scanner(System.in);
        int filial = s.nextInt();
        Crono.start();
@@ -47,11 +48,10 @@ public class Leitura{
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        System.out.println("TOTAL: " + lista.size());
        s.close();
-       */
-       
-       
+       */ 
    } 
-   
+    
+    
    public static ArrayList<Venda> readVendasWithBuff(String fich) {
        ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
        
