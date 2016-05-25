@@ -12,62 +12,44 @@ import java.util.Set;
 public class Leitura{
     
     
-   public static void main(String[] args){
+   public static ArrayList<Venda> leituraVendas(TreeSet<Cliente> cli,TreeSet<Produto> prod){
        // BufferedReader
-       System.out.println("----------------------------");
+       System.out.println("--------------------------------------------------------");
        System.out.println("Leitura do ficheiro: Vendas_3M.txt");
        Crono.start();
-       ArrayList<Venda> vendas = readVendasWithBuff("../Vendas_3M.txt");
+       ArrayList<Venda> vendas = readVendasWithBuff("../Vendas_3M.txt",cli,prod);
        Crono.stop();
        System.out.println("Linhas lidas: " + vendas.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
-       
-       System.out.println("----------------------------");
-       System.out.println("Leitura do ficheiro: Produtos.txt");
-       Crono.start();
-       ArrayList<Produto> produtos = readProdutosWithBuff("../Produtos.txt");
-       Crono.stop();
-       System.out.println("Linhas lidas: " + vendas.size());
-       System.out.println("Tempo: " + Crono.print() + "segundos.");
-       
-       System.out.println("----------------------------");
+       System.out.println("--------------------------------------------------------");
+   
+       return vendas;
+   } 
+   
+   public static ArrayList<Cliente> leituraClientes(){
+       System.out.println("--------------------------------------------------------");
        System.out.println("Leitura do ficheiro: Clientes.txt");
        Crono.start();
        ArrayList<Cliente> clientes = readClientesWithBuff("../Clientes.txt");
        Crono.stop();
-       System.out.println("Linhas lidas: " + vendas.size());
+       System.out.println("Linhas lidas: " + clientes.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
-       
-       /*Consulta 1
-       Scanner s = new Scanner(System.in);
-       int filial = s.nextInt();
+       System.out.println("--------------------------------------------------------");
+       return clientes;
+   }
+   
+   public static ArrayList<Produto> leituraProdutos(){
+       System.out.println("--------------------------------------------------------");
+       System.out.println("Leitura do ficheiro: Produtos.txt");
        Crono.start();
-       System.out.println("Número total de compras realizadas na filial"+filial+" :" + comprasFilial(vendas,filial));  
+       ArrayList<Produto> produtos = readProdutosWithBuff("../Produtos.txt");
        Crono.stop();
+       System.out.println("Linhas lidas: " + produtos.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
-       s.close();
-       
-       /*Consulta 2*/
-       //System.out.println("Número total de compras a custo zero:" + custoZero(vendas));  
-
-       /*Consulta 3*/
-       
-       /*Consulta 4*/
-       //char letra=s.next().charAt(0);
-       //System.out.println("Número de produtos começados pela letra"+letra+" :" + produtosLetra(vendas,letra));
-       
-       /* Clientes - HashSet */
-       /*System.out.printf("Número da filial: ");
-       Scanner s = new Scanner(System.in);
-       int filial = s.nextInt();
-       Crono.start();
-       HashSet<String> lista = clientesFilial(vendas,filial);
-       Crono.stop();
-       System.out.println("Tempo: " + Crono.print() + "segundos.");
-       System.out.println("TOTAL: " + lista.size());
-       s.close();
-       */ 
+       System.out.println("--------------------------------------------------------");
+       return produtos;
    } 
+   
    
    public static ArrayList<Cliente> readClientesWithBuff(String fich){
        ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
@@ -85,10 +67,10 @@ public class Leitura{
        return p;
     }
     
-   public static ArrayList<Venda> readVendasWithBuff(String fich) {
+   public static ArrayList<Venda> readVendasWithBuff(String fich,TreeSet<Cliente> cli,TreeSet<Produto> prod) {
        ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
        
-       ArrayList<Venda> v = parseAllLinhas(listaBufferedReader);
+       ArrayList<Venda> v = parseAllLinhas(listaBufferedReader,cli,prod);
        
        return v;
    }    
@@ -122,7 +104,7 @@ public class Leitura{
       return linhas;  
    }
    
-   public static Venda parseLinhaVenda(String linha){
+   public static Venda parseLinhaVenda(String linha,TreeSet<Cliente> cli,TreeSet<Produto> prod){
        
        int i,quantidade=0,mes=0,filial=0;
        double preco=0;
@@ -162,9 +144,10 @@ public class Leitura{
                        break;
         }
     }
-    
-        Venda v = new Venda(produto,cliente,preco,quantidade,infoPromo,mes,filial);
-        return v;
+        if(cli.contains() && prod.contains())
+            Venda v = new Venda(produto,cliente,preco,quantidade,infoPromo,mes,filial);
+            return v;
+        else return null;
    }
    
     public static ArrayList<Produto> parseAllLinhasProd(ArrayList<String> linhas){
@@ -191,12 +174,14 @@ public class Leitura{
       return listV;
    }
    
-   public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas){
+   public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas,TreeSet<Cliente> cli,TreeSet<Produto> prod){
       
       ArrayList<Venda> listV = new ArrayList<Venda>();
       
       for(String linha: linhas){
-          listV.add(listV.size(),parseLinhaVenda(linha));
+          Venda v = parseLinhaVenda(linha,cli,prod);
+          if(v!=null)
+            listV.add(listV.size(),v);
       }
       
       return listV;

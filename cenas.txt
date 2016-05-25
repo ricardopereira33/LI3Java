@@ -1,0 +1,29 @@
+/*Consulta 1
+       Scanner s = new Scanner(System.in);
+       int filial = s.nextInt();
+       Crono.start();
+       System.out.println("Número total de compras realizadas na filial"+filial+" :" + comprasFilial(vendas,filial));  
+       Crono.stop();
+       System.out.println("Tempo: " + Crono.print() + "segundos.");
+       s.close();
+       
+       /*Consulta 2*/
+       //System.out.println("Número total de compras a custo zero:" + custoZero(vendas));  
+
+       /*Consulta 3*/
+       
+       /*Consulta 4*/
+       //char letra=s.next().charAt(0);
+       //System.out.println("Número de produtos começados pela letra"+letra+" :" + produtosLetra(vendas,letra));
+       
+       /* Clientes - HashSet */
+       /*System.out.printf("Número da filial: ");
+       Scanner s = new Scanner(System.in);
+       int filial = s.nextInt();
+       Crono.start();
+       HashSet<String> lista = clientesFilial(vendas,filial);
+       Crono.stop();
+       System.out.println("Tempo: " + Crono.print() + "segundos.");
+       System.out.println("TOTAL: " + lista.size());
+       s.close();
+       */ 
