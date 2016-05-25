@@ -1,3 +1,5 @@
-public class Filial{
+import java.io.Serializable;
+
+public class Filial implements Serializable{
 
 }

@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.TreeSet;
 import java.util.Set;
 import java.util.List;
+import java.io.Serializable;
 
 
-
-public class Leitura{
+public class Leitura implements Serializable{
     
     
    public static ArrayList<Venda> leituraVendas(CatProdutos prod,CatClientes cli){

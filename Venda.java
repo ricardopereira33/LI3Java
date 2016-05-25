@@ -1,5 +1,7 @@
 import java.util.Arrays;
-public class Venda{
+import java.io.Serializable;
+
+public class Venda implements Serializable{
     
     private Produto produto;
     private Cliente cliente;

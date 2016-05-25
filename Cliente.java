@@ -1,5 +1,7 @@
 import java.util.Arrays;
-public class Cliente
+import java.io.Serializable;
+
+public class Cliente implements Serializable
 {
    private String cli;
     

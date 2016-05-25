@@ -1,4 +1,14 @@
 #BlueJ class context
 comment0.params=args
 comment0.target=void\ main(java.lang.String[])
-numComments=1
+comment1.params=
+comment1.target=void\ carregarMenus()
+comment2.params=
+comment2.target=void\ apresentarMenu()
+comment3.params=
+comment3.target=void\ lerFicheiros()
+comment4.params=
+comment4.target=void\ carregarDados()
+comment5.params=
+comment5.target=void\ gravarDados()
+numComments=6
