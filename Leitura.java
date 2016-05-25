@@ -6,19 +6,20 @@ import java.io.BufferedReader;
 import java.util.HashSet;
 import java.util.TreeSet;
 import java.util.Set;
+import java.util.List;
 
 
 
 public class Leitura{
     
     
-   public static ArrayList<Venda> leituraVendas(Set<Produto> prod,Set<Cliente> cli){
+   public static ArrayList<Venda> leituraVendas(CatProdutos prod,CatClientes cli){
        // BufferedReader
 
        System.out.println("--------------------------------------------------------");
        System.out.println("Leitura do ficheiro: Vendas_1M.txt");
        Crono.start();
-       ArrayList<Venda> vendas = readVendasWithBuff("../Vendas_3M.txt",cli,prod);
+       ArrayList<Venda> vendas = readVendasWithBuff("../Vendas_1M.txt",cli,prod);
        Crono.stop();
        System.out.println("Linhas lidas: " + vendas.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
@@ -68,7 +69,7 @@ public class Leitura{
        return p;
     }
     
-   public static ArrayList<Venda> readVendasWithBuff(String fich,Set<Cliente> cli,Set<Produto> prod) {
+   public static ArrayList<Venda> readVendasWithBuff(String fich,CatClientes cli,CatProdutos prod) {
        ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
        
        ArrayList<Venda> v = parseAllLinhas(listaBufferedReader,cli,prod);
@@ -105,7 +106,7 @@ public class Leitura{
       return linhas;  
    }
    
-   public static Venda parseLinhaVenda(String linha,Set<Cliente> cli,Set<Produto> prod){
+   public static Venda parseLinhaVenda(String linha,CatClientes cli,CatProdutos prod){
        
        int i,quantidade=0,mes=0,filial=0;
        double preco=0;
@@ -146,7 +147,7 @@ public class Leitura{
         }
        }
        
-       if(cli.contains(cliente) && prod.contains(produto)){
+       if(cli.existeCliente(cliente) && prod.existeProduto(produto)){
         
             Venda v = new Venda(produto,cliente,preco,quantidade,infoPromo,mes,filial);
             return v;
@@ -178,7 +179,7 @@ public class Leitura{
       return listV;
    }
    
-   public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas,Set<Cliente> cli,Set<Produto> prod){
+   public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas,CatClientes cli,CatProdutos prod){
       
       ArrayList<Venda> listV = new ArrayList<Venda>();
       
