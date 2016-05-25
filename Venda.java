@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class Venda{
     
     private String produto;
@@ -102,5 +103,10 @@ public class Venda{
         sb.append(mes);
         sb.append("\n");
         return sb.toString();
+    }
+    
+    public int hashCode(){
+        //return produto.hashCode()+cliente.hashCode()+quantidade+(int)preco+(String.valueOf(infoPromo)).hashCode()+mes;
+        return Arrays.hashCode(new Object[]{produto,cliente,preco,quantidade,infoPromo,mes,filial});
     }
 }

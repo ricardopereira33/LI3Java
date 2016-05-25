@@ -1,13 +1,14 @@
 import java.util.TreeSet;
+import java.util.Set;
 
 public class CatClientes{
-    private TreeSet<String> CatalogoClientes;
+    private Set<Cliente> CatalogoClientes;
    
     public CatClientes(){
-        this.CatalogoClientes = new TreeSet<String>();
+        this.CatalogoClientes = new TreeSet<>(new ComparatorCliente());
     }
     
-    public CatClientes(TreeSet<String> CatalogoClientes){
+    public CatClientes(TreeSet<Cliente> CatalogoClientes){
         this.CatalogoClientes = CatalogoClientes;
     }
     
@@ -19,16 +20,16 @@ public class CatClientes{
         return CatalogoClientes.size();
     }
     
-    public TreeSet<String> getCatalogoClientes(){
+    public Set<Cliente> getCatalogoClientes(){
         return this.CatalogoClientes;
     }
     
-    public void setCatalogoClientes(TreeSet<String> CatalogoClientes){
+    public void setCatalogoClientes(TreeSet<Cliente> CatalogoClientes){
         this.CatalogoClientes=CatalogoClientes;
     }
     
-    public void addCliente(String cliente){
-        CatalogoClientes.add(cliente);
+    public void addCliente(Cliente c){
+        CatalogoClientes.add(c);
     }
     
     public CatClientes clone(){

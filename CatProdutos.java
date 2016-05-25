@@ -1,13 +1,14 @@
 import java.util.TreeSet;
+import java.util.Set;
 
 public class CatProdutos{
-    private TreeSet<String> CatalogoProdutos;
+    private Set<Produto> CatalogoProdutos;
     
     public CatProdutos(){
-        this.CatalogoProdutos = new TreeSet<String>();
+        this.CatalogoProdutos = new TreeSet<>(new ComparatorProduto());
     }
     
-    public CatProdutos(TreeSet<String> CatalogoProdutos){
+    public CatProdutos(Set<Produto> CatalogoProdutos){
         this.CatalogoProdutos = CatalogoProdutos;
     }
     
@@ -23,15 +24,15 @@ public class CatProdutos{
         return CatalogoProdutos.size();
     }
     
-    public TreeSet<String> getCatalogoProdutos(){
+    public Set<Produto> getCatalogoProdutos(){
         return this.CatalogoProdutos;
     }
     
-    public void setCatalogoClientes(TreeSet<String> CatalogoProdutos){
+    public void setCatalogoClientes(Set<Produto> CatalogoProdutos){
         this.CatalogoProdutos = CatalogoProdutos;
     }
     
-    public void addProduto(String produto){
-        CatalogoProdutos.add(produto);
+    public void addProduto(Produto p){
+        CatalogoProdutos.add(p);
     }
 }

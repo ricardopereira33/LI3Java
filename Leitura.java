@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.util.HashSet;
 import java.util.TreeSet;
+import java.util.Set;
+
 
 
 public class Leitura{
@@ -16,6 +18,22 @@ public class Leitura{
        System.out.println("Leitura do ficheiro: Vendas_3M.txt");
        Crono.start();
        ArrayList<Venda> vendas = readVendasWithBuff("../Vendas_3M.txt");
+       Crono.stop();
+       System.out.println("Linhas lidas: " + vendas.size());
+       System.out.println("Tempo: " + Crono.print() + "segundos.");
+       
+       System.out.println("----------------------------");
+       System.out.println("Leitura do ficheiro: Produtos.txt");
+       Crono.start();
+       ArrayList<Produto> produtos = readProdutosWithBuff("../Produtos.txt");
+       Crono.stop();
+       System.out.println("Linhas lidas: " + vendas.size());
+       System.out.println("Tempo: " + Crono.print() + "segundos.");
+       
+       System.out.println("----------------------------");
+       System.out.println("Leitura do ficheiro: Clientes.txt");
+       Crono.start();
+       ArrayList<Cliente> clientes = readClientesWithBuff("../Clientes.txt");
        Crono.stop();
        System.out.println("Linhas lidas: " + vendas.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
@@ -50,7 +68,22 @@ public class Leitura{
        s.close();
        */ 
    } 
+   
+   public static ArrayList<Cliente> readClientesWithBuff(String fich){
+       ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
+       
+       ArrayList<Cliente> c = parseAllLinhasCli(listaBufferedReader);
+       
+       return c;
+    }
     
+   public static ArrayList<Produto> readProdutosWithBuff(String fich){
+       ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
+       
+       ArrayList<Produto> p = parseAllLinhasProd(listaBufferedReader);
+       
+       return p;
+    }
     
    public static ArrayList<Venda> readVendasWithBuff(String fich) {
        ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
@@ -134,12 +167,47 @@ public class Leitura{
         return v;
    }
    
+    public static ArrayList<Produto> parseAllLinhasProd(ArrayList<String> linhas){
+      
+      ArrayList<Produto> listV = new ArrayList<Produto>();
+      
+      for(String linha: linhas){
+          Produto p = new Produto(linha);
+          listV.add(listV.size(),p);
+      }
+      
+      return listV;
+   }
+   
+   public static ArrayList<Cliente> parseAllLinhasCli(ArrayList<String> linhas){
+      
+      ArrayList<Cliente> listV = new ArrayList<Cliente>();
+      
+      for(String linha: linhas){
+          Cliente c = new Cliente(linha);
+          listV.add(listV.size(),c);
+      }
+      
+      return listV;
+   }
+   
    public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas){
       
       ArrayList<Venda> listV = new ArrayList<Venda>();
       
       for(String linha: linhas){
           listV.add(listV.size(),parseLinhaVenda(linha));
+      }
+      
+      return listV;
+   }
+   
+   public static HashSet<Venda> parseAllLinhasToSet(ArrayList<String> linhas){
+      
+      HashSet<Venda> listV = new HashSet<Venda>();
+      
+      for(String linha: linhas){
+          listV.add(parseLinhaVenda(linha));
       }
       
       return listV;
@@ -162,6 +230,17 @@ public class Leitura{
      return (int) lista.stream().filter(v-> v.getPreco()==0).count();
     }
     
+   private static int vendasDuplicadas(ArrayList<Venda> lista){
+       HashSet<Venda> diff = new HashSet<>();
+       HashSet<Venda> dupp = new HashSet<>();
+       for(Venda v : lista){
+           if(!diff.add(v)){
+               dupp.add(v);
+            }
+        }
+       return dupp.size();
+    } 
+    
    private static int produtosLetra (ArrayList<Venda> lista,char letra){
      return (int) lista.stream().filter(v-> v.getProduto().charAt(0)==letra).count();
     }
@@ -177,8 +256,7 @@ public class Leitura{
    }
    
    private static TreeSet<String> clientesFilialTree(ArrayList<Venda> lista, int filial){
-       // Falta comparator //
-       TreeSet<String> tree = new TreeSet<String>();
+       TreeSet<String> tree = new TreeSet<>(new ComparatorByString());
 
        for(Venda v: lista)
             if(v.getFilial() == filial) tree.add(v.getCliente());

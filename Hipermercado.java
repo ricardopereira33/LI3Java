@@ -27,14 +27,15 @@ public class Hipermercado{
        return this.CatalogoProdutos.clone();
    }
     
-   public void carregarCatalogos(ArrayList<Venda> vendas){
-       
-       for(Venda v: vendas){
-           CatalogoClientes.addCliente(v.getCliente());
-           CatalogoProdutos.addProduto(v.getProduto());
+   public void carregarCatalogoProdutos(ArrayList<Produto> produtos){
+       for(Produto p: produtos){
+           CatalogoProdutos.addProduto(p.clone());
        }
-    
    }
    
-
+    public void carregarCatalogoClientes(ArrayList<Cliente> clientes){
+       for(Cliente c: clientes){
+           CatalogoClientes.addCliente(c.clone());
+       }
+   }
 }
