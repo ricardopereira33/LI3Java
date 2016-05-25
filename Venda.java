@@ -20,7 +20,7 @@ public class Venda{
     }
     
     public Venda(){
-        this("n/a","n/a",0.0,0,'-',0,0);
+        this(null,null,0.0,0,'-',0,0);
     }
     
     public Venda(Venda a){
@@ -33,12 +33,12 @@ public class Venda{
         this.filial = a.getFilial();
     }
     
-    public String getProduto(){
-        return this.produto;
+    public Produto getProduto(){
+        return this.produto.clone();
     }
     
-    public String getCliente(){
-        return this.cliente;
+    public Cliente getCliente(){
+        return this.cliente.clone();
     }
     
     public double getPreco(){

@@ -12,10 +12,11 @@ import java.util.Set;
 public class Leitura{
     
     
-   public static ArrayList<Venda> leituraVendas(TreeSet<Cliente> cli,TreeSet<Produto> prod){
+   public static ArrayList<Venda> leituraVendas(Set<Produto> prod,Set<Cliente> cli){
        // BufferedReader
+
        System.out.println("--------------------------------------------------------");
-       System.out.println("Leitura do ficheiro: Vendas_3M.txt");
+       System.out.println("Leitura do ficheiro: Vendas_1M.txt");
        Crono.start();
        ArrayList<Venda> vendas = readVendasWithBuff("../Vendas_3M.txt",cli,prod);
        Crono.stop();
@@ -67,7 +68,7 @@ public class Leitura{
        return p;
     }
     
-   public static ArrayList<Venda> readVendasWithBuff(String fich,TreeSet<Cliente> cli,TreeSet<Produto> prod) {
+   public static ArrayList<Venda> readVendasWithBuff(String fich,Set<Cliente> cli,Set<Produto> prod) {
        ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
        
        ArrayList<Venda> v = parseAllLinhas(listaBufferedReader,cli,prod);
@@ -104,19 +105,19 @@ public class Leitura{
       return linhas;  
    }
    
-   public static Venda parseLinhaVenda(String linha,TreeSet<Cliente> cli,TreeSet<Produto> prod){
+   public static Venda parseLinhaVenda(String linha,Set<Cliente> cli,Set<Produto> prod){
        
        int i,quantidade=0,mes=0,filial=0;
        double preco=0;
-       String produto=null; 
-       String cliente=null;
+       Produto produto=null; 
+       Cliente cliente=null;
        char infoPromo='-';
-    
+
        String[] pars = linha.split(" ");
     
        for(i=0;i<7;i++){
            switch(i){
-               case 0: produto=pars[0];
+               case 0: produto=new Produto(pars[0]);
                        break;
                case 1: try{preco=Double.parseDouble(pars[1].trim());}
                        catch(NullPointerException | NumberFormatException e ){
@@ -130,7 +131,7 @@ public class Leitura{
                        break;
                case 3: infoPromo=pars[3].trim().charAt(0);
                        break;
-               case 4: cliente=pars[4].trim();
+               case 4: cliente= new Cliente(pars[4].trim());
                        break;
                case 5: try{mes=Integer.parseInt(pars[5].trim());}
                        catch(NullPointerException | NumberFormatException e ){
@@ -143,11 +144,14 @@ public class Leitura{
                         }
                        break;
         }
-    }
-        if(cli.contains() && prod.contains())
+       }
+       
+       if(cli.contains(cliente) && prod.contains(produto)){
+        
             Venda v = new Venda(produto,cliente,preco,quantidade,infoPromo,mes,filial);
             return v;
-        else return null;
+       }
+       else return null;
    }
    
     public static ArrayList<Produto> parseAllLinhasProd(ArrayList<String> linhas){
@@ -174,7 +178,7 @@ public class Leitura{
       return listV;
    }
    
-   public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas,TreeSet<Cliente> cli,TreeSet<Produto> prod){
+   public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas,Set<Cliente> cli,Set<Produto> prod){
       
       ArrayList<Venda> listV = new ArrayList<Venda>();
       
@@ -187,7 +191,7 @@ public class Leitura{
       return listV;
    }
    
-   public static HashSet<Venda> parseAllLinhasToSet(ArrayList<String> linhas){
+   /*public static HashSet<Venda> parseAllLinhasToSet(ArrayList<String> linhas){
       
       HashSet<Venda> listV = new HashSet<Venda>();
       
@@ -197,9 +201,9 @@ public class Leitura{
       
       return listV;
    }
-   
+   */
    /*Consultas*/
-   
+   /*
    private static int comprasFilialStream (ArrayList<Venda> lista, int filial){  
      return (int) lista.stream().filter(v-> v.getFilial()==filial).count();
     }
@@ -248,4 +252,5 @@ public class Leitura{
             
        return tree;
    }
+   */
 }

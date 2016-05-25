@@ -1,11 +1,12 @@
 import java.util.TreeSet;
+import java.util.HashSet;
 import java.util.Set;
 
 public class CatClientes{
     private Set<Cliente> CatalogoClientes;
    
     public CatClientes(){
-        this.CatalogoClientes = new TreeSet<>(new ComparatorCliente());
+        this.CatalogoClientes = new HashSet<>();
     }
     
     public CatClientes(TreeSet<Cliente> CatalogoClientes){

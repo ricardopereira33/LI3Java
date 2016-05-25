@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 public class Produto
 {
     private String prod;
@@ -17,6 +17,10 @@ public class Produto
     
     public Produto clone() {
         return new Produto(this);
+    }
+    
+    public int hashCode(){
+        return Arrays.hashCode( new Object[] { prod } );
     }
     
     public boolean equals(Object obj) {

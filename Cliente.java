@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 public class Cliente
 {
    private String cli;
@@ -17,6 +17,10 @@ public class Cliente
     
     public Cliente clone() {
         return new Cliente(this);
+    }
+    
+     public int hashCode(){
+        return Arrays.hashCode( new Object[] { cli } );
     }
     
     public boolean equals(Object obj) {

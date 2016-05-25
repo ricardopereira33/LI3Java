@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.params=produto\ cliente\ preco\ quantidade\ infoPromo\ mes\ filial
-comment0.target=Venda(java.lang.String,\ java.lang.String,\ double,\ int,\ char,\ int,\ int)
+comment0.target=Venda(Produto,\ Cliente,\ double,\ int,\ char,\ int,\ int)
 comment1.params=
 comment1.target=Venda()
 comment10.params=
@@ -14,9 +14,9 @@ comment13.target=int\ hashCode()
 comment2.params=a
 comment2.target=Venda(Venda)
 comment3.params=
-comment3.target=java.lang.String\ getProduto()
+comment3.target=Produto\ getProduto()
 comment4.params=
-comment4.target=java.lang.String\ getCliente()
+comment4.target=Cliente\ getCliente()
 comment5.params=
 comment5.target=double\ getPreco()
 comment6.params=
