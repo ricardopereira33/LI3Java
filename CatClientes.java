@@ -37,6 +37,11 @@ public class CatClientes implements Serializable{
             }
         }
     }
+    
+    //Limpar
+    public void limpar (){
+       this.catalogo.clear();
+    }
    
     // Gets
     

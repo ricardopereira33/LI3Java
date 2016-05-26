@@ -13,71 +13,71 @@ import java.io.Serializable;
 public class Leitura implements Serializable{
     
     
-   public static ArrayList<Venda> leituraVendas(CatProdutos prod,CatClientes cli){
+   public static void leituraVendas(CatProdutos prod,CatClientes cli,Facturacao f){
        // BufferedReader
 
        System.out.println("--------------------------------------------------------");
        System.out.println("Leitura do ficheiro: Vendas_1M.txt");
        Crono.start();
-       ArrayList<Venda> vendas = readVendasWithBuff("../Vendas_1M.txt",cli,prod);
+       int n=readLinesWithBuffVendas("../Vendas_1M.txt",cli,prod,f);
        Crono.stop();
-       System.out.println("Linhas lidas: " + vendas.size());
+       System.out.println("Linhas lidas: "  + n );
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        System.out.println("--------------------------------------------------------");
    
-       return vendas;
    } 
    
-   public static ArrayList<Cliente> leituraClientes(){
+   public static void leituraClientes(CatClientes cli){
        System.out.println("--------------------------------------------------------");
        System.out.println("Leitura do ficheiro: Clientes.txt");
        Crono.start();
-       ArrayList<Cliente> clientes = readClientesWithBuff("../Clientes.txt");
+       readLinesWithBuffCli("../Clientes.txt",cli);
        Crono.stop();
-       System.out.println("Linhas lidas: " + clientes.size());
+       System.out.println("Linhas lidas: " + cli.totalClientes());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        System.out.println("--------------------------------------------------------");
-       return clientes;
    }
    
-   public static ArrayList<Produto> leituraProdutos(){
+   public static void leituraProdutos(CatProdutos prod){
        System.out.println("--------------------------------------------------------");
        System.out.println("Leitura do ficheiro: Produtos.txt");
        Crono.start();
-       ArrayList<Produto> produtos = readProdutosWithBuff("../Produtos.txt");
+       readLinesWithBuffProd("../Produtos.txt",prod);
        Crono.stop();
-       System.out.println("Linhas lidas: " + produtos.size());
+       System.out.println("Linhas lidas: " + prod.totalProdutos());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        System.out.println("--------------------------------------------------------");
-       return produtos;
    } 
    
    
-   public static ArrayList<Cliente> readClientesWithBuff(String fich){
-       ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
+  /* public static ArrayList<Cliente> readClientesWithBuff(String fich){
+       ArrayList<Cliente> c = readLinesWithBuffCli(fich);
        
        ArrayList<Cliente> c = parseAllLinhasCli(listaBufferedReader);
        
+       listaBufferedReader.clear();
        return c;
     }
     
    public static ArrayList<Produto> readProdutosWithBuff(String fich){
-       ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
+       ArrayList<Produto> p = readLinesWithBuffProd(fich);
        
        ArrayList<Produto> p = parseAllLinhasProd(listaBufferedReader);
        
+       listaBufferedReader.clear();
        return p;
-    }
+    }*/
     
-   public static ArrayList<Venda> readVendasWithBuff(String fich,CatClientes cli,CatProdutos prod) {
-       ArrayList<String> listaBufferedReader = readLinesWithBuff(fich);
+  /*public static ArrayList<Venda> readVendasWithBuff(String fich,CatClientes cli,CatProdutos prod) {
+       ArrayList<Venda> v = readLinesWithBuffVendas(fich,cli,prod);
        
        ArrayList<Venda> v = parseAllLinhas(listaBufferedReader,cli,prod);
        
-       return v;
-   }    
+       listaBufferedReader.clear();
+       return v;       
+   }*/
     
-   public static ArrayList<String> readLinesArrayWithScanner(String ficheiro) {
+   /*public static ArrayList<String> readLinesArrayWithScanner(String ficheiro) {
         ArrayList<String> linhas = new ArrayList<>();
         Scanner scanFile = null;
         try {
@@ -90,20 +90,58 @@ public class Leitura implements Serializable{
              { System.out.println(ioExc.getMessage()); return null; }
         finally { if(scanFile != null) scanFile.close(); }
         return linhas;
-   }
+   }*/
 
-    public static ArrayList<String> readLinesWithBuff(String fich) {
-      ArrayList<String> linhas = new ArrayList<>();
+    public static void readLinesWithBuffCli(String fich,CatClientes cli) {
       BufferedReader inStream = null; 
       String linha = null;
+      Cliente c;
       try {
             inStream = new BufferedReader(new FileReader(fich));
-            while( (linha = inStream.readLine()) != null )
-                              linhas.add(linha);
+            while( (linha = inStream.readLine()) != null ){
+                              c= new Cliente(linha);
+                              cli.insereCliente(c);
+                            }
       }
       catch(IOException e) 
-          { System.out.println(e.getMessage()); return null; };
-      return linhas;  
+          { System.out.println(e.getMessage()); };
+
+   }      
+   
+    public static void readLinesWithBuffProd(String fich,CatProdutos prod) {
+      BufferedReader inStream = null; 
+      String linha = null;
+      Produto p;
+      try {
+            inStream = new BufferedReader(new FileReader(fich));
+            while( (linha = inStream.readLine()) != null ){
+                              p = new Produto(linha);
+                              prod.insereProduto(p);
+                            }
+      }
+      catch(IOException e) 
+          { System.out.println(e.getMessage());  };
+        
+   }
+   
+    public static int readLinesWithBuffVendas(String fich,CatClientes cli,CatProdutos prod,Facturacao f) {
+      BufferedReader inStream = null; 
+      String linha = null;
+      Venda v;
+      int total=0;
+      try {
+            inStream = new BufferedReader(new FileReader(fich));
+            while( (linha = inStream.readLine()) != null ){
+                             v = parseLinhaVenda(linha,cli,prod);
+                             if(v!=null){
+                                f.insereVenda(v);
+                                total++;
+                             }
+                            }
+      }
+      catch(IOException e) 
+          { System.out.println(e.getMessage());  };
+      return total;
    }
    
    public static Venda parseLinhaVenda(String linha,CatClientes cli,CatProdutos prod){
@@ -148,14 +186,13 @@ public class Leitura implements Serializable{
        }
        
        if(cli.existeCliente(cliente) && prod.existeProduto(produto)){
-        
             Venda v = new Venda(produto,cliente,preco,quantidade,infoPromo,mes,filial);
             return v;
        }
        else return null;
    }
    
-    public static ArrayList<Produto> parseAllLinhasProd(ArrayList<String> linhas){
+   /* public static ArrayList<Produto> parseAllLinhasProd(ArrayList<String> linhas){
       
       ArrayList<Produto> listV = new ArrayList<Produto>();
       
@@ -163,7 +200,6 @@ public class Leitura implements Serializable{
           Produto p = new Produto(linha);
           listV.add(listV.size(),p);
       }
-      
       return listV;
    }
    
@@ -175,22 +211,22 @@ public class Leitura implements Serializable{
           Cliente c = new Cliente(linha);
           listV.add(listV.size(),c);
       }
-      
       return listV;
    }
    
    public static ArrayList<Venda> parseAllLinhas(ArrayList<String> linhas,CatClientes cli,CatProdutos prod){
       
       ArrayList<Venda> listV = new ArrayList<Venda>();
-      
+     
       for(String linha: linhas){
+       
           Venda v = parseLinhaVenda(linha,cli,prod);
           if(v!=null)
             listV.add(listV.size(),v);
       }
       
       return listV;
-   }
+   }*/
    
    /*public static HashSet<Venda> parseAllLinhasToSet(ArrayList<String> linhas){
       

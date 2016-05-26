@@ -23,7 +23,7 @@ public class Hipermercado implements Serializable{
    public Hipermercado(){
        this.CatalogoClientes = new CatClientes();
        this.CatalogoProdutos = new CatProdutos();
-       this.facturacao = null;
+       this.facturacao = new Facturacao();
        this.filiais = null;
    }
    
@@ -36,13 +36,15 @@ public class Hipermercado implements Serializable{
    }
    
    public void carregaDados(){
-       ArrayList<Cliente> clientes = Leitura.leituraClientes();
-       ArrayList<Produto> produtos = Leitura.leituraProdutos();
-       this.carregarCatalogoProdutos(produtos);
+       Leitura.leituraClientes(CatalogoClientes);
+       Leitura.leituraProdutos(CatalogoProdutos);
+       /*this.carregarCatalogoProdutos(produtos);
        this.carregarCatalogoClientes(clientes);
        clientes.clear();
-       produtos.clear();
-       ArrayList<Venda> vendas = Leitura.leituraVendas(CatalogoProdutos,CatalogoClientes);
+       produtos.clear();*/
+       Leitura.leituraVendas(CatalogoProdutos,CatalogoClientes,facturacao);
+       /*this.carregarFacturacao(vendas);
+       vendas.clear();*/
    }
    
    public void carregarCatalogoProdutos(ArrayList<Produto> produtos){
@@ -57,6 +59,35 @@ public class Hipermercado implements Serializable{
        }
    }
    
+   public void carregarFacturacao(ArrayList<Venda> vendas){
+       for(Venda v : vendas){
+           facturacao.insereVenda(v);
+        }
+   }
+   
+   public void limpar (){
+       CatalogoClientes.limpar();
+       CatalogoProdutos.limpar();
+       facturacao.limpar();
+       /*for(Filial f:filiais){
+           f.limpar();
+        }*/
+   }
+   
+   /*CONSULTAS ESTATISTICAS*/
+   public int numeroProdutosDif(){
+       return facturacao.nProdDif();       
+    }
+    
+   public double facturacaoTotal(){
+       return facturacao.total();
+    } 
+   
+   public int zeros(){
+       return facturacao.zeros();
+   }
+   
+   // GRAVAR && CARREGAR
    /**
      * Gravar o estado da aplicação num determinado ficheiro.
      * @param fich

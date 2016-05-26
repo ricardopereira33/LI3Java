@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=PrecoQuantidade()
+comment1.params=pq
+comment1.target=PrecoQuantidade(PrecoQuantidade)
+comment2.params=v
+comment2.target=void\ inserePrecoQuant(Venda)
+comment3.params=
+comment3.target=double\ getTotalPrice()
+comment4.params=
+comment4.target=int\ getTotalVendas()
+comment5.params=
+comment5.target=PrecoQuantidade\ clone()
+numComments=6

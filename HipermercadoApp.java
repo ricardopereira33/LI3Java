@@ -12,6 +12,13 @@ public class HipermercadoApp{
        hipermercado = new Hipermercado();
        carregarMenus();
        apresentarMenu();
+       /*hipermercado.limpar();*/
+       System.out.println("---------------------------");
+       System.out.println("Nª total de produtos diferentes comprados:" + hipermercado.numeroProdutosDif());
+       System.out.println("Nª total 0 :" + hipermercado.zeros());
+       System.out.println("Nª total :" + hipermercado.facturacaoTotal());
+       System.out.println("");
+       System.out.println("----------------------------");
    } 
    
    private static void carregarMenus(){
@@ -25,7 +32,7 @@ public class HipermercadoApp{
        do{
            menu_principal.executa();
            switch(menu_principal.getOpcao()){
-               case 1: hipermercado.carregaDados();
+               case 1: lerFicheiros();
                        break;
                case 2: carregarDados();
                        break;

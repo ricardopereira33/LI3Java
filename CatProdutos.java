@@ -37,6 +37,11 @@ public class CatProdutos implements Serializable{
             }
         }
     }
+    
+    //Limpar
+    public void limpar (){
+       this.catalogo.clear();
+    }
    
     // Gets
     
