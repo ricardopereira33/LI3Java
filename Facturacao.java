@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Facturacao implements Serializable{
+public class Facturacao{
     private List<Map<Produto,InfoProduto>> produtos;
     
     /*Construtor*/
@@ -51,7 +51,7 @@ public class Facturacao implements Serializable{
          lista.add(i,arvore);         
       }
         
-      return this.produtos;
+      return lista;
     }
     
     private static int calculaIndice(char letra){

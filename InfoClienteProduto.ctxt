@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=InfoClienteProduto()
+comment1.params=icp
+comment1.target=InfoClienteProduto(InfoClienteProduto)
+comment2.params=indice
+comment2.target=int\ getQuantity(int)
+comment3.params=indice
+comment3.target=double\ getPrice(int)
+comment4.params=v
+comment4.target=void\ insereInfoCP(Venda)
+comment5.params=
+comment5.target=InfoClienteProduto\ clone()
+numComments=6

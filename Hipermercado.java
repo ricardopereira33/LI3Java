@@ -18,13 +18,16 @@ public class Hipermercado implements Serializable{
    private CatClientes CatalogoClientes;
    private CatProdutos CatalogoProdutos;
    private Facturacao facturacao;
-   private ArrayList<Filial> filiais;
+   private Filial filiais[];
    
    public Hipermercado(){
+       int i;
        this.CatalogoClientes = new CatClientes();
        this.CatalogoProdutos = new CatProdutos();
        this.facturacao = new Facturacao();
-       this.filiais = null;
+       this.filiais = new Filial [3];
+       for(i=0;i<3;i++)
+            filiais[i]= new Filial();
    }
    
    public CatClientes getCatClientes(){
@@ -42,7 +45,7 @@ public class Hipermercado implements Serializable{
        this.carregarCatalogoClientes(clientes);
        clientes.clear();
        produtos.clear();*/
-       Leitura.leituraVendas(CatalogoProdutos,CatalogoClientes,facturacao);
+       Leitura.leituraVendas(CatalogoProdutos,CatalogoClientes,facturacao,filiais);
        /*this.carregarFacturacao(vendas);
        vendas.clear();*/
    }

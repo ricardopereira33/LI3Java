@@ -13,13 +13,13 @@ import java.io.Serializable;
 public class Leitura implements Serializable{
     
     
-   public static void leituraVendas(CatProdutos prod,CatClientes cli,Facturacao f){
+   public static void leituraVendas(CatProdutos prod,CatClientes cli,Facturacao f,Filial fil[]){
        // BufferedReader
 
        System.out.println("--------------------------------------------------------");
        System.out.println("Leitura do ficheiro: Vendas_1M.txt");
        Crono.start();
-       int n=readLinesWithBuffVendas("../Vendas_1M.txt",cli,prod,f);
+       int n=readLinesWithBuffVendas("../Vendas_1M.txt",cli,prod,f,fil);
        Crono.stop();
        System.out.println("Linhas lidas: "  + n );
        System.out.println("Tempo: " + Crono.print() + "segundos.");
@@ -124,7 +124,7 @@ public class Leitura implements Serializable{
         
    }
    
-    public static int readLinesWithBuffVendas(String fich,CatClientes cli,CatProdutos prod,Facturacao f) {
+    public static int readLinesWithBuffVendas(String fich,CatClientes cli,CatProdutos prod,Facturacao f,Filial fil[]) {
       BufferedReader inStream = null; 
       String linha = null;
       Venda v;
@@ -135,6 +135,7 @@ public class Leitura implements Serializable{
                              v = parseLinhaVenda(linha,cli,prod);
                              if(v!=null){
                                 f.insereVenda(v);
+                                fil[v.getFilial()-1].insereVenda(v);
                                 total++;
                              }
                             }
