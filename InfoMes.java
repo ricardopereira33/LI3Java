@@ -5,7 +5,7 @@ import java.util.TreeMap;
 
 public class InfoMes
 {
-    private List<Map<Produto,InfoClienteProduto>> produtos;
+    private List<Map<String,InfoClienteProduto>> produtos;
     private int quantidade;
     
     public InfoMes (){
@@ -20,8 +20,8 @@ public class InfoMes
         int indice;
         
         for(indice=0; indice < 26; indice++){
-            for(Produto produto: im.getProdutos().get(indice).keySet()){
-                this.produtos.get(indice).put(produto.clone(),im.getProdutos().get(indice).get(produto).clone());
+            for(String produto: im.getProdutos().get(indice).keySet()){
+                this.produtos.get(indice).put(produto,im.getProdutos().get(indice).get(produto).clone());
             }
         }
     
@@ -30,21 +30,21 @@ public class InfoMes
     public void insereProdutoQuant(Venda v){
         this.quantidade+= v.getQuantidade();
         
-        Produto p = v.getProduto();
-        int indice = calculaIndice(p.getNomeProduto().charAt(0));
+        String p = v.getProduto();
+        int indice = calculaIndice(p.charAt(0));
         
         if(produtos.get(indice)!=null){
             insereProdutoQuantAux(v,indice,p);
         }
         else {
-            Map<Produto,InfoClienteProduto> arvore;
-            arvore = new TreeMap<Produto,InfoClienteProduto>(new ComparatorProduto());
+            Map<String,InfoClienteProduto> arvore;
+            arvore = new TreeMap<String,InfoClienteProduto>();
             this.produtos.add(indice,arvore);
             insereProdutoQuantAux(v,indice,p);
         }
     }
     
-    public void insereProdutoQuantAux(Venda v,int indice,Produto p){
+    public void insereProdutoQuantAux(Venda v,int indice,String p){
 
         if(produtos.get(indice).containsKey(p))
                 produtos.get(indice).get(p).insereInfoCP(v);
@@ -55,7 +55,7 @@ public class InfoMes
                 }
     }
         
-    public List<Map<Produto,InfoClienteProduto>> getProdutos(){
+    public List<Map<String,InfoClienteProduto>> getProdutos(){
         return this.produtos;
     }
     

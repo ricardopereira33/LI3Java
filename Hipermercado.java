@@ -50,14 +50,14 @@ public class Hipermercado implements Serializable{
        vendas.clear();*/
    }
    
-   public void carregarCatalogoProdutos(ArrayList<Produto> produtos){
-       for(Produto p: produtos){
+   public void carregarCatalogoProdutos(ArrayList<String> produtos){
+       for(String p: produtos){
            CatalogoProdutos.insereProduto(p);
        }
    }
    
-    public void carregarCatalogoClientes(ArrayList<Cliente> clientes){
-       for(Cliente c: clientes){
+    public void carregarCatalogoClientes(ArrayList<String> clientes){
+       for(String c: clientes){
            CatalogoClientes.insereCliente(c);
        }
    }

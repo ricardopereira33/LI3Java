@@ -3,15 +3,15 @@ import java.io.Serializable;
 
 public class Venda implements Serializable{
     
-    private Produto produto;
-    private Cliente cliente;
+    private String produto;
+    private String cliente;
     private double preco;
     private int quantidade;
     private char infoPromo;
     private int mes;
     private int filial;
 
-    public Venda(Produto produto, Cliente cliente, double preco,int quantidade, char infoPromo, int mes, int filial){
+    public Venda(String produto, String cliente, double preco,int quantidade, char infoPromo, int mes, int filial){
         this.produto = produto;
         this.cliente = cliente;
         this.preco = preco;
@@ -35,12 +35,12 @@ public class Venda implements Serializable{
         this.filial = a.getFilial();
     }
     
-    public Produto getProduto(){
-        return this.produto.clone();
+    public String getProduto(){
+        return this.produto;
     }
     
-    public Cliente getCliente(){
-        return this.cliente.clone();
+    public String getCliente(){
+        return this.cliente;
     }
     
     public double getPreco(){

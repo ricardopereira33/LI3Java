@@ -99,8 +99,7 @@ public class Leitura implements Serializable{
       try {
             inStream = new BufferedReader(new FileReader(fich));
             while( (linha = inStream.readLine()) != null ){
-                              c= new Cliente(linha);
-                              cli.insereCliente(c);
+                              cli.insereCliente(linha);
                             }
       }
       catch(IOException e) 
@@ -115,8 +114,7 @@ public class Leitura implements Serializable{
       try {
             inStream = new BufferedReader(new FileReader(fich));
             while( (linha = inStream.readLine()) != null ){
-                              p = new Produto(linha);
-                              prod.insereProduto(p);
+                              prod.insereProduto(linha);
                             }
       }
       catch(IOException e) 
@@ -149,15 +147,15 @@ public class Leitura implements Serializable{
        
        int i,quantidade=0,mes=0,filial=0;
        double preco=0;
-       Produto produto=null; 
-       Cliente cliente=null;
+       String produto=null; 
+       String cliente=null;
        char infoPromo='-';
 
        String[] pars = linha.split(" ");
     
        for(i=0;i<7;i++){
            switch(i){
-               case 0: produto=new Produto(pars[0]);
+               case 0: produto=pars[0].trim();
                        break;
                case 1: try{preco=Double.parseDouble(pars[1].trim());}
                        catch(NullPointerException | NumberFormatException e ){
@@ -171,7 +169,7 @@ public class Leitura implements Serializable{
                        break;
                case 3: infoPromo=pars[3].trim().charAt(0);
                        break;
-               case 4: cliente= new Cliente(pars[4].trim());
+               case 4: cliente= pars[4].trim();
                        break;
                case 5: try{mes=Integer.parseInt(pars[5].trim());}
                        catch(NullPointerException | NumberFormatException e ){

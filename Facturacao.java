@@ -6,22 +6,22 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Facturacao{
-    private List<Map<Produto,InfoProduto>> produtos;
+    private List<Map<String,InfoProduto>> produtos;
     
     /*Construtor*/
     public Facturacao(){
         this.produtos = new ArrayList<>(26);
-        Map<Produto,InfoProduto> arvore;
+        Map<String,InfoProduto> arvore;
         
         for(int i=0; i<26; i++){
-            arvore = new TreeMap<Produto,InfoProduto>(new ComparatorProduto());
+            arvore = new TreeMap<String,InfoProduto>();
             this.produtos.add(i,arvore);
         }
     }
     
     public void insereVenda(Venda v){ 
-       Produto p = v.getProduto();
-       int indice = calculaIndice(p.getNomeProduto().charAt(0));
+       String p = v.getProduto();
+       int indice = calculaIndice(p.charAt(0));
        if(produtos.get(indice).containsKey(p))
             produtos.get(indice).get(p).insereInfoP(v);
        else{ 
@@ -37,16 +37,16 @@ public class Facturacao{
     }
     
     /*Get's*/
-    public List<Map<Produto,InfoProduto>> getFactProdutos(){
-      ArrayList<Map<Produto,InfoProduto>> lista = new ArrayList<>(26);
-      Map<Produto,InfoProduto> arvore;
+    public List<Map<String,InfoProduto>> getFactProdutos(){
+      ArrayList<Map<String,InfoProduto>> lista = new ArrayList<>(26);
+      Map<String,InfoProduto> arvore;
       int i;  
       
       for(i=0; i<26; i++){
-         arvore = new TreeMap<Produto,InfoProduto>();
+         arvore = new TreeMap<String,InfoProduto>();
          /*this.produtos.get(i).forEach( (k,v) -> arvore.put(k.clone(),((InfoProduto) v)));*/
-         for(Produto p: this.produtos.get(i).keySet()){
-            arvore.put(p.clone(),this.produtos.get(i).get(p).clone());
+         for(String p: this.produtos.get(i).keySet()){
+            arvore.put(p,this.produtos.get(i).get(p).clone());
          }
          lista.add(i,arvore);         
       }
@@ -60,7 +60,7 @@ public class Facturacao{
     
     public int nProdDif(){
         int total=0;
-        for( Map<Produto,InfoProduto> lista :produtos){
+        for( Map<String,InfoProduto> lista :produtos){
             total += lista.size();
         }
         return total;
@@ -70,7 +70,7 @@ public class Facturacao{
         double total=0;
         int i,o=0;
       
-            for(Map<Produto,InfoProduto> lista : produtos){
+            for(Map<String,InfoProduto> lista : produtos){
                 for(InfoProduto lista2 : lista.values()){
                     total += lista2.total();
                 }
@@ -83,7 +83,7 @@ public class Facturacao{
       int total=0;
       int i,o=0;
       
-      for(Map<Produto,InfoProduto> lista : produtos){
+      for(Map<String,InfoProduto> lista : produtos){
         for(InfoProduto lista2 : lista.values()){
             total += lista2.zero();
            }

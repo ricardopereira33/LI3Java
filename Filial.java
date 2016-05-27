@@ -6,21 +6,21 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Filial implements Serializable{
-    private List<Map<Cliente,InfoCliente>> clientes;
+    private List<Map<String,InfoCliente>> clientes;
     
      public Filial(){
         this.clientes = new ArrayList<>(26);
-        Map<Cliente,InfoCliente> arvore;
+        Map<String,InfoCliente> arvore;
         
         for(int i=0; i<26; i++){
-            arvore = new TreeMap<Cliente,InfoCliente>(new ComparatorCliente());
+            arvore = new TreeMap<String,InfoCliente>();
             this.clientes.add(i,arvore);
         }
     }
     
     public void insereVenda(Venda v){ 
-       Cliente c = v.getCliente();
-       int indice = calculaIndice(c.getNomeCliente().charAt(0));
+       String c = v.getCliente();
+       int indice = calculaIndice(c.charAt(0));
        if(clientes.get(indice).containsKey(c))
            clientes.get(indice).get(c).insereInfoC(v);
        else{ 
@@ -36,15 +36,15 @@ public class Filial implements Serializable{
     }
     
     /*Get's*/
-    public List<Map<Cliente,InfoCliente>> getFilialClientes(){
-      ArrayList<Map<Cliente,InfoCliente>> lista = new ArrayList<>(26);
-      Map<Cliente,InfoCliente> arvore;
+    public List<Map<String,InfoCliente>> getFilialClientes(){
+      ArrayList<Map<String,InfoCliente>> lista = new ArrayList<>(26);
+      Map<String,InfoCliente> arvore;
       int i;  
       
       for(i=0; i<26; i++){
-         arvore = new TreeMap<Cliente,InfoCliente>();
+         arvore = new TreeMap<String,InfoCliente>();
          /*this.produtos.get(i).forEach( (k,v) -> arvore.put(k.clone(),((InfoProduto) v)));*/
-         for(Cliente c: this.clientes.get(i).keySet()){
+         for(String c: this.clientes.get(i).keySet()){
             arvore.put(c,this.clientes.get(i).get(c));
          }
          lista.add(i,arvore);         

@@ -8,23 +8,23 @@ import java.io.Serializable;
 
 public class CatProdutos implements Serializable{
     
-    private List<Set<Produto>> catalogo;
+    private List<Set<String>> catalogo;
    
     public CatProdutos(){
         catalogo = new ArrayList<>(26);
-        Set<Produto> arvore;
+        Set<String> arvore;
         
         for(int i=0; i<26; i++){
-            arvore = new TreeSet<>(new ComparatorProduto());
+            arvore = new TreeSet<>();
             this.catalogo.add(i,arvore);
         }
     }
     
-    public CatProdutos(Collection <Produto> collection){
+    public CatProdutos(Collection <String> collection){
         int indice;
-        for(Produto produto: collection){
-            indice = calculaIndice(produto.getNomeProduto().charAt(0));
-            this.catalogo.get(indice).add(produto.clone());
+        for(String produto: collection){
+            indice = calculaIndice(produto.charAt(0));
+            this.catalogo.get(indice).add(produto);
         }
     }
     
@@ -32,8 +32,8 @@ public class CatProdutos implements Serializable{
         int indice;
         
         for(indice=0; indice < catalogoProdutos.catalogo.size(); indice++){
-            for(Produto produto: catalogoProdutos.catalogo.get(indice)){
-                this.catalogo.get(indice).add(produto.clone());
+            for(String produto: catalogoProdutos.catalogo.get(indice)){
+                this.catalogo.get(indice).add(produto);
             }
         }
     }
@@ -45,22 +45,22 @@ public class CatProdutos implements Serializable{
    
     // Gets
     
-    public List<Produto> getProdutos(){
-        List<Produto> lista = new ArrayList<Produto>();
-        for(Set<Produto> arvore: this.catalogo){
-            for(Produto produto: arvore)
-                lista.add(produto.clone());
+    public List<String> getProdutos(){
+        List<String> lista = new ArrayList<String>();
+        for(Set<String> arvore: this.catalogo){
+            for(String produto: arvore)
+                lista.add(produto);
         }
         return lista;
     }
     
     // Métodos
     
-    public List<Produto> getProdutosLetra(char letra){
+    public List<String> getProdutosLetra(char letra){
         int indice = calculaIndice(letra);
-        List<Produto> lista = new ArrayList<Produto>();
-        for(Produto produto: this.catalogo.get(indice))
-            lista.add(produto.clone());
+        List<String> lista = new ArrayList<String>();
+        for(String produto: this.catalogo.get(indice))
+            lista.add(produto);
         return lista;
     }
    
@@ -70,7 +70,7 @@ public class CatProdutos implements Serializable{
     
     public int totalProdutos(){
         int total=0;
-        for(Set<Produto> arvore: this.catalogo)
+        for(Set<String> arvore: this.catalogo)
             total+=arvore.size();
         return total;
     }
@@ -79,18 +79,18 @@ public class CatProdutos implements Serializable{
         return this.catalogo.get(calculaIndice(letra)).size();
     }
     
-    public void insereProduto(Produto produto){
-        int indice = calculaIndice(produto.getNomeProduto().charAt(0));
-        this.catalogo.get(indice).add(produto.clone());
+    public void insereProduto(String produto){
+        int indice = calculaIndice(produto.charAt(0));
+        this.catalogo.get(indice).add(produto);
     }
     
-    public void removeProduto(Produto produto){
-        int indice = calculaIndice(produto.getNomeProduto().charAt(0));
+    public void removeProduto(String produto){
+        int indice = calculaIndice(produto.charAt(0));
         this.catalogo.get(indice).remove(produto);
     }
     
-    public boolean existeProduto(Produto produto){
-        int indice = calculaIndice(produto.getNomeProduto().charAt(0));
+    public boolean existeProduto(String produto){
+        int indice = calculaIndice(produto.charAt(0));
         return this.catalogo.get(indice).contains(produto);
     }
     

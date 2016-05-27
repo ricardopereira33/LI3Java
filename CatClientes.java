@@ -8,23 +8,23 @@ import java.io.Serializable;
 
 public class CatClientes implements Serializable{
     
-    private List<Set<Cliente>> catalogo;
+    private List<Set<String>> catalogo;
    
     public CatClientes(){
         catalogo = new ArrayList<>(26);
-        Set<Cliente> arvore;
+        Set<String> arvore;
         
         for(int i=0; i<26; i++){
-            arvore = new TreeSet<>(new ComparatorCliente());
+            arvore = new TreeSet<>();
             this.catalogo.add(i,arvore);
         }
     }
     
-    public CatClientes(Collection <Cliente> collection){
+    public CatClientes(Collection <String> collection){
         int indice;
-        for(Cliente cliente: collection){
-            indice = calculaIndice(cliente.getNomeCliente().charAt(0));
-            this.catalogo.get(indice).add(cliente.clone());
+        for(String cliente: collection){
+            indice = calculaIndice(cliente.charAt(0));
+            this.catalogo.get(indice).add(cliente);
         }
     }
     
@@ -32,8 +32,8 @@ public class CatClientes implements Serializable{
         int indice;
         
         for(indice=0; indice < catalogoClientes.catalogo.size(); indice++){
-            for(Cliente cliente: catalogoClientes.catalogo.get(indice)){
-                this.catalogo.get(indice).add(cliente.clone());
+            for(String cliente: catalogoClientes.catalogo.get(indice)){
+                this.catalogo.get(indice).add(cliente);
             }
         }
     }
@@ -45,22 +45,22 @@ public class CatClientes implements Serializable{
    
     // Gets
     
-    public List<Cliente> getClientes(){
-        List<Cliente> lista = new ArrayList<Cliente>();
-        for(Set<Cliente> arvore: this.catalogo){
-            for(Cliente cliente: arvore)
-                lista.add(cliente.clone());
+    public List<String> getClientes(){
+        List<String> lista = new ArrayList<String>();
+        for(Set<String> arvore: this.catalogo){
+            for(String cliente: arvore)
+                lista.add(cliente);
         }
         return lista;
     }
     
     // Métodos
     
-    public List<Cliente> getClientesLetra(char letra){
+    public List<String> getClientesLetra(char letra){
         int indice = calculaIndice(letra);
-        List<Cliente> lista = new ArrayList<Cliente>();
-        for(Cliente cliente: this.catalogo.get(indice))
-            lista.add(cliente.clone());
+        List<String> lista = new ArrayList<String>();
+        for(String cliente: this.catalogo.get(indice))
+            lista.add(cliente);
         return lista;
     }
    
@@ -70,7 +70,7 @@ public class CatClientes implements Serializable{
     
     public int totalClientes(){
         int total=0;
-        for(Set<Cliente> arvore: this.catalogo)
+        for(Set<String> arvore: this.catalogo)
             total+=arvore.size();
         return total;
     }
@@ -79,18 +79,18 @@ public class CatClientes implements Serializable{
         return this.catalogo.get(calculaIndice(letra)).size();
     }
     
-    public void insereCliente(Cliente cliente){
-        int indice = calculaIndice(cliente.getNomeCliente().charAt(0));
-        this.catalogo.get(indice).add(cliente.clone());
+    public void insereCliente(String cliente){
+        int indice = calculaIndice(cliente.charAt(0));
+        this.catalogo.get(indice).add(cliente);
     }
     
-    public void removeCliente(Cliente cliente){
-        int indice = calculaIndice(cliente.getNomeCliente().charAt(0));
+    public void removeCliente(String cliente){
+        int indice = calculaIndice(cliente.charAt(0));
         this.catalogo.get(indice).remove(cliente);
     }
     
-    public boolean existeCliente(Cliente cliente){
-        int indice = calculaIndice(cliente.getNomeCliente().charAt(0));
+    public boolean existeCliente(String cliente){
+        int indice = calculaIndice(cliente.charAt(0));
         return this.catalogo.get(indice).contains(cliente);
     }
     

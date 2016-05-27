@@ -8,7 +8,7 @@ public class HipermercadoApp{
    private static Hipermercado hipermercado;
    private static Menu menu_principal;
    
-   public static void main(String[] args){
+   public static Hipermercado main(String[] args){
        hipermercado = new Hipermercado();
        carregarMenus();
        apresentarMenu();
@@ -19,6 +19,7 @@ public class HipermercadoApp{
        System.out.println("Nª total :" + hipermercado.facturacaoTotal());
        System.out.println("");
        System.out.println("----------------------------");
+       return hipermercado;
    } 
    
    private static void carregarMenus(){
