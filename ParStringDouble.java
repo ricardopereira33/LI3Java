@@ -5,7 +5,7 @@ import java.util.TreeSet;
 public class ParStringDouble{
     
     private String string;
-    private Double numero;
+    private double numero;
     
     public static void main(String[] args){
         ArrayList<ParStringDouble> paresSD = new ArrayList<ParStringDouble> (Arrays.asList(  

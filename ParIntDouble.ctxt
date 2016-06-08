@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=primeiro\ segundo
+comment0.target=ParIntDouble(int,\ double)
+comment1.params=p
+comment1.target=ParIntDouble(ParIntDouble)
+comment2.params=
+comment2.target=int\ getPrimeiro()
+comment3.params=
+comment3.target=double\ getSegundo()
+comment4.params=obj
+comment4.target=boolean\ equals(java.lang.Object)
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

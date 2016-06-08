@@ -130,13 +130,13 @@ public class Leitura implements Serializable{
       try {
             inStream = new BufferedReader(new FileReader(fich));
             while( (linha = inStream.readLine()) != null ){
-                             v = parseLinhaVenda(linha,cli,prod);
-                             if(v!=null){
-                                f.insereVenda(v);
-                                fil[v.getFilial()-1].insereVenda(v);
-                                total++;
-                             }
-                            }
+                v = parseLinhaVenda(linha,cli,prod);
+                if(v!=null){
+                    f.insereVenda(v);
+                    fil[v.getFilial()-1].insereVenda(v);
+                    total++;
+                }
+            }
       }
       catch(IOException e) 
           { System.out.println(e.getMessage());  };
@@ -159,13 +159,13 @@ public class Leitura implements Serializable{
                        break;
                case 1: try{preco=Double.parseDouble(pars[1].trim());}
                        catch(NullPointerException | NumberFormatException e ){
-                        return null;
-                        }
+                           return null;
+                       }
                        break;
                case 2: try{quantidade=Integer.parseInt(pars[2].trim());}
                        catch(NullPointerException | NumberFormatException e ){
-                        return null;
-                        }
+                           return null;
+                       }
                        break;
                case 3: infoPromo=pars[3].trim().charAt(0);
                        break;

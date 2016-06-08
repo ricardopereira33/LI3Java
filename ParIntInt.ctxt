@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=primeiro\ segundo
+comment0.target=ParIntInt(int,\ int)
+comment1.params=p
+comment1.target=ParIntInt(ParIntInt)
+comment2.params=
+comment2.target=int\ getPrimeiro()
+comment3.params=
+comment3.target=int\ getSegundo()
+comment4.params=obj
+comment4.target=boolean\ equals(java.lang.Object)
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

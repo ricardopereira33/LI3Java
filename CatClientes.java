@@ -31,13 +31,16 @@ public class CatClientes implements Serializable{
     public CatClientes(CatClientes catalogoClientes){
         int indice;
         
-        for(indice=0; indice < catalogoClientes.catalogo.size(); indice++){
-            for(String cliente: catalogoClientes.catalogo.get(indice)){
+        for(indice=0; indice < catalogoClientes.getCatalogo().size(); indice++){
+            for(String cliente: catalogoClientes.getCatalogo().get(indice)){
                 this.catalogo.get(indice).add(cliente);
             }
         }
     }
     
+    public List<Set<String>> getCatalogo(){//retornar um clone??
+        return this.catalogo;
+    }
     //Limpar
     public void limpar (){
        this.catalogo.clear();

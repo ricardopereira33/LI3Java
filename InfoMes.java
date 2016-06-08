@@ -7,6 +7,8 @@ public class InfoMes
 {
     private List<Map<String,InfoClienteProduto>> produtos;
     private int quantidade;
+    private int numVendas;
+    private double totGasto;
     
     public InfoMes (){
         int i;
@@ -14,6 +16,8 @@ public class InfoMes
         for(i=0;i<26;i++)
             this.produtos.add(i,null);
         this.quantidade=0;
+        this.numVendas = 0;
+        this.totGasto = 0;
     }
     
     public InfoMes (InfoMes im){
@@ -24,11 +28,28 @@ public class InfoMes
                 this.produtos.get(indice).put(produto,im.getProdutos().get(indice).get(produto).clone());
             }
         }
+        
+        this.quantidade = im.getQuantidade();
+        this.numVendas = im.getNumVendas();
+        this.totGasto = im.getTotGasto();
+    }
     
+    public int getQuantidade(){
+        return this.quantidade;
+    }
+    
+    public int getNumVendas(){
+        return this.numVendas;
+    }
+    
+    public double getTotGasto(){
+        return this.totGasto;
     }
     
     public void insereProdutoQuant(Venda v){
         this.quantidade+= v.getQuantidade();
+        this.numVendas++;
+        this.totGasto += (v.getPreco())*(v.getQuantidade());
         
         String p = v.getProduto();
         int indice = calculaIndice(p.charAt(0));
@@ -54,7 +75,13 @@ public class InfoMes
                     produtos.get(indice).put(p,icp);
                 }
     }
-        
+    
+    public InfoClienteProduto getProdutoInfo(String prod){
+        int indice = calculaIndice(prod.charAt(0));
+        if(!(produtos.get(indice).containsKey(prod))) return null;
+        else return produtos.get(indice).get(prod).clone();
+    }
+    
     public List<Map<String,InfoClienteProduto>> getProdutos(){
         return this.produtos;
     }
@@ -63,4 +90,7 @@ public class InfoMes
         return letra - 'A';
     }
     
+    public InfoMes clone(){
+        return new InfoMes(this);
+    }
 }

@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=str\ num
+comment0.target=ParStringInt(java.lang.String,\ int)
+comment1.params=a
+comment1.target=ParStringInt(ParStringInt)
+comment2.params=
+comment2.target=java.lang.String\ getString()
+comment3.params=
+comment3.target=int\ getNumero()
+comment4.params=
+comment4.target=ParStringInt\ clone()
+comment5.params=obj
+comment5.target=boolean\ equals(java.lang.Object)
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7

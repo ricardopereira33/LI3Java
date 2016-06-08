@@ -31,6 +31,10 @@ public class Facturacao{
        }
     }
     
+    public boolean existeProd(String prod){
+        int indice = calculaIndice(prod.charAt(0));
+        return this.produtos.get(indice).containsKey(prod);
+    }
     //Limpar
     public void limpar (){
        this.produtos.clear();
@@ -39,15 +43,14 @@ public class Facturacao{
     /*Get's*/
     public List<Map<String,InfoProduto>> getFactProdutos(){
       ArrayList<Map<String,InfoProduto>> lista = new ArrayList<>(26);
-      Map<String,InfoProduto> arvore;
-      int i;  
+      int i;
       
       for(i=0; i<26; i++){
-         arvore = new TreeMap<String,InfoProduto>();
-         /*this.produtos.get(i).forEach( (k,v) -> arvore.put(k.clone(),((InfoProduto) v)));*/
-         for(String p: this.produtos.get(i).keySet()){
-            arvore.put(p,this.produtos.get(i).get(p).clone());
-         }
+         Map<String,InfoProduto> arvore = new TreeMap<String,InfoProduto>();
+         this.produtos.get(i).forEach( (k,v) -> {arvore.put(k,v.clone());});
+         //for(String p: this.produtos.get(i).keySet()){
+           // arvore.put(p,this.produtos.get(i).get(p).clone());
+         //}
          lista.add(i,arvore);         
       }
         

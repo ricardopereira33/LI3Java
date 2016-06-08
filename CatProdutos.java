@@ -31,13 +31,16 @@ public class CatProdutos implements Serializable{
     public CatProdutos(CatProdutos catalogoProdutos){
         int indice;
         
-        for(indice=0; indice < catalogoProdutos.catalogo.size(); indice++){
-            for(String produto: catalogoProdutos.catalogo.get(indice)){
+        for(indice=0; indice < catalogoProdutos.getCatalogo().size(); indice++){
+            for(String produto: catalogoProdutos.getCatalogo().get(indice)){
                 this.catalogo.get(indice).add(produto);
             }
         }
     }
     
+    public List<Set<String>> getCatalogo(){
+        return this.catalogo;
+    }
     //Limpar
     public void limpar (){
        this.catalogo.clear();

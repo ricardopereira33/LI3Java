@@ -2,9 +2,11 @@
 public class InfoCliente
 {
    private InfoMes meses [];
+   private double totFact;
    
    public InfoCliente(){
        this.meses = new InfoMes [12];
+       this.totFact = 0;
     }
    
    public InfoCliente(InfoCliente ic){
@@ -12,9 +14,11 @@ public class InfoCliente
        for(i=0;i<12;i++){
             this.meses[i] = ic.getMesIndex(i);
         }
-    } 
-    
+       this.totFact = ic.getTotFact();
+   }
+   
    public void insereInfoC (Venda v){
+       this.totFact += v.getPreco() * v.getQuantidade();
        if(this.meses[v.getMes()-1]!=null) 
            this.meses[v.getMes()-1].insereProdutoQuant(v);
        else{
@@ -23,9 +27,14 @@ public class InfoCliente
         this.meses[v.getMes()-1]=im;
         }
     }
+   
+   public double getTotFact(){
+       return this.totFact;
+    }
     
    public InfoMes getMesIndex(int indice){
-       return this.meses[indice];
+       if(this.meses[indice]==null) return null;
+       else return this.meses[indice].clone();
     }
     
    public InfoCliente clone(){
