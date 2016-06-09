@@ -18,6 +18,8 @@ public class InfoClienteProduto
     
     public InfoClienteProduto(InfoClienteProduto icp){
         int i;
+        this.quantity= new int [2];
+        this.totGasto= new double [2];
         for(i=0;i<2;i++){
             this.quantity[i]=icp.getQuantity(i);
             this.totGasto[i]=icp.getTotGasto(i);

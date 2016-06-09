@@ -6,6 +6,6 @@ public class ComparatorParStringDouble implements Comparator<ParStringDouble>, S
    public int compare(ParStringDouble i1, ParStringDouble i2) {
         if(i1.getNumero()>i2.getNumero()) return -1;
         if(i1.getNumero()<i2.getNumero()) return 1;
-        else return 0;
+        else return i1.getString().compareTo(i2.getString());
     }
 }

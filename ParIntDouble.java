@@ -1,5 +1,5 @@
 
-public class ParIntDouble 
+public class ParIntDouble
 {   
     private int primeiro;
     private double segundo;
@@ -21,6 +21,14 @@ public class ParIntDouble
    public double getSegundo(){
        return this.segundo;
    }
+   
+   public void addPrimeiro(int x){
+       this.primeiro += x;
+    }
+   
+   public void addSegundo(double x){
+       this.segundo += x;
+    }
     
    public boolean equals(Object obj) {
         if(obj == this) {

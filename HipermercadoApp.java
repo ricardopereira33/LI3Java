@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.Collection;
+import java.util.List;
 
 public class HipermercadoApp{
     
    private static Hipermercado hipermercado;
-   private static Menu menu_principal, menu_queries;
+   private static Menu menu_principal, menu_queries, menu_leitura;
    private static MenuPaginas menu_paginas;
    
    public static void main(String[] args){
@@ -28,8 +29,7 @@ public class HipermercadoApp{
    } 
    
    private static void carregarMenus(){
-       String[] menu0 = {"Ler ficheiros",
-                         "Carregar dados",
+       String[] menu0 = {"Carregar dados",
                          "Menu",
                          "Gravar dados"};
        String[] menu1 = {"Produtos nunca comprados",
@@ -41,23 +41,25 @@ public class HipermercadoApp{
                          "Produtos em que cada uma das filiais facturou mais",
                          "N clientes que compraram mais produtos diferentes",
                          "Clientes que compraram mais vezes um determinado produto"
-                         };                   
+                         };
+       String[] menu2 = {"Ler ficheiros default",
+                         "Escolher ficheiros a ler",
+                         "Carregar dados já existentes"}; 
        
        menu_principal = new Menu(menu0,0);
        menu_queries = new Menu(menu1,1);
+       menu_leitura = new Menu(menu2,2);
    }
    
    private static void apresentarMenu(){
        do{
            menu_principal.executa();
            switch(menu_principal.getOpcao()){
-               case 1: lerFicheiros();
+               case 1: carregarInformacao();
                        break;
-               case 2: carregarDados();
+               case 2: abrirMenu();
                        break;
-               case 3: abrirMenu();
-                       break;
-               case 4: gravarDados();
+               case 3: gravarDados();
                        break;
            }
        }while(menu_principal.getOpcao()!=0);
@@ -89,6 +91,42 @@ public class HipermercadoApp{
        }while(menu_queries.getOpcao()!=0);
    }
    
+   private static void carregarInformacao(){
+       do{
+           menu_leitura.executa();
+           switch(menu_leitura.getOpcao()){
+               case 1: leituraNormal();
+                       break;
+               case 2: leituraOpcional();
+                       break;
+               case 3: carregarDados();
+           }
+       }while(menu_leitura.getOpcao()!=0);
+   }
+   
+   private static void leituraNormal(){
+       // Se já tiver merdas temos de limpar
+       hipermercado.carregaDados("../Clientes.txt","../Produtos.txt","../Vendas_1M.txt");
+       Scanner is = new Scanner(System.in);
+       System.out.print("Pressione ENTER para continuar!");
+       is.nextLine();
+   }
+   
+   private static void leituraOpcional(){
+       Scanner is = new Scanner(System.in);
+       // Se já tiver merdas temos de limpar
+       System.out.print("Ficheiro de Clientes: ");
+       String ficheiro_clientes = is.nextLine();
+       System.out.print("Ficheiro de Produtos: ");
+       String ficheiro_produtos = is.nextLine();
+       System.out.print("Ficheiro de Vendas: ");
+       String ficheiro_vendas = is.nextLine();
+      
+       hipermercado.carregaDados(ficheiro_clientes,ficheiro_produtos,ficheiro_vendas);
+       System.out.print("Pressione ENTER para continuar!");
+       is.nextLine();
+   }
+   
    /* querie 1 */
    private static void produtosNaoComprados(){
        Collection<String> lista = hipermercado.getProdsNaoComp();
@@ -99,10 +137,31 @@ public class HipermercadoApp{
       
    }
    
+   /* querie 2 */
    private static void vendasMes(){
        int mes = inputMes();
        if(mes == 0); // sair
-       else; // trabalha
+       else{
+           ParIntInt info = hipermercado.getNumVendNumCliMes(mes);
+           System.out.println(info);
+       }
+   }
+   
+   /* querie 3 */
+   private static void comprasCliente(){
+       String cliente;
+       //Scanner is = new Scanner(System.in);
+       /*try{
+           cliente = inputCliente();
+       }
+       catch(Exception e){
+           System.out.println(e.getMessage());
+           is.nextLine();
+       }*/
+       cliente = inputCliente();
+       List<TriploIntIntDouble> lista = hipermercado.getNumCompNumProdTot(cliente);
+       for(TriploIntIntDouble elemento: lista)
+            System.out.println(elemento);
    }
    
    private static void produtosFilial(){
@@ -141,18 +200,6 @@ public class HipermercadoApp{
        }
    }
    
-   private static void comprasCliente(){
-       String cliente;
-       Scanner is = new Scanner(System.in);
-       try{
-           cliente = inputCliente();
-       }
-       catch(Exception e){
-           System.out.println(e.getMessage());
-           is.nextLine();
-       }
-   }
-   
    private static void vendasProduto(){
        String produto;
        Scanner is = new Scanner(System.in);
@@ -163,13 +210,6 @@ public class HipermercadoApp{
            System.out.println(e.getMessage());
            is.nextLine();
        }
-   }
-   
-   private static void lerFicheiros(){
-       hipermercado.carregaDados();
-       Scanner is = new Scanner(System.in);
-       System.out.print("Pressione ENTER para continuar!");
-       is.nextLine();
    }
    
    private static void carregarDados(){
@@ -235,12 +275,17 @@ public class HipermercadoApp{
         return numero;
    }
    
-   private static String inputCliente() throws ClienteInexistenteException{
+   private static String inputCliente() /*throws ClienteInexistenteException*/{
        String cliente;
        System.out.print("Cliente: ");
        Scanner is = new Scanner(System.in);
        cliente = is.nextLine();
-       throw new ClienteInexistenteException("Este cliente não se encontra no Catálogo!\n");
+       if(hipermercado.getCatClientes().existeCliente(cliente))
+            return cliente;
+       else{
+           return "A1234";
+           //throw new ClienteInexistenteException("Este cliente não se encontra no Catálogo!");
+       }
    }
    
    private static String inputProduto() throws ProdutoInexistenteException{

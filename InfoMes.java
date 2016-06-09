@@ -21,11 +21,19 @@ public class InfoMes
     }
     
     public InfoMes (InfoMes im){
-        int indice;
-        
+        int indice,i;
+        this.produtos = new ArrayList<Map<String,InfoClienteProduto>>();
+        for(i=0;i<26;i++){
+            this.produtos.add(i,null);
+        }
         for(indice=0; indice < 26; indice++){
-            for(String produto: im.getProdutos().get(indice).keySet()){
-                this.produtos.get(indice).put(produto,im.getProdutos().get(indice).get(produto).clone());
+            if(im.getProdutos().get(indice) != null){
+                Map<String,InfoClienteProduto> arvore;
+                arvore = new TreeMap<String,InfoClienteProduto>();
+                this.produtos.add(indice,arvore);
+                for(String produto: im.getProdutos().get(indice).keySet()){
+                    this.produtos.get(indice).put(produto,im.getProdutos().get(indice).get(produto).clone());
+                }
             }
         }
         

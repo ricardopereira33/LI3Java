@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class Filial implements Serializable{
     private List<Map<String,InfoCliente>> clientes;
@@ -72,7 +73,7 @@ public class Filial implements Serializable{
                             if(prods.containsKey(entry.getKey())){
                                 String prod = entry.getKey();
                                 Object actual = prods.get(prod);
-                                double actual2 = (double)actual + (entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1));
+                                int actual2 = (int)actual + (entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1));
                                 prods.remove(prod);
                                 prods.put(prod,actual2);
                             }
@@ -93,6 +94,61 @@ public class Filial implements Serializable{
             this.clientes.get(i).forEach((k,v)->{list.add(new ParStringDouble(k,v.getTotFact()));});
         }
         return list;
+    }
+    
+    //QUERIE8
+    public void getCliMaisCompDif(Map<String,Set<String>> cliprods){
+        int i,j;
+         for(i=0; i<26; i++){
+            for(String cli:this.clientes.get(i).keySet()){
+                for(j=0;j<12;i++){
+                    InfoMes m = this.clientes.get(i).get(cli).getMesIndex(j);
+                    if(m!=null){
+                        for(Map<String,InfoClienteProduto> p : m.getProdutos()){
+                            if(p!=null){
+                                Set<String> prods = p.keySet();
+                                if(cliprods.containsKey(cli)){cliprods.get(cli).addAll(prods);}
+                                else {
+                                      Set<String> prd = new TreeSet<String>();
+                                      prd.addAll(prods);
+                                      cliprods.put(cli,prd);
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //QUERIE9
+    public void getCliMaisCompProd(Map<String,ParIntDouble> cliquant, String prod){
+        int i,j;
+         for(i=0; i<26; i++){
+            for(String cli:this.clientes.get(i).keySet()){
+                for(j=0;j<12;i++){
+                    InfoMes m = this.clientes.get(i).get(cli).getMesIndex(j);
+                    if(m!=null){
+                        for(Map<String,InfoClienteProduto> p : m.getProdutos()){
+                            if(p!=null){
+                                Set<String> prods = p.keySet();
+                                if(prods.contains(prod)){
+                                    InfoClienteProduto info = p.get(prod);
+                                    if(cliquant.containsKey(cli)){
+                                        cliquant.get(cli).addPrimeiro(info.getQuantity(0)+info.getQuantity(1));
+                                        cliquant.get(cli).addSegundo(info.getTotGasto(0)+info.getTotGasto(1));
+                                    }
+                                    else{
+                                        ParIntDouble par = new ParIntDouble(info.getQuantity(0)+info.getQuantity(1),info.getTotGasto(0)+info.getTotGasto(1));
+                                        cliquant.put(cli,par);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     public void insereVenda(Venda v){ 

@@ -13,13 +13,13 @@ import java.io.Serializable;
 public class Leitura implements Serializable{
     
     
-   public static void leituraVendas(CatProdutos prod,CatClientes cli,Facturacao f,Filial fil[]){
+   public static void leituraVendas(String ficheiro, CatProdutos prod,CatClientes cli,Facturacao f,Filial fil[]){
        // BufferedReader
 
        System.out.println("--------------------------------------------------------");
-       System.out.println("Leitura do ficheiro: Vendas_1M.txt");
+       System.out.println("Leitura do ficheiro: " + ficheiro);
        Crono.start();
-       int n=readLinesWithBuffVendas("../Vendas_1M.txt",cli,prod,f,fil);
+       int n=readLinesWithBuffVendas(ficheiro,cli,prod,f,fil);
        Crono.stop();
        System.out.println("Linhas lidas: "  + n );
        System.out.println("Tempo: " + Crono.print() + "segundos.");
@@ -27,22 +27,22 @@ public class Leitura implements Serializable{
    
    } 
    
-   public static void leituraClientes(CatClientes cli){
+   public static void leituraClientes(String ficheiro, CatClientes cli){
        System.out.println("--------------------------------------------------------");
-       System.out.println("Leitura do ficheiro: Clientes.txt");
+       System.out.println("Leitura do ficheiro: " + ficheiro);
        Crono.start();
-       readLinesWithBuffCli("../Clientes.txt",cli);
+       readLinesWithBuffCli(ficheiro,cli);
        Crono.stop();
        System.out.println("Linhas lidas: " + cli.totalClientes());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        System.out.println("--------------------------------------------------------");
    }
    
-   public static void leituraProdutos(CatProdutos prod){
+   public static void leituraProdutos(String ficheiro, CatProdutos prod){
        System.out.println("--------------------------------------------------------");
-       System.out.println("Leitura do ficheiro: Produtos.txt");
+       System.out.println("Leitura do ficheiro: " + ficheiro);
        Crono.start();
-       readLinesWithBuffProd("../Produtos.txt",prod);
+       readLinesWithBuffProd(ficheiro,prod);
        Crono.stop();
        System.out.println("Linhas lidas: " + prod.totalProdutos());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
@@ -95,7 +95,6 @@ public class Leitura implements Serializable{
     public static void readLinesWithBuffCli(String fich,CatClientes cli) {
       BufferedReader inStream = null; 
       String linha = null;
-      Cliente c;
       try {
             inStream = new BufferedReader(new FileReader(fich));
             while( (linha = inStream.readLine()) != null ){
@@ -110,7 +109,6 @@ public class Leitura implements Serializable{
     public static void readLinesWithBuffProd(String fich,CatProdutos prod) {
       BufferedReader inStream = null; 
       String linha = null;
-      Produto p;
       try {
             inStream = new BufferedReader(new FileReader(fich));
             while( (linha = inStream.readLine()) != null ){

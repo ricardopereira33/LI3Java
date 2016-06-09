@@ -1,10 +1,10 @@
 #BlueJ class context
-comment0.params=prod\ cli\ f\ fil
-comment0.target=void\ leituraVendas(CatProdutos,\ CatClientes,\ Facturacao,\ Filial[])
-comment1.params=cli
-comment1.target=void\ leituraClientes(CatClientes)
-comment2.params=prod
-comment2.target=void\ leituraProdutos(CatProdutos)
+comment0.params=ficheiro\ prod\ cli\ f\ fil
+comment0.target=void\ leituraVendas(java.lang.String,\ CatProdutos,\ CatClientes,\ Facturacao,\ Filial[])
+comment1.params=ficheiro\ cli
+comment1.target=void\ leituraClientes(java.lang.String,\ CatClientes)
+comment2.params=ficheiro\ prod
+comment2.target=void\ leituraProdutos(java.lang.String,\ CatProdutos)
 comment3.params=fich\ cli
 comment3.target=void\ readLinesWithBuffCli(java.lang.String,\ CatClientes)
 comment3.text=public\ static\ ArrayList<String>\ readLinesArrayWithScanner(String\ ficheiro)\ {\r\n\ \ \ \ \ \ \ \ ArrayList<String>\ linhas\ \=\ new\ ArrayList<>();\r\n\ \ \ \ \ \ \ \ Scanner\ scanFile\ \=\ null;\r\n\ \ \ \ \ \ \ \ try\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ scanFile\ \=\ new\ Scanner(new\ FileReader(ficheiro));\r\n\ \ \ \ \ \ \ \ \ \ \ \ scanFile.useDelimiter("\\n\\r");\r\n\ \ \ \ \ \ \ \ \ \ \ \ while(scanFile.hasNext())\ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ linhas.add(scanFile.nextLine());\r\n\ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ catch(IOException\ ioExc)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ {\ System.out.println(ioExc.getMessage());\ return\ null;\ }\r\n\ \ \ \ \ \ \ \ finally\ {\ if(scanFile\ \!\=\ null)\ scanFile.close();\ }\r\n\ \ \ \ \ \ \ \ return\ linhas;\r\n}

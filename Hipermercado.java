@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class Hipermercado implements Serializable{
     
@@ -43,14 +44,14 @@ public class Hipermercado implements Serializable{
        return this.CatalogoProdutos.clone();
    }
    
-   public void carregaDados(){
-       Leitura.leituraClientes(CatalogoClientes);
-       Leitura.leituraProdutos(CatalogoProdutos);
+   public void carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
+       Leitura.leituraClientes(ficheiro_clientes,CatalogoClientes);
+       Leitura.leituraProdutos(ficheiro_produtos,CatalogoProdutos);
        /*this.carregarCatalogoProdutos(produtos);
        this.carregarCatalogoClientes(clientes);
        clientes.clear();
        produtos.clear();*/
-       Leitura.leituraVendas(CatalogoProdutos,CatalogoClientes,facturacao,filiais);
+       Leitura.leituraVendas(ficheiro_vendas,CatalogoProdutos,CatalogoClientes,facturacao,filiais);
        /*this.carregarFacturacao(vendas);
        vendas.clear();*/
    }
@@ -126,7 +127,7 @@ public class Hipermercado implements Serializable{
    public Set<String> getProdsNaoComp(){
        Set<String> prods = new TreeSet<String>(new ComparatorByString());
        for(String prod : this.CatalogoProdutos.getProdutos()){
-           if(!this.facturacao.existeProd(prod)) prods.add(prod);
+           if(this.facturacao.existeProd(prod)) prods.add(prod);
        }
        return prods;
    }
@@ -209,6 +210,7 @@ public class Hipermercado implements Serializable{
        prods.forEach((k,v)->{inf.add(new ParStringInt(k,(int)v));});
        return inf;
    }
+   
    //QUERIE6
    /*Determinar o conjunto dos X produtos mais vendidos em todo o ano (em número de
     * unidades vendidas) indicando o número total de distintos clientes que o
@@ -228,5 +230,45 @@ public class Hipermercado implements Serializable{
                list.add(j,fil.subList(0,3));
        }
        return list;
+   }
+   
+   //QUERIE8
+   /*Determinar os códigos dos X clientes (sendo X dado pelo utilizador) que compraram
+    * mais produtos diferentes (não interessa a quantidade nem o valor), indicando 
+    * quantos, sendo o critério de ordenação a ordem decrescente do número de
+    * produtos; */
+   public TreeSet<ParStringInt> getCliMaisCompDif(int x){
+       int j;
+       TreeSet<ParStringInt> cli = new TreeSet<ParStringInt>(new ComparatorParStringInt());
+       Map<String,Set<String>> cliprods = new HashMap<String,Set<String>>();
+       for(j=0;j<3;j++){
+           filiais[j].getCliMaisCompDif(cliprods);
+       }
+       cliprods.forEach((k,v)->{cli.add(new ParStringInt(k,v.size()));});
+       TreeSet<ParStringInt> clii = new TreeSet<ParStringInt>(new ComparatorParStringInt());
+       Iterator<ParStringInt> it = cli.iterator();
+       for(j=0;j<x && it.hasNext();j++){
+           clii.add(it.next());
+       }
+       return clii;
+   }
+   
+   //QUERIE9
+   /*Dado o código de um produto que deve existir, determinar o conjunto dos X clientes
+    * que mais o compraram e, para cada um, qual o valor gasto (ordenação cf. 5);*/
+   public TreeSet<ParStringDouble> getCliMaisCompProd(String prod, int x){
+       int j;
+       TreeSet<ParStringDouble> cli = new TreeSet<ParStringDouble>(new ComparatorParStringDouble());
+       Map<String,ParIntDouble> cliquant = new HashMap<String,ParIntDouble>();
+       for(j=0;j<3;j++){
+           filiais[j].getCliMaisCompProd(cliquant,prod);
+       }
+       cliquant.forEach((k,v)->{cli.add(new ParStringDouble(k,v.getSegundo()));});
+       TreeSet<ParStringDouble> clii = new TreeSet<ParStringDouble>(new ComparatorParStringDouble());
+       Iterator<ParStringDouble> it = cli.iterator();
+       for(j=0;j<x && it.hasNext();j++){
+           clii.add(it.next());
+       }
+       return clii;
    }
 }

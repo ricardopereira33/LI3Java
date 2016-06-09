@@ -42,6 +42,8 @@ public class Menu{
             System.out.println("\n****************************** Menu Principal ******************************");
         else if(menu_type == 1)
             System.out.println("\n********************************* Queries *********************************");
+        else if(menu_type == 2)
+            System.out.println("\n******************************* Menu Leitura *******************************");
             
         for (int i=0; i<this.opcoes.size(); i++) {
             System.out.print("   "+(i+1));
@@ -50,7 +52,7 @@ public class Menu{
         }
         if(menu_type == 0)
             System.out.println("                                                          0 - Sair");
-        else if(menu_type == 1)
+        else if(menu_type == 1 || menu_type == 2)
             System.out.println("                                                      0 - Anterior");
         System.out.println("****************************************************************************");
     }
