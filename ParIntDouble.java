@@ -1,5 +1,5 @@
 
-public class ParIntDouble
+public class ParIntDouble 
 {   
     private int primeiro;
     private double segundo;

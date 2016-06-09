@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=elementos
+comment0.target=Pagina(java.util.List)
+comment1.params=
+comment1.target=java.util.List\ getElementos()
+comment2.params=elementos
+comment2.target=void\ setElementos(java.util.List)
+comment3.params=elemento
+comment3.target=void\ addElemento(java.lang.String)
+numComments=4

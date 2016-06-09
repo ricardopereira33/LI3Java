@@ -9,15 +9,17 @@ public class Menu{
    
     private List<String> opcoes;
     private int op;
+    private int menu_type;
 
     /**
      * Construtor para objetos da classe Menu
      */
-    public Menu(String[] opcoes){
+    public Menu(String[] opcoes, int type){
         this.opcoes = new ArrayList<String>();
         for(String op: opcoes)
             this.opcoes.add(op);
         this.op = 0;
+        this.menu_type = type;
     }
 
     /**
@@ -35,14 +37,26 @@ public class Menu{
      * Função para mostrar o menu.
      */
     private void showMenu() {
-        System.out.println("\n******************* Menu *******************");
+        clearConsole();
+        if(menu_type == 0)
+            System.out.println("\n****************************** Menu Principal ******************************");
+        else if(menu_type == 1)
+            System.out.println("\n********************************* Queries *********************************");
+            
         for (int i=0; i<this.opcoes.size(); i++) {
             System.out.print("   "+(i+1));
             System.out.print(" - ");
             System.out.println(this.opcoes.get(i));
         }
-        System.out.println("   0 - Sair");
-        System.out.println("*********************************************");
+        if(menu_type == 0)
+            System.out.println("                                                          0 - Sair");
+        else if(menu_type == 1)
+            System.out.println("                                                      0 - Anterior");
+        System.out.println("****************************************************************************");
+    }
+    
+    private void clearConsole(){
+        for(int i=0;i<50;i++) System.out.println();
     }
     
     /**
@@ -60,7 +74,9 @@ public class Menu{
             op = -1;
         }
         if (op<0 || op>this.opcoes.size()) {
-            System.out.println("Opção Inválida!!!");
+            System.out.print("\nOpção Inválida!");
+            is.nextLine();
+            is.nextLine();
             op = -1;
         }
         return op;

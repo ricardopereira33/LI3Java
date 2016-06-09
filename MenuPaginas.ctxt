@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=conjuntoPaginas\ type
+comment0.target=MenuPaginas(ConjuntoPaginas,\ int)
+comment1.params=
+comment1.target=void\ executa()
+comment2.params=
+comment2.target=void\ showPagina()
+comment3.params=
+comment3.target=void\ clearConsole()
+comment4.params=
+comment4.target=int\ lerPagina()
+comment5.params=
+comment5.target=int\ getPagina()
+numComments=6

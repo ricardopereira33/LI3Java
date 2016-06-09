@@ -126,7 +126,7 @@ public class Hipermercado implements Serializable{
    public Set<String> getProdsNaoComp(){
        Set<String> prods = new TreeSet<String>(new ComparatorByString());
        for(String prod : this.CatalogoProdutos.getProdutos()){
-           if(this.facturacao.existeProd(prod)) prods.add(prod);
+           if(!this.facturacao.existeProd(prod)) prods.add(prod);
        }
        return prods;
    }
