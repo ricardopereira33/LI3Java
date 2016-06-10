@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.List;
 
 public class InfoProduto implements Serializable
 {
@@ -83,5 +84,37 @@ public class InfoProduto implements Serializable
        }
        return total;
    } 
+   
+    public List<ParIntDouble> NumVendasFactTotal(List<ParIntDouble> lista){
+       int i,j;
+       double total=0;
+       int numVendas= 0;
+       for(i=0;i<12;i++){
+        total=0;
+        numVendas=0;
+        for(j=0;j<3;j++){
+            if(this.P[i][j]!=null){total+=this.P[i][j].getTotalPrice();numVendas+=this.P[i][j].getTotalQuant();} 
+            if(this.N[i][j]!=null){total+=this.N[i][j].getTotalPrice();numVendas+=this.N[i][j].getTotalQuant();}
+        }
+        ParIntDouble aux = new ParIntDouble(numVendas,total);
+        lista.add(i,aux);
+       }
+
+       return lista;
+    }
+  
+    public int totalQuant(){
+       int i,j;
+       int total=0;
+       for(i=0;i<12;i++){
+        for(j=0;j<3;j++){
+            if(this.P[i][j]!=null)total+=this.P[i][j].getTotalVendas();
+            if(this.N[i][j]!=null)total+=this.N[i][j].getTotalVendas();
+        }
+       }
+       return total;
+    
+    }
+    
 }
 

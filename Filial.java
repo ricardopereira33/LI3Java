@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.HashMap;
 import java.util.TreeSet;
+import java.util.HashSet;
 
 public class Filial implements Serializable{
     private List<Map<String,InfoCliente>> clientes;
@@ -44,7 +45,7 @@ public class Filial implements Serializable{
         return new ParIntDouble(numCompras,totGasto);
     }
     //QUERIE4
-    public ParIntDouble getNumCompTotMesProd(Set<String> cli, int mes,String prod){
+    /*public ParIntDouble getNumCompTotMesProd(Set<String> cli, int mes,String prod){
         int i;
         int numVend = 0;
         int totFact = 0;
@@ -60,6 +61,32 @@ public class Filial implements Serializable{
             }
         }
         return new ParIntDouble(numVend,totFact);
+    }*/
+    
+    public void getNumCompTotMesProd(List<Set<String>> cli, String prod,int mes){
+        int i;
+        int numVend = 0;
+        int totFact = 0;
+        for(i=0; i<26; i++){
+            Map<String,InfoCliente> clientes = this.clientes.get(i);
+            for(String cliente : clientes.keySet()){
+                  
+                    InfoMes m = clientes.get(cliente).getMesIndex(mes);
+                    if(m!=null){InfoClienteProduto h = m.getProdutoInfo(prod);
+                            if(h!=null){
+                                if(cli.get(mes)!=null)
+                                        cli.get(mes).add(cliente);
+                                else {
+                                        Set<String> list = new HashSet<>();
+                                        list.add(cliente);
+                                        cli.add(mes,list);
+                                }
+                            }
+                        }
+                    
+            }
+        }
+        //return new ParIntDouble(numVend,totFact);
     }
     //QUERIE5
     public void getProdsMaisComp(String cli,Map<String,Object> prods){
@@ -133,7 +160,6 @@ public class Filial implements Serializable{
                 for(j=0;j<12;j++){
                     InfoMes m = this.clientes.get(i).get(cli).getMesIndex(j);
                     if(m!=null){
-                        
                                 Set<String> prods = m.getProdutos().keySet();
                                 if(cliprods.containsKey(cli)){cliprods.get(cli).addAll(prods);}
                                 else {
@@ -141,7 +167,6 @@ public class Filial implements Serializable{
                                       prd.addAll(prods);
                                       cliprods.put(cli,prd);
                                     }
-                          
                     }
                 }
             }
@@ -156,7 +181,6 @@ public class Filial implements Serializable{
                 for(j=0;j<12;j++){
                     InfoMes m = this.clientes.get(i).get(cli).getMesIndex(j);
                     if(m!=null){
-                        
                                 Set<String> prods = m.getProdutos().keySet();
                                 if(prods.contains(prod)){
                                     InfoClienteProduto info = m.getProdutos().get(prod);
@@ -169,7 +193,6 @@ public class Filial implements Serializable{
                                         cliquant.put(cli,par);
                                     }
                                 }
-                           
                     }
                 }
             }

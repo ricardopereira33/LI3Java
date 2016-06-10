@@ -12,8 +12,9 @@ comment12.params=letra
 comment12.target=int\ calculaIndice(char)
 comment2.params=prods\ mes\ cli
 comment2.target=ParIntDouble\ getNumCompTotMes(java.util.Set,\ int,\ java.lang.String)
-comment3.params=cli\ mes\ prod
-comment3.target=ParIntDouble\ getNumCompTotMesProd(java.util.Set,\ int,\ java.lang.String)
+comment3.params=cli\ prod\ mes
+comment3.target=void\ getNumCompTotMesProd(java.util.List,\ java.lang.String,\ int)
+comment3.text=public\ ParIntDouble\ getNumCompTotMesProd(Set<String>\ cli,\ int\ mes,String\ prod){\n\ \ \ \ \ \ \ \ int\ i;\n\ \ \ \ \ \ \ \ int\ numVend\ \=\ 0;\n\ \ \ \ \ \ \ \ int\ totFact\ \=\ 0;\n\ \ \ \ \ \ \ \ for(i\=0;\ i<26;\ i++){\n\ \ \ \ \ \ \ \ \ \ \ \ for(Map.Entry<String,InfoCliente>\ entry\ \:\ this.clientes.get(i).entrySet()){\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ InfoMes\ m\ \=\ entry.getValue().getMesIndex(mes);\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if(m\!\=null){InfoClienteProduto\ h\ \=\ m.getProdutoInfo(prod);\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if(h\!\=null){cli.add(entry.getKey());\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numVend\ +\=\ h.getNumVendas();\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ totFact\ +\=\ (h.getTotGasto(0)+h.getTotGasto(1));\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\ \n\ \ \ \ \ \ \ \ \ \ \ \ }\n\ \ \ \ \ \ \ \ }\n\ \ \ \ \ \ \ \ return\ new\ ParIntDouble(numVend,totFact);\n}
 comment4.params=cli\ prods
 comment4.target=void\ getProdsMaisComp(java.lang.String,\ java.util.Map)
 comment5.params=prodscli

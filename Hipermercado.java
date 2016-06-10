@@ -192,7 +192,7 @@ public class Hipermercado implements Serializable{
    //QUERIE4
    /*Dado o código de um produto existente, determinar, mês a mês, quantas vezes foi
     * comprado, por quantos clientes diferentes e o total facturado;*/
-   public List<TriploIntIntDouble> getNumCompNumCliTot(String prod) throws ProdutoInexistenteException{
+   /*public List<TriploIntIntDouble> getNumCompNumCliTot(String prod) throws ProdutoInexistenteException{
        
        if(!catalogoProdutos.existeProduto(prod)) throw new ProdutoInexistenteException("O produto " + prod + " não se encontra no Catálogo!");
        
@@ -213,6 +213,34 @@ public class Hipermercado implements Serializable{
            numCli = cli.size();
            lista.add(i,new TriploIntIntDouble(numCompras,numCli,totFact));
        }
+       return lista;
+   }*/
+   
+   public List<TriploIntIntDouble> getNumCompNumCliTot(String prod) throws ProdutoInexistenteException{
+       
+       if(!catalogoProdutos.existeProduto(prod)) throw new ProdutoInexistenteException("O produto " + prod + " não se encontra no Catálogo!");
+       
+       List<TriploIntIntDouble> lista = new ArrayList<>(12);
+      
+       List<ParIntDouble> listaF = new ArrayList<>(12);
+       facturacao.getNumVendasFactTotal(listaF,prod);
+       
+       List<Set<String>> listaC = new ArrayList<>(12);
+        for(int i=0;i<12;i++)
+           listaC.add(i,null); 
+
+            for(int j=0;j<12;j++){     
+             for(int i=0;i<3;i++)
+                filiais[i].getNumCompTotMesProd(listaC,prod,j);
+            } 
+        
+       
+       for(int i=0;i<12;i++){
+           Set<String> aux =listaC.get(i);
+           if(aux!=null)
+            lista.add(new TriploIntIntDouble(listaF.get(i).getPrimeiro(),aux.size(),listaF.get(i).getSegundo()));
+           else lista.add(new TriploIntIntDouble(listaF.get(i).getPrimeiro(),0,listaF.get(i).getSegundo()));
+        }
        return lista;
    }
    

@@ -95,4 +95,25 @@ public class Facturacao implements Serializable{
         
       return total;
     }
+    
+     public List<ParIntDouble> getNumVendasFactTotal(List<ParIntDouble> lista,String prod){
+        int indice = calculaIndice(prod.charAt(0));
+        
+        InfoProduto ip = this.produtos.get(indice).get(prod);
+        
+        ip.NumVendasFactTotal(lista);
+        
+        return lista;
+    }
+    
+    public void getProdMaisVendidos(Set<ParStringInt> prods){
+        
+        for(Map<String,InfoProduto> produto: this.produtos){
+            for(String produtoS : produto.keySet()){
+                InfoProduto ip = produto.get(produtoS);
+                prods.add(new ParStringInt(produtoS,ip.totalQuant()));
+            }
+        }
+    
+    }
 }
