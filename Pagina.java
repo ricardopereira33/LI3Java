@@ -1,7 +1,8 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Pagina{
+public class Pagina implements Serializable{
 
     private List<String> elementos;
     

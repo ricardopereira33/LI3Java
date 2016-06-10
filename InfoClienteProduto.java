@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class InfoClienteProduto
+public class InfoClienteProduto implements Serializable
 {
     private int quantity[];            
     private double totGasto[];

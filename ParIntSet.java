@@ -1,6 +1,8 @@
 import java.util.Set;
 import java.util.TreeSet;
-public class ParIntSet
+import java.io.Serializable;
+
+public class ParIntSet implements Serializable
 {
    private int primeiro;
    private Set<String> segundo;

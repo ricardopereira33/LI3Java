@@ -1,8 +1,9 @@
 import java.util.List;
 import java.util.Collection;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class ConjuntoPaginas{
+public class ConjuntoPaginas implements Serializable{
     
     private List<Pagina> paginas;
     private int tamanho;

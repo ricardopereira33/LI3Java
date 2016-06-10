@@ -2,8 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.io.Serializable;
 
-public class InfoMes
+public class InfoMes implements Serializable
 {
     private List<Map<String,InfoClienteProduto>> produtos;
     private int quantidade;

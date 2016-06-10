@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeSet;
+import java.io.Serializable;
 
-public class ParStringDouble{
+public class ParStringDouble implements Serializable{
     
     private String string;
     private double numero;

@@ -147,9 +147,11 @@ public class Hipermercado implements Serializable{
    /*Dado um mês válido, determinar o número total global de vendas realizadas e o
    número total de clientes distintos que as fizeram;*/
    
-   public ParIntInt getNumVendNumCliMes(int mes){
+   public ParIntInt getNumVendNumCliMes(int mes) throws MesInvalidoException{
        int numVendas=0;
        int numClientes=0;
+       if(mes < 0 || mes > 12 ) throw new MesInvalidoException("Més inválido! Por favor introduzia um mês válido (1-12).");
+       
        Set<String> clientes = new TreeSet<String>(new ComparatorByString());
        
        for(int i=0;i<3;i++){

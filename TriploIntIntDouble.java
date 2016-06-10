@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class TriploIntIntDouble
+public class TriploIntIntDouble implements Serializable
 {
     private int primeiro;
     private int segundo;

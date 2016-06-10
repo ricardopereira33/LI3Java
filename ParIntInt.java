@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class ParIntInt
+public class ParIntInt implements Serializable
 {
    private int primeiro,segundo;
    

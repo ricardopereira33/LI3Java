@@ -27,7 +27,8 @@ public class HipermercadoApp{
        System.out.println("----------------------------");*/
        
        if(hipermercado != null) hipermercado.limpar();
-   } 
+   }
+   
    
    private static void carregarMenus(){
        String[] menu0 = {"Carregar dados",
@@ -111,7 +112,7 @@ public class HipermercadoApp{
                        break;
                case 3: carregarDados();
            }
-           if(hipermercado.getCatClientes()!=null && !hipermercado.isEmpty()) ready=1;
+           if(menu_leitura.getOpcao()!=0 && hipermercado.getCatClientes()!=null && !hipermercado.isEmpty()) ready=1;
        }while(menu_leitura.getOpcao()!=0 && ready==0);
    }
    
@@ -145,7 +146,11 @@ public class HipermercadoApp{
    
    /* querie 1 */
    private static void produtosNaoComprados(){
+       Scanner is = new Scanner(System.in);
+       Crono.start();
        Collection<String> produtosNaoComprados = hipermercado.getProdsNaoComp();
+       Crono.stop();
+       
        List<String> lista = new ArrayList<String>();
        
        for(String elemento: produtosNaoComprados){
@@ -154,6 +159,10 @@ public class HipermercadoApp{
        }
        ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
        menu_paginas = new MenuPaginas(conjunto,0,null);
+       
+       System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
+       System.out.print("Pressione ENTER para continuar!");
+       is.nextLine();
        menu_paginas.executa();
       
    }
@@ -164,15 +173,23 @@ public class HipermercadoApp{
        if(mes == 0); // sair
        else{
            Scanner is = new Scanner(System.in);
-           ParIntInt info = hipermercado.getNumVendNumCliMes(mes-1);
-           for(int i=0;i<50;i++) System.out.println(); //limpar
-           System.out.println("\n****************** Informações sobre as vendas no mês " + mes + " ********************\n");
-           System.out.println("         Número de vendas realizadas: " + info.getPrimeiro());
-           System.out.println("         Número de clientes distintos que as fizeram: " + info.getSegundo());
-           System.out.println("\n****************************************************************************");
-           System.out.print("Pressione ENTER para continuar!");
-           is.nextLine();
-           is.close();
+           try{
+               Crono.start();
+               ParIntInt info = hipermercado.getNumVendNumCliMes(mes-1);
+               Crono.stop();
+               for(int i=0;i<50;i++) System.out.println(); //limpar
+               System.out.println("\n****************** Informações sobre as vendas no mês " + mes + " ********************\n");
+               System.out.println("         Número de vendas realizadas: " + info.getPrimeiro());
+               System.out.println("         Número de clientes distintos que as fizeram: " + info.getSegundo());
+               System.out.println("\n****************************************************************************");
+               System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
+               System.out.print("Pressione ENTER para continuar!");
+               is.nextLine();
+               is.close();
+           }
+           catch(MesInvalidoException e){
+               System.out.println(e.getMessage());
+           }
        }
    }
    
@@ -183,7 +200,9 @@ public class HipermercadoApp{
            Scanner is =  new Scanner(System.in);
            int mes = 1;
            try{
+               Crono.start();
                List<TriploIntIntDouble> meses = hipermercado.getNumCompNumProdTot(cliente);
+               Crono.stop();
                for(int i=0;i<50;i++) System.out.println(); //limpar
                System.out.println("\n****************** Informações sobre as compras do cliente " + cliente + " ********************\n");
                System.out.println("|  Mês  |      #Compras       |      #Produtos      |      Total gasto     |\n|_______|_____________________|_____________________|______________________|");       
@@ -193,6 +212,7 @@ public class HipermercadoApp{
                    mes++;
                 }
                System.out.println("\n****************************************************************************");
+               System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
                System.out.print("Pressione ENTER para continuar!");
                is.nextLine();
                is.close();
@@ -211,7 +231,9 @@ public class HipermercadoApp{
            Scanner is = new Scanner(System.in);
            int mes = 1;
            try{
+               Crono.start();
                List<TriploIntIntDouble> meses = hipermercado.getNumCompNumCliTot(produto);
+               Crono.stop();
                for(int i=0;i<50;i++) System.out.println(); //limpar
                System.out.println("\n****************** Informações sobre as vendas do produto " + produto + " ********************\n");
                System.out.println("|  Mês  |      #Vendas       |      #Clientes      |      Total facturado     |\n|_______|____________________|_____________________|__________________________|");       
@@ -221,6 +243,7 @@ public class HipermercadoApp{
                    mes++;
                 }
                System.out.println("\n****************************************************************************");
+               System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
                System.out.print("Pressione ENTER para continuar!");
                is.nextLine();
                is.close();
@@ -237,7 +260,10 @@ public class HipermercadoApp{
        String cliente = inputCliente();
        if(!cliente.equals("0")){
            try{
+               Scanner is = new Scanner(System.in);
+               Crono.start();
                Collection<ParStringInt> maisComprados = hipermercado.getProdsMaisComprados(cliente);
+               Crono.stop();
                List<String> lista = new ArrayList<String>();
                       String cabecalho = "|             Produto             |             Quantidade             |\n|_________________________________|____________________________________|";
                String linha;
@@ -247,6 +273,9 @@ public class HipermercadoApp{
                }
                ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
                menu_paginas = new MenuPaginas(conjunto,0,cabecalho);
+               System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
+               System.out.print("Pressione ENTER para continuar!");
+               is.nextLine();
                menu_paginas.executa();
            }
            catch(ClienteInexistenteException e){
@@ -259,7 +288,10 @@ public class HipermercadoApp{
    /* querie 6 */ 
    private static void produtosMaisVendidos(){
        int numero = inputNumero();
+       Scanner is = new Scanner(System.in);
+       Crono.start();
        Collection<TriploStringIntInt> produtos = hipermercado.getProdsMaisVend(numero);
+       Crono.stop();
        List<String> lista = new ArrayList<String>();
        String linha;
        String cabecalho = "|          Produto          |      Quantidade      |        #Clientes        |\n|___________________________|______________________|_______________________|";
@@ -269,13 +301,18 @@ public class HipermercadoApp{
        }
        ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
        menu_paginas = new MenuPaginas(conjunto,0,cabecalho);
+       System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
+       System.out.print("Pressione ENTER para continuar!");
+       is.nextLine();
        menu_paginas.executa();
    }
    
    /* querie 7 */
    private static void produtosFilial(){
        Scanner is = new Scanner(System.in);
+       Crono.start();
        List<List<ParStringDouble>> lista = hipermercado.getMaioresComp();
+       Crono.stop();
        int filial = 0;
        
        for(int i=0;i<50;i++) System.out.println(); //limpar
@@ -293,6 +330,7 @@ public class HipermercadoApp{
        }
        
        System.out.println("\n********************************************************************************************");
+       System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
        System.out.print("Pressione ENTER para continuar!");
        is.nextLine();
        is.close();
@@ -300,8 +338,10 @@ public class HipermercadoApp{
    
    /* querie 8 */
    private static void clientesComMaisProdutosDiferentes(){
-       int numero = inputNumero();
+       int numero = inputNumero(); Scanner is = new Scanner(System.in);
+       Crono.start();
        Collection<ParStringInt> clientes = hipermercado.getCliMaisCompDif(numero);
+       Crono.stop();
        List<String> lista = new ArrayList<String>();
        String linha;
        String cabecalho = "|             Cliente             |             Quantidade             |\n|_________________________________|____________________________________|";
@@ -311,6 +351,9 @@ public class HipermercadoApp{
        }
        ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
        menu_paginas = new MenuPaginas(conjunto,0,cabecalho);
+       System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
+       System.out.print("Pressione ENTER para continuar!");
+       is.nextLine();
        menu_paginas.executa();
    }
    
@@ -320,7 +363,10 @@ public class HipermercadoApp{
        if(!produto.equals("0")){
            int numero = inputNumero();
            try{
+               Scanner is = new Scanner(System.in);
+               Crono.start();
                Collection<ParStringDouble> clientes = hipermercado.getCliMaisCompProd(produto,numero);
+               Crono.stop();
                List<String> lista = new ArrayList<String>();
                String cabecalho = "|             Cliente             |             Valor gasto             |\n|_________________________________|_____________________________________|";
                String linha;
@@ -330,6 +376,9 @@ public class HipermercadoApp{
                }
                ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
                menu_paginas = new MenuPaginas(conjunto,0,cabecalho);
+               System.out.println("Tempo demorado: " + Crono.print() + " segundos.");
+               System.out.print("Pressione ENTER para continuar!");
+               is.nextLine();
                menu_paginas.executa();
            }
            catch(ProdutoInexistenteException e){
@@ -345,20 +394,23 @@ public class HipermercadoApp{
        String fich = "hipermercado.dat";
        Scanner is = new Scanner(System.in);
        try {
+            System.out.println("A carregar informação... Este processo pode ser demorado! ");
             hipermercado = Hipermercado.leObj(fich);
+            System.out.println("Concluído!");
         }
         catch (IOException e) {
             hipermercado = new Hipermercado();
-            System.out.println("Não consegui ler os dados!\nErro de leitura.");
+            System.out.print("Não consegui ler os dados!\nErro de leitura.");
         }
         catch (ClassNotFoundException e) {
             hipermercado = new Hipermercado();
-            System.out.println("Não consegui ler os dados!\nFicheiro com formato desconhecido.");
+            System.out.print("Não consegui ler os dados!\nFicheiro com formato desconhecido.");
         }
         catch (ClassCastException e) {
             hipermercado = new Hipermercado();
-            System.out.println("Não consegui ler os dados!\nErro de formato.");
+            System.out.print("Não consegui ler os dados!\nErro de formato.");
         }
+       System.out.print("Pressione ENTER para continuar!");
        is.nextLine();
        is.close();
    }
@@ -373,11 +425,14 @@ public class HipermercadoApp{
            String fich = "hipermercado.dat";
            Scanner is = new Scanner(System.in);
            try {
+               System.out.println("A gravar... Este processo pode ser demorado! ");
                hipermercado.gravaObj(fich);
+               System.out.println("Concluído!");
            }
            catch (IOException e) {
-               System.out.println("Não consegui gravar os dados!");
-            }
+               System.out.print("Não consegui gravar os dados!");
+           }
+           System.out.print("Pressione ENTER para continuar!");
            is.nextLine();
            is.close();
        }

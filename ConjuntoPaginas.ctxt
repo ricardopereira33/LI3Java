@@ -1,6 +1,8 @@
 #BlueJ class context
 comment0.params=lista\ tamanho
 comment0.target=ConjuntoPaginas(java.util.Collection,\ int)
-comment1.params=
-comment1.target=int\ getTotalPaginas()
-numComments=2
+comment1.params=pagina
+comment1.target=Pagina\ getPagina(int)
+comment2.params=
+comment2.target=int\ getTotalPaginas()
+numComments=3

@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class ParStringInt
+public class ParStringInt implements Serializable
 {
    private String str;
    private int num;

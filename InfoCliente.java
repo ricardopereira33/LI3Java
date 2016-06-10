@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class InfoCliente
+public class InfoCliente implements Serializable
 {
    private InfoMes meses [];
    private double totFact;

@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+import java.io.Serializable;
 // IMPORTANTE: ESTÁ A USAR SCANNER!! 
 
-public class MenuPaginas{
+public class MenuPaginas implements Serializable{
    
     private ConjuntoPaginas conjuntoPaginas;
     private String cabecalho = null;

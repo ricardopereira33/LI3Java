@@ -2,10 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.Serializable;
 
 // IMPORTANTE: ESTÁ A USAR SCANNER!! 
 
-public class Menu{
+public class Menu implements Serializable{
    
     private List<String> opcoes;
     private int op;
