@@ -224,7 +224,21 @@ public class Hipermercado implements Serializable{
    /*Determinar o conjunto dos X produtos mais vendidos em todo o ano (em número de
     * unidades vendidas) indicando o número total de distintos clientes que o
     * compraram (X é um inteiro dado pelo utilizador);*/
-   //public TreeSet<ParStringInt> getProdsMaisVend(int x){
+   public TreeSet<TriploStringIntInt> getProdsMaisVend(int x){
+       int j;
+       TreeSet<TriploStringIntInt> prods = new TreeSet<TriploStringIntInt>(new ComparatorTriploStringIntInt());
+       Map<String,ParIntSet> prodscli = new HashMap<String,ParIntSet>();
+       for(j=0;j<3;j++){
+               filiais[j].getProdsMaisVend(prodscli);
+       }
+       prodscli.forEach((k,v)->{prods.add(new TriploStringIntInt(k,v.getPrimeiro(),v.getTamanhoSegundo()));});
+       TreeSet<TriploStringIntInt> prodss = new TreeSet<TriploStringIntInt>(new ComparatorTriploStringIntInt());
+       Iterator<TriploStringIntInt> it = prods.iterator();
+       for(j=0;j<x && it.hasNext();j++){
+           prodss.add(it.next());
+       }
+       return prodss;
+   }
        
    //}
    

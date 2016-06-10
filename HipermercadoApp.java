@@ -214,9 +214,26 @@ public class HipermercadoApp{
        }
    }
    
+   /* querie 6 */
+   private static void produtosMaisVendidos(){
+       int numero = inputNumero();
+       Set<TriploStringIntInt> lista = hipermercado.getProdsMaisVend(numero);
+   }
+   
    /* querie 7 */
    private static void produtosFilial(){
-       // fazer 
+       Scanner is = new Scanner(System.in);
+       List<List<ParStringDouble>> lista = hipermercado.getMaioresComp();
+       int numero = 0;
+       for(List<ParStringDouble> filiais: lista){
+           numero++;
+           System.out.println("Filial " + numero + ":");
+           for(ParStringDouble elemento: filiais){
+               System.out.println(elemento);
+           }
+       }
+       is.nextLine();
+       is.close();
    }
    
    private static void clientesCompraramProduto(){
@@ -224,10 +241,6 @@ public class HipermercadoApp{
   
    private static void clientesComMaisProdutosDiferentes(){
        int numero = inputNumero();
-   }
-   
-   private static void produtosMaisVendidos(){
-       // fazer 
    }
    
    private static void carregarDados(){

@@ -87,6 +87,37 @@ public class Filial implements Serializable{
         }
     }
     
+    //QUERIE6
+    public void getProdsMaisVend(Map<String,ParIntSet> prodscli){
+        int i,j;
+        for(i=0; i<26; i++){
+            for(Map.Entry<String,InfoCliente> clientes : this.clientes.get(i).entrySet()){
+                for(j=0;j<12;j++){
+                    InfoMes m = clientes.getValue().getMesIndex(j);
+                    if(m!=null){
+                        for(Map<String,InfoClienteProduto> p : m.getProdutos()){
+                            if(p!=null){
+                                for(Map.Entry<String,InfoClienteProduto> entry : p.entrySet()){
+                                    String prod = entry.getKey();
+                                    InfoClienteProduto info = entry.getValue(); 
+                                    if(prodscli.containsKey(prod)){
+                                        prodscli.get(prod).addPrimeiro(info.getQuantity(0)+info.getQuantity(1));
+                                        prodscli.get(prod).addSegundo(clientes.getKey());
+                                    }
+                                    else{
+                                        ParIntSet par = new ParIntSet(info.getQuantity(0)+info.getQuantity(1));
+                                        par.addSegundo(clientes.getKey());
+                                        prodscli.put(prod,par);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     //QUERIE7
     public List<ParStringDouble> getCompTot(){
         List<ParStringDouble> list = new ArrayList<>();

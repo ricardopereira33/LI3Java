@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=primeiro\ segundo\ terceiro
+comment0.target=TriploStringIntInt(java.lang.String,\ int,\ int)
+comment1.params=p
+comment1.target=TriploStringIntInt(TriploStringIntInt)
+comment2.params=
+comment2.target=java.lang.String\ getPrimeiro()
+comment3.params=
+comment3.target=int\ getSegundo()
+comment4.params=
+comment4.target=int\ getTerceiro()
+comment5.params=obj
+comment5.target=boolean\ equals(java.lang.Object)
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7
