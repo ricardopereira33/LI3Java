@@ -58,10 +58,7 @@ public class HipermercadoApp{
            switch(menu_principal.getOpcao()){
                case 1: carregarInformacao();
                        break;
-               case 2: if(hipermercado != null)abrirMenu();
-                       else {System.out.println("Não existem dados, por favor use a opção \"Carregar dados\"!");
-                             Scanner sc = new Scanner(System.in);
-                             sc.nextLine();}
+               case 2: abrirMenu();
                        break;
                case 3: gravarDados();
                        break;
@@ -70,32 +67,41 @@ public class HipermercadoApp{
    }
    
    private static void abrirMenu(){
-       do{
-           menu_queries.executa();
-           switch(menu_queries.getOpcao()){
-               case 1: produtosNaoComprados();
-                       break;
-               case 2: vendasMes(); 
-                       break;
-               case 3: comprasCliente();
-                       break;
-               case 4: vendasProduto();
-                       break;
-               case 5: produtosMaisCompradosCliente();
-                       break;
-               case 6: produtosMaisVendidos();
-                       break;
-               case 7: produtosFilial();
-                       break;
-               case 8: clientesComMaisProdutosDiferentes();
-                       break;
-               case 9: clientesCompraramProduto();
-                       break;
-           }
-       }while(menu_queries.getOpcao()!=0);
+       
+       if(hipermercado == null ||hipermercado.isEmpty()){
+            System.out.print("Não existem dados, por favor use a opção \"Carregar dados\"!");
+            Scanner sc = new Scanner(System.in);
+            sc.nextLine();
+       }
+       else{
+           do{
+               menu_queries.executa();
+               switch(menu_queries.getOpcao()){
+                   case 1: produtosNaoComprados();
+                           break;
+                   case 2: vendasMes(); 
+                           break;
+                   case 3: comprasCliente();
+                           break;
+                   case 4: vendasProduto();
+                           break;
+                   case 5: produtosMaisCompradosCliente();
+                           break;
+                   case 6: produtosMaisVendidos();
+                           break;
+                   case 7: produtosFilial();
+                           break;
+                   case 8: clientesComMaisProdutosDiferentes();
+                           break;
+                   case 9: clientesCompraramProduto();
+                           break;
+               }
+           }while(menu_queries.getOpcao()!=0);
+       }
    }
    
    private static void carregarInformacao(){
+       int ready = 0;
        do{
            menu_leitura.executa();
            switch(menu_leitura.getOpcao()){
@@ -105,7 +111,8 @@ public class HipermercadoApp{
                        break;
                case 3: carregarDados();
            }
-       }while(menu_leitura.getOpcao()!=0);
+           if(hipermercado.getCatClientes()!=null && !hipermercado.isEmpty()) ready=1;
+       }while(menu_leitura.getOpcao()!=0 && ready==0);
    }
    
    private static void criaNovoHiper(){
@@ -138,9 +145,14 @@ public class HipermercadoApp{
    
    /* querie 1 */
    private static void produtosNaoComprados(){
-       Collection<String> lista = hipermercado.getProdsNaoComp();
-       ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
+       Collection<String> produtosNaoComprados = hipermercado.getProdsNaoComp();
+       List<String> lista = new ArrayList<String>();
        
+       for(String elemento: produtosNaoComprados){
+            String linha = "                                     " + elemento;
+            lista.add(linha);
+       }
+       ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
        menu_paginas = new MenuPaginas(conjunto,0,null);
        menu_paginas.executa();
       
@@ -153,7 +165,12 @@ public class HipermercadoApp{
        else{
            Scanner is = new Scanner(System.in);
            ParIntInt info = hipermercado.getNumVendNumCliMes(mes-1);
-           System.out.println(info);
+           for(int i=0;i<50;i++) System.out.println(); //limpar
+           System.out.println("\n****************** Informações sobre as vendas no mês " + mes + " ********************\n");
+           System.out.println("         Número de vendas realizadas: " + info.getPrimeiro());
+           System.out.println("         Número de clientes distintos que as fizeram: " + info.getSegundo());
+           System.out.println("\n****************************************************************************");
+           System.out.print("Pressione ENTER para continuar!");
            is.nextLine();
            is.close();
        }
@@ -164,17 +181,26 @@ public class HipermercadoApp{
        String cliente = inputCliente();
        if(!cliente.equals("0")){
            Scanner is =  new Scanner(System.in);
+           int mes = 1;
            try{
-               List<TriploIntIntDouble> lista = hipermercado.getNumCompNumProdTot(cliente);
-               for(TriploIntIntDouble i: lista)
-                    System.out.println(i);
+               List<TriploIntIntDouble> meses = hipermercado.getNumCompNumProdTot(cliente);
+               for(int i=0;i<50;i++) System.out.println(); //limpar
+               System.out.println("\n****************** Informações sobre as compras do cliente " + cliente + " ********************\n");
+               System.out.println("|  Mês  |      #Compras       |      #Produtos      |      Total gasto     |\n|_______|_____________________|_____________________|______________________|");       
+           
+               for(TriploIntIntDouble i: meses){  
+                   System.out.printf("    %2d          %5d                 %5d                 %f            \n",mes,i.getPrimeiro(),i.getSegundo(),i.getTerceiro());
+                   mes++;
+                }
+               System.out.println("\n****************************************************************************");
+               System.out.print("Pressione ENTER para continuar!");
                is.nextLine();
+               is.close();
            }
            catch(ClienteInexistenteException e){
                 System.out.println(e.getMessage());
                 comprasCliente();
            }    
-           is.close();
        }
    }
    
@@ -183,19 +209,27 @@ public class HipermercadoApp{
        String produto = inputProduto();
        if(!produto.equals("0")){
            Scanner is = new Scanner(System.in);
+           int mes = 1;
            try{
-               List<TriploIntIntDouble> lista = hipermercado.getNumCompNumCliTot(produto);
-               for(TriploIntIntDouble i: lista)
-                    System.out.println(i);
+               List<TriploIntIntDouble> meses = hipermercado.getNumCompNumCliTot(produto);
+               for(int i=0;i<50;i++) System.out.println(); //limpar
+               System.out.println("\n****************** Informações sobre as vendas do produto " + produto + " ********************\n");
+               System.out.println("|  Mês  |      #Vendas       |      #Clientes      |      Total facturado     |\n|_______|____________________|_____________________|__________________________|");       
+           
+               for(TriploIntIntDouble i: meses){  
+                   System.out.printf("    %2d          %5d                 %5d                 %f            \n",mes,i.getPrimeiro(),i.getSegundo(),i.getTerceiro());
+                   mes++;
+                }
+               System.out.println("\n****************************************************************************");
+               System.out.print("Pressione ENTER para continuar!");
                is.nextLine();
+               is.close();
            }
            catch(ProdutoInexistenteException e){
                 System.out.println(e.getMessage());
                 vendasProduto();
            } 
-           is.close();
        }
-       System.out.println("\n");
    }
    
    /* querie 5 */
@@ -205,13 +239,14 @@ public class HipermercadoApp{
            try{
                Collection<ParStringInt> maisComprados = hipermercado.getProdsMaisComprados(cliente);
                List<String> lista = new ArrayList<String>();
+                      String cabecalho = "|             Produto             |             Quantidade             |\n|_________________________________|____________________________________|";
                String linha;
                for(ParStringInt par: maisComprados){
-                    linha = "Produto: " + par.getString() + "    |   Quantidade: " + par.getNumero();
+                    linha = "              " + par.getString() + "                                " + par.getNumero();
                     lista.add(linha);
                }
                ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
-               menu_paginas = new MenuPaginas(conjunto,0,null);
+               menu_paginas = new MenuPaginas(conjunto,0,cabecalho);
                menu_paginas.executa();
            }
            catch(ClienteInexistenteException e){
@@ -241,14 +276,24 @@ public class HipermercadoApp{
    private static void produtosFilial(){
        Scanner is = new Scanner(System.in);
        List<List<ParStringDouble>> lista = hipermercado.getMaioresComp();
-       int numero = 0;
+       int filial = 0;
+       
+       for(int i=0;i<50;i++) System.out.println(); //limpar
+       System.out.println("\n************************** Maiores compradores em cada filial ****************************\n");
+       System.out.println("|  Filial  |                                  Compradores                                |");
+       System.out.println("|__________|_____________________________________________________________________________|");
+           
        for(List<ParStringDouble> filiais: lista){
-           numero++;
-           System.out.println("Filial " + numero + ":");
+           filial++;      
+           System.out.print("|    " + filial + "     ");
            for(ParStringDouble elemento: filiais){
-               System.out.println(elemento);
+               System.out.printf("| %5s -> %f ",elemento.getString(),elemento.getNumero());
            }
+           System.out.println("|");
        }
+       
+       System.out.println("\n********************************************************************************************");
+       System.out.print("Pressione ENTER para continuar!");
        is.nextLine();
        is.close();
    }
@@ -261,7 +306,7 @@ public class HipermercadoApp{
        String linha;
        String cabecalho = "|             Cliente             |             Quantidade             |\n|_________________________________|____________________________________|";
        for(ParStringInt elemento: clientes){
-           linha = "              " + elemento.getString() + "               |                 " + elemento.getNumero() + "             ";
+           linha = "              " + elemento.getString() + "                                 " + elemento.getNumero() + "             ";
            lista.add(linha);
        }
        ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
@@ -280,7 +325,7 @@ public class HipermercadoApp{
                String cabecalho = "|             Cliente             |             Valor gasto             |\n|_________________________________|_____________________________________|";
                String linha;
                for(ParStringDouble par: clientes){
-                    linha = "              " + par.getString() + "               |              " + par.getNumero() + "             ";
+                    linha = "              " + par.getString() + "                              " + par.getNumero() + "             ";
                     lista.add(linha);
                }
                ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
@@ -295,7 +340,7 @@ public class HipermercadoApp{
        
    }
    
-   private static void carregarDados(){
+   private static void carregarDados(){       
        criaNovoHiper();
        String fich = "hipermercado.dat";
        Scanner is = new Scanner(System.in);
@@ -319,16 +364,23 @@ public class HipermercadoApp{
    }
    
    private static void gravarDados(){
-       String fich = "hipermercado.dat";
-       Scanner is = new Scanner(System.in);
-       try {
-            hipermercado.gravaObj(fich);
+        if(hipermercado == null || hipermercado.isEmpty()){
+            System.out.print("Não existem dados, por favor use a opção \"Carregar dados\"!");
+            Scanner sc = new Scanner(System.in);
+            sc.nextLine();
        }
-        catch (IOException e) {
-            System.out.println("Não consegui gravar os dados!");
+       else{
+           String fich = "hipermercado.dat";
+           Scanner is = new Scanner(System.in);
+           try {
+               hipermercado.gravaObj(fich);
+           }
+           catch (IOException e) {
+               System.out.println("Não consegui gravar os dados!");
+            }
+           is.nextLine();
+           is.close();
        }
-       is.nextLine();
-       is.close();
     }
     
    // INPUTS

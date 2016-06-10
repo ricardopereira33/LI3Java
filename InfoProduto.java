@@ -12,14 +12,14 @@ public class InfoProduto implements Serializable
     
    public InfoProduto(InfoProduto ip){
        int i,j;
-       
-       for(i=0;i<12;i++){
-         for(j=0;j<3;j++){
-            this.N[i][j]=ip.getPromoN(i,j);
-            this.P[i][j]=ip.getPromoP(i,j);
+       if(ip!=null){
+            for(i=0;i<12;i++){
+                for(j=0;j<3;j++){
+                    this.N[i][j]=ip.getPromoN(i,j);
+                    this.P[i][j]=ip.getPromoP(i,j);
+                }
             }
-        }
-            
+       } 
    } 
    
    public void insereInfoP(Venda v){

@@ -44,6 +44,17 @@ public class Hipermercado implements Serializable{
        return this.catalogoProdutos.clone();
    }
    
+   public Facturacao getFacturacao(){
+       return this.facturacao; // falta clone
+   }
+   
+   public boolean isEmpty(){
+       boolean result = true;
+       if(catalogoClientes.totalClientes()>0 && catalogoProdutos.totalProdutos()>0 && facturacao.nProdDif() >0)
+            result = false;
+       return result;
+   }
+   
    public void carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
        Leitura.leituraClientes(ficheiro_clientes,catalogoClientes);
        Leitura.leituraProdutos(ficheiro_produtos,catalogoProdutos);
@@ -127,7 +138,7 @@ public class Hipermercado implements Serializable{
    public Set<String> getProdsNaoComp(){
        Set<String> prods = new TreeSet<String>(new ComparatorByString());
        for(String prod : this.catalogoProdutos.getProdutos()){
-           if(this.facturacao.existeProd(prod)) prods.add(prod);
+           if(!this.facturacao.existeProd(prod)) prods.add(prod);
        }
        return prods;
    }

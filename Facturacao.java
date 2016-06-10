@@ -40,7 +40,7 @@ public class Facturacao{
        this.produtos.clear();
     }
     
-    /*Get's*/
+    /*Get's*/ // ACHO QUE ESTA FUNÇÃO NÃO FUNCIONA BEM
     public List<Map<String,InfoProduto>> getFactProdutos(){
       ArrayList<Map<String,InfoProduto>> lista = new ArrayList<>(26);
       int i;
@@ -73,11 +73,11 @@ public class Facturacao{
         double total=0;
         int i,o=0;
       
-            for(Map<String,InfoProduto> lista : produtos){
-                for(InfoProduto lista2 : lista.values()){
-                    total += lista2.total();
-                }
+        for(Map<String,InfoProduto> lista : produtos){
+            for(InfoProduto lista2 : lista.values()){
+                total += lista2.total();
             }
+        }
         
         return total;
     }
