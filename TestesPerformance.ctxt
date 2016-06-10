@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=args
+comment0.target=void\ main(java.lang.String[])
+comment1.params=fich
+comment1.target=java.util.List\ readLinesWithScanner(java.lang.String)
+comment2.params=fich
+comment2.target=java.util.List\ readLinesWithScannerVendas(java.lang.String)
+comment3.params=fich
+comment3.target=java.util.List\ readLinesWithBuff(java.lang.String)
+comment4.params=fich
+comment4.target=java.util.List\ readLinesWithBuffVendas(java.lang.String)
+comment5.params=linha
+comment5.target=Venda\ parseLinhaVenda(java.lang.String)
+numComments=6
