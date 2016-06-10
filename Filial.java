@@ -133,7 +133,7 @@ public class Filial implements Serializable{
         int i,j;
          for(i=0; i<26; i++){
             for(String cli:this.clientes.get(i).keySet()){
-                for(j=0;j<12;i++){
+                for(j=0;j<12;j++){
                     InfoMes m = this.clientes.get(i).get(cli).getMesIndex(j);
                     if(m!=null){
                         for(Map<String,InfoClienteProduto> p : m.getProdutos()){
@@ -158,7 +158,7 @@ public class Filial implements Serializable{
         int i,j;
          for(i=0; i<26; i++){
             for(String cli:this.clientes.get(i).keySet()){
-                for(j=0;j<12;i++){
+                for(j=0;j<12;j++){
                     InfoMes m = this.clientes.get(i).get(cli).getMesIndex(j);
                     if(m!=null){
                         for(Map<String,InfoClienteProduto> p : m.getProdutos()){

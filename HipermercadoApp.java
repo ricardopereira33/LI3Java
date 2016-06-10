@@ -9,12 +9,13 @@ import java.util.List;
 
 public class HipermercadoApp{
     
-   private static Hipermercado hipermercado;
+   private static Hipermercado hipermercado = null;
    private static Menu menu_principal, menu_queries, menu_leitura;
    private static MenuPaginas menu_paginas;
    
+   private HipermercadoApp() {}
+   
    public static void main(String[] args){
-       hipermercado = new Hipermercado();
        carregarMenus();
        apresentarMenu();
        
@@ -25,7 +26,7 @@ public class HipermercadoApp{
        System.out.println("");
        System.out.println("----------------------------");*/
        
-       hipermercado.limpar();
+       if(hipermercado != null) hipermercado.limpar();
    } 
    
    private static void carregarMenus(){
@@ -57,7 +58,10 @@ public class HipermercadoApp{
            switch(menu_principal.getOpcao()){
                case 1: carregarInformacao();
                        break;
-               case 2: abrirMenu();
+               case 2: if(hipermercado != null)abrirMenu();
+                       else {System.out.println("Não existem dados, por favor use a opção \"Carregar dados\"!");
+                             Scanner sc = new Scanner(System.in);
+                             sc.nextLine();}
                        break;
                case 3: gravarDados();
                        break;
@@ -104,8 +108,13 @@ public class HipermercadoApp{
        }while(menu_leitura.getOpcao()!=0);
    }
    
+   private static void criaNovoHiper(){
+       if(hipermercado!=null)hipermercado.limpar();
+       hipermercado = new Hipermercado();
+    }
+   
    private static void leituraNormal(){
-       // Se já tiver merdas temos de limpar
+       criaNovoHiper();
        hipermercado.carregaDados("../Clientes.txt","../Produtos.txt","../Vendas_1M.txt");
        Scanner is = new Scanner(System.in);
        System.out.print("Pressione ENTER para continuar!");
@@ -114,7 +123,7 @@ public class HipermercadoApp{
    
    private static void leituraOpcional(){
        Scanner is = new Scanner(System.in);
-       // Se já tiver merdas temos de limpar
+       criaNovoHiper();
        System.out.print("Ficheiro de Clientes: ");
        String ficheiro_clientes = is.nextLine();
        System.out.print("Ficheiro de Produtos: ");
@@ -132,7 +141,7 @@ public class HipermercadoApp{
        Collection<String> lista = hipermercado.getProdsNaoComp();
        ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
        
-       menu_paginas = new MenuPaginas(conjunto,0);
+       menu_paginas = new MenuPaginas(conjunto,0,null);
        menu_paginas.executa();
       
    }
@@ -193,7 +202,6 @@ public class HipermercadoApp{
    private static void produtosMaisCompradosCliente(){
        String cliente = inputCliente();
        if(!cliente.equals("0")){
-           Scanner is =  new Scanner(System.in);
            try{
                Collection<ParStringInt> maisComprados = hipermercado.getProdsMaisComprados(cliente);
                List<String> lista = new ArrayList<String>();
@@ -203,21 +211,30 @@ public class HipermercadoApp{
                     lista.add(linha);
                }
                ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
-               menu_paginas = new MenuPaginas(conjunto,0);
+               menu_paginas = new MenuPaginas(conjunto,0,null);
                menu_paginas.executa();
            }
            catch(ClienteInexistenteException e){
                 System.out.println(e.getMessage());
                 comprasCliente();
            }    
-           is.close();
        }
    }
    
-   /* querie 6 */
+   /* querie 6 */ 
    private static void produtosMaisVendidos(){
        int numero = inputNumero();
-       Set<TriploStringIntInt> lista = hipermercado.getProdsMaisVend(numero);
+       Collection<TriploStringIntInt> produtos = hipermercado.getProdsMaisVend(numero);
+       List<String> lista = new ArrayList<String>();
+       String linha;
+       String cabecalho = "|          Produto          |      Quantidade      |        #Clientes        |\n|___________________________|______________________|_______________________|";
+       for(TriploStringIntInt elemento: produtos){
+           linha = "            " + elemento.getPrimeiro() + "                   " + elemento.getSegundo() + "                    " + elemento.getTerceiro();
+           lista.add(linha);
+       }
+       ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
+       menu_paginas = new MenuPaginas(conjunto,0,cabecalho);
+       menu_paginas.executa();
    }
    
    /* querie 7 */
@@ -236,14 +253,50 @@ public class HipermercadoApp{
        is.close();
    }
    
-   private static void clientesCompraramProduto(){
-   }
-  
+   /* querie 8 */
    private static void clientesComMaisProdutosDiferentes(){
        int numero = inputNumero();
+       Collection<ParStringInt> clientes = hipermercado.getCliMaisCompDif(numero);
+       List<String> lista = new ArrayList<String>();
+       String linha;
+       String cabecalho = "|             Cliente             |             Quantidade             |\n|_________________________________|____________________________________|";
+       for(ParStringInt elemento: clientes){
+           linha = "              " + elemento.getString() + "               |                 " + elemento.getNumero() + "             ";
+           lista.add(linha);
+       }
+       ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
+       menu_paginas = new MenuPaginas(conjunto,0,cabecalho);
+       menu_paginas.executa();
+   }
+   
+   /* querie 9 */
+   private static void clientesCompraramProduto(){
+       String produto = inputProduto();
+       if(!produto.equals("0")){
+           int numero = inputNumero();
+           try{
+               Collection<ParStringDouble> clientes = hipermercado.getCliMaisCompProd(produto,numero);
+               List<String> lista = new ArrayList<String>();
+               String cabecalho = "|             Cliente             |             Valor gasto             |\n|_________________________________|_____________________________________|";
+               String linha;
+               for(ParStringDouble par: clientes){
+                    linha = "              " + par.getString() + "               |              " + par.getNumero() + "             ";
+                    lista.add(linha);
+               }
+               ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
+               menu_paginas = new MenuPaginas(conjunto,0,cabecalho);
+               menu_paginas.executa();
+           }
+           catch(ProdutoInexistenteException e){
+                System.out.println(e.getMessage());
+                clientesCompraramProduto();
+           }    
+       }
+       
    }
    
    private static void carregarDados(){
+       criaNovoHiper();
        String fich = "hipermercado.dat";
        Scanner is = new Scanner(System.in);
        try {

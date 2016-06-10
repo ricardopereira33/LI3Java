@@ -8,13 +8,15 @@ import java.util.Scanner;
 public class MenuPaginas{
    
     private ConjuntoPaginas conjuntoPaginas;
+    private String cabecalho = null;
     private int pagina;
     private int menu_type;
     
-    public MenuPaginas(ConjuntoPaginas conjuntoPaginas, int type){
+    public MenuPaginas(ConjuntoPaginas conjuntoPaginas, int type, String cabecalho){
         this.conjuntoPaginas = conjuntoPaginas;
         this.pagina = 1;
         this.menu_type = type;
+        this.cabecalho = cabecalho;
     }
 
     public void executa(){
@@ -30,9 +32,11 @@ public class MenuPaginas{
         
         if(menu_type == 0)
             System.out.println("\n****************************** Página " + pagina + " de " + conjuntoPaginas.getTotalPaginas() + " ******************************");
-            
+        if(cabecalho != null){
+            System.out.println(cabecalho);
+        }
         for(String elemento: conjuntoPaginas.getPagina(pagina).getElementos())
-            System.out.println("                    " + elemento);
+            System.out.println(elemento);
         
         if(menu_type == 0)
             System.out.println("                                                          0 - Sair");
