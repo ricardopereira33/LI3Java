@@ -21,15 +21,15 @@ import java.util.Iterator;
 
 public class Hipermercado implements Serializable{
     
-   private CatClientes CatalogoClientes;
-   private CatProdutos CatalogoProdutos;
+   private CatClientes catalogoClientes;
+   private CatProdutos catalogoProdutos;
    private Facturacao facturacao;
    private Filial filiais[];
    
    public Hipermercado(){
        int i;
-       this.CatalogoClientes = new CatClientes();
-       this.CatalogoProdutos = new CatProdutos();
+       this.catalogoClientes = new CatClientes();
+       this.catalogoProdutos = new CatProdutos();
        this.facturacao = new Facturacao();
        this.filiais = new Filial [3];
        for(i=0;i<3;i++)
@@ -37,34 +37,34 @@ public class Hipermercado implements Serializable{
    }
    
    public CatClientes getCatClientes(){
-       return this.CatalogoClientes.clone();
+       return this.catalogoClientes.clone();
    }
    
    public CatProdutos getCatProdutos(){
-       return this.CatalogoProdutos.clone();
+       return this.catalogoProdutos.clone();
    }
    
    public void carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
-       Leitura.leituraClientes(ficheiro_clientes,CatalogoClientes);
-       Leitura.leituraProdutos(ficheiro_produtos,CatalogoProdutos);
-       /*this.carregarCatalogoProdutos(produtos);
-       this.carregarCatalogoClientes(clientes);
+       Leitura.leituraClientes(ficheiro_clientes,catalogoClientes);
+       Leitura.leituraProdutos(ficheiro_produtos,catalogoProdutos);
+       /*this.carregarcatalogoProdutos(produtos);
+       this.carregarcatalogoClientes(clientes);
        clientes.clear();
        produtos.clear();*/
-       Leitura.leituraVendas(ficheiro_vendas,CatalogoProdutos,CatalogoClientes,facturacao,filiais);
+       Leitura.leituraVendas(ficheiro_vendas,catalogoProdutos,catalogoClientes,facturacao,filiais);
        /*this.carregarFacturacao(vendas);
        vendas.clear();*/
    }
    
-   public void carregarCatalogoProdutos(ArrayList<String> produtos){
+   public void carregarcatalogoProdutos(ArrayList<String> produtos){
        for(String p: produtos){
-           CatalogoProdutos.insereProduto(p);
+           catalogoProdutos.insereProduto(p);
        }
    }
    
-    public void carregarCatalogoClientes(ArrayList<String> clientes){
+    public void carregarcatalogoClientes(ArrayList<String> clientes){
        for(String c: clientes){
-           CatalogoClientes.insereCliente(c);
+           catalogoClientes.insereCliente(c);
        }
    }
    
@@ -75,12 +75,12 @@ public class Hipermercado implements Serializable{
    }
    
    public void limpar (){
-       CatalogoClientes.limpar();
-       CatalogoProdutos.limpar();
+       catalogoClientes.limpar();
+       catalogoProdutos.limpar();
        facturacao.limpar();
-       /*for(Filial f:filiais){
+       for(Filial f:filiais){
            f.limpar();
-        }*/
+        }
    }
    
    /*CONSULTAS ESTATISTICAS*/
@@ -126,7 +126,7 @@ public class Hipermercado implements Serializable{
    
    public Set<String> getProdsNaoComp(){
        Set<String> prods = new TreeSet<String>(new ComparatorByString());
-       for(String prod : this.CatalogoProdutos.getProdutos()){
+       for(String prod : this.catalogoProdutos.getProdutos()){
            if(this.facturacao.existeProd(prod)) prods.add(prod);
        }
        return prods;
@@ -151,7 +151,10 @@ public class Hipermercado implements Serializable{
    //QUERIE3
    /*Dado um código de cliente, determinar, para cada mês, quantas compras fez,
     * quantos produtos distintos comprou e quanto gastou no total. ; */
-   public List<TriploIntIntDouble> getNumCompNumProdTot(String cli){
+   public List<TriploIntIntDouble> getNumCompNumProdTot(String cli) throws ClienteInexistenteException {
+       
+       if(!catalogoClientes.existeCliente(cli)) throw new ClienteInexistenteException("O cliente " + cli + " não se encontra no Catálogo!");
+       
        List<TriploIntIntDouble> lista = new ArrayList<>(12);
        int numCompras = 0;
        int numProds = 0;
@@ -176,7 +179,10 @@ public class Hipermercado implements Serializable{
    //QUERIE4
    /*Dado o código de um produto existente, determinar, mês a mês, quantas vezes foi
     * comprado, por quantos clientes diferentes e o total facturado;*/
-   public List<TriploIntIntDouble> getNumCompNumCliTot(String prod){
+   public List<TriploIntIntDouble> getNumCompNumCliTot(String prod) throws ProdutoInexistenteException{
+       
+       if(!catalogoProdutos.existeProduto(prod)) throw new ProdutoInexistenteException("O produto " + prod + " não se encontra no Catálogo!");
+       
        List<TriploIntIntDouble> lista = new ArrayList<>(12);
        int numCompras = 0;
        int numCli = 0;
@@ -201,7 +207,10 @@ public class Hipermercado implements Serializable{
    /*Dado o código de um cliente determinar a lista de códigos de produtos que mais
     * comprou (e quantos), ordenada por ordem decrescente de quantidade e, para
     * quantidades iguais, por ordem alfabética dos códigos;*/
-   public TreeSet<ParStringInt> getProdsMaisComprados(String cli){
+   public TreeSet<ParStringInt> getProdsMaisComprados(String cli) throws ClienteInexistenteException{
+       
+       if(!catalogoClientes.existeCliente(cli)) throw new ClienteInexistenteException("O cliente " + cli + " não se encontra no Catálogo!");
+       
        Map<String,Object> prods = new HashMap<String,Object>();
        for(int j=0;j<3;j++){
                filiais[j].getProdsMaisComp(cli,prods);
@@ -256,7 +265,10 @@ public class Hipermercado implements Serializable{
    //QUERIE9
    /*Dado o código de um produto que deve existir, determinar o conjunto dos X clientes
     * que mais o compraram e, para cada um, qual o valor gasto (ordenação cf. 5);*/
-   public TreeSet<ParStringDouble> getCliMaisCompProd(String prod, int x){
+   public TreeSet<ParStringDouble> getCliMaisCompProd(String prod, int x) throws ProdutoInexistenteException{
+       
+       if(!catalogoProdutos.existeProduto(prod)) throw new ProdutoInexistenteException("O produto " + prod + " não se encontra no Catálogo!");
+       
        int j;
        TreeSet<ParStringDouble> cli = new TreeSet<ParStringDouble>(new ComparatorParStringDouble());
        Map<String,ParIntDouble> cliquant = new HashMap<String,ParIntDouble>();

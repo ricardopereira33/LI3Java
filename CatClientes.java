@@ -31,11 +31,19 @@ public class CatClientes implements Serializable{
     public CatClientes(CatClientes catalogoClientes){
         int indice;
         
+        catalogo = new ArrayList<>(26);
+        Set<String> arvore;
+        
+        for(int i=0; i<26; i++){
+            arvore = new TreeSet<>();
+            this.catalogo.add(i,arvore);
+        }
+        
         for(indice=0; indice < catalogoClientes.getCatalogo().size(); indice++){
             for(String cliente: catalogoClientes.getCatalogo().get(indice)){
                 this.catalogo.get(indice).add(cliente);
             }
-        }
+        } 
     }
     
     public List<Set<String>> getCatalogo(){//retornar um clone??
@@ -68,6 +76,7 @@ public class CatClientes implements Serializable{
     }
    
     private static int calculaIndice(char letra){
+        letra = Character.toUpperCase(letra);
         return letra - 'A';
     }
     

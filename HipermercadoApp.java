@@ -142,42 +142,84 @@ public class HipermercadoApp{
        int mes = inputMes();
        if(mes == 0); // sair
        else{
-           ParIntInt info = hipermercado.getNumVendNumCliMes(mes);
+           Scanner is = new Scanner(System.in);
+           ParIntInt info = hipermercado.getNumVendNumCliMes(mes-1);
            System.out.println(info);
+           is.nextLine();
+           is.close();
        }
    }
    
    /* querie 3 */
    private static void comprasCliente(){
-       String cliente;
-       //Scanner is = new Scanner(System.in);
-       /*try{
-           cliente = inputCliente();
+       String cliente = inputCliente();
+       if(!cliente.equals("0")){
+           Scanner is =  new Scanner(System.in);
+           try{
+               List<TriploIntIntDouble> lista = hipermercado.getNumCompNumProdTot(cliente);
+               for(TriploIntIntDouble i: lista)
+                    System.out.println(i);
+               is.nextLine();
+           }
+           catch(ClienteInexistenteException e){
+                System.out.println(e.getMessage());
+                comprasCliente();
+           }    
+           is.close();
        }
-       catch(Exception e){
-           System.out.println(e.getMessage());
-           is.nextLine();
-       }*/
-       cliente = inputCliente();
-       List<TriploIntIntDouble> lista = hipermercado.getNumCompNumProdTot(cliente);
-       for(TriploIntIntDouble elemento: lista)
-            System.out.println(elemento);
    }
    
+   /* querie 4 */
+   private static void vendasProduto(){
+       String produto = inputProduto();
+       if(!produto.equals("0")){
+           Scanner is = new Scanner(System.in);
+           try{
+               List<TriploIntIntDouble> lista = hipermercado.getNumCompNumCliTot(produto);
+               for(TriploIntIntDouble i: lista)
+                    System.out.println(i);
+               is.nextLine();
+           }
+           catch(ProdutoInexistenteException e){
+                System.out.println(e.getMessage());
+                vendasProduto();
+           } 
+           is.close();
+       }
+       System.out.println("\n");
+   }
+   
+   /* querie 5 */
+   private static void produtosMaisCompradosCliente(){
+       String cliente = inputCliente();
+       if(!cliente.equals("0")){
+           Scanner is =  new Scanner(System.in);
+           try{
+               Collection<ParStringInt> maisComprados = hipermercado.getProdsMaisComprados(cliente);
+               List<String> lista = new ArrayList<String>();
+               String linha;
+               for(ParStringInt par: maisComprados){
+                    linha = "Produto: " + par.getString() + "    |   Quantidade: " + par.getNumero();
+                    lista.add(linha);
+               }
+               ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
+               menu_paginas = new MenuPaginas(conjunto,0);
+               menu_paginas.executa();
+           }
+           catch(ClienteInexistenteException e){
+                System.out.println(e.getMessage());
+                comprasCliente();
+           }    
+           is.close();
+       }
+   }
+   
+   /* querie 7 */
    private static void produtosFilial(){
        // fazer 
    }
    
    private static void clientesCompraramProduto(){
-       String produto;
-       Scanner is = new Scanner(System.in);
-       try{
-           produto = inputProduto();
-       }
-       catch(Exception e){
-           System.out.println(e.getMessage());
-           is.nextLine();
-       }
    }
   
    private static void clientesComMaisProdutosDiferentes(){
@@ -188,33 +230,9 @@ public class HipermercadoApp{
        // fazer 
    }
    
-   private static void produtosMaisCompradosCliente(){
-       String cliente;
-       Scanner is = new Scanner(System.in);
-       try{
-           cliente = inputCliente();
-       }
-       catch(Exception e){
-           System.out.println(e.getMessage());
-           is.nextLine();
-       }
-   }
-   
-   private static void vendasProduto(){
-       String produto;
-       Scanner is = new Scanner(System.in);
-       try{
-           produto = inputProduto();
-       }
-       catch(Exception e){
-           System.out.println(e.getMessage());
-           is.nextLine();
-       }
-   }
-   
    private static void carregarDados(){
        String fich = "hipermercado.dat";
-       
+       Scanner is = new Scanner(System.in);
        try {
             hipermercado = Hipermercado.leObj(fich);
         }
@@ -230,17 +248,21 @@ public class HipermercadoApp{
             hipermercado = new Hipermercado();
             System.out.println("Não consegui ler os dados!\nErro de formato.");
         }
+       is.nextLine();
+       is.close();
    }
    
    private static void gravarDados(){
        String fich = "hipermercado.dat";
-       
+       Scanner is = new Scanner(System.in);
        try {
             hipermercado.gravaObj(fich);
        }
         catch (IOException e) {
             System.out.println("Não consegui gravar os dados!");
        }
+       is.nextLine();
+       is.close();
     }
     
    // INPUTS
@@ -275,24 +297,21 @@ public class HipermercadoApp{
         return numero;
    }
    
-   private static String inputCliente() /*throws ClienteInexistenteException*/{
+   private static String inputCliente(){
        String cliente;
        System.out.print("Cliente: ");
        Scanner is = new Scanner(System.in);
        cliente = is.nextLine();
-       if(hipermercado.getCatClientes().existeCliente(cliente))
-            return cliente;
-       else{
-           return "A1234";
-           //throw new ClienteInexistenteException("Este cliente não se encontra no Catálogo!");
-       }
+       is.close();
+       return cliente;
    }
    
-   private static String inputProduto() throws ProdutoInexistenteException{
+   private static String inputProduto(){
        String produto;
        System.out.print("Produto: ");
        Scanner is = new Scanner(System.in);
        produto = is.nextLine();
-       throw new ProdutoInexistenteException("Este produto não se encontra no Catálogo!\n");
+       is.close();
+       return produto;
    }
 }

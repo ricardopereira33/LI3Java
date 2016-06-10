@@ -86,6 +86,7 @@ public class InfoMes
     
     public InfoClienteProduto getProdutoInfo(String prod){
         int indice = calculaIndice(prod.charAt(0));
+        if(produtos.get(indice)==null) return null;
         if(!(produtos.get(indice).containsKey(prod))) return null;
         else return produtos.get(indice).get(prod).clone();
     }

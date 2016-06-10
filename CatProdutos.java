@@ -31,6 +31,14 @@ public class CatProdutos implements Serializable{
     public CatProdutos(CatProdutos catalogoProdutos){
         int indice;
         
+        catalogo = new ArrayList<>(26);
+        Set<String> arvore;
+        
+        for(int i=0; i<26; i++){
+            arvore = new TreeSet<>();
+            this.catalogo.add(i,arvore);
+        }
+        
         for(indice=0; indice < catalogoProdutos.getCatalogo().size(); indice++){
             for(String produto: catalogoProdutos.getCatalogo().get(indice)){
                 this.catalogo.get(indice).add(produto);
@@ -68,6 +76,7 @@ public class CatProdutos implements Serializable{
     }
    
     private static int calculaIndice(char letra){
+        letra = Character.toUpperCase(letra);
         return letra - 'A';
     }
     

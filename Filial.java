@@ -35,11 +35,11 @@ public class Filial implements Serializable{
     public ParIntDouble getNumCompTotMes(Set<String> prods,int mes,String cli){
         int indice = calculaIndice(cli.charAt(0));
         int numCompras = 0;
-        int totGasto = 0;
+        double totGasto = 0;
         if(!(this.clientes.get(indice).containsKey(cli))) return new ParIntDouble(numCompras,totGasto);
-        InfoCliente i= this.clientes.get(indice).get(cli);
+        InfoCliente i = this.clientes.get(indice).get(cli);
         InfoMes m = i.getMesIndex(mes);
-        if(m!=null){numCompras += m.getNumVendas();totGasto += m.getTotGasto();m.getProdutos().forEach(x -> {prods.addAll(x.keySet());});};
+        if(m!=null){numCompras += m.getNumVendas();totGasto += m.getTotGasto();m.getProdutos().forEach(x -> {if(x!=null) prods.addAll(x.keySet());});};
         return new ParIntDouble(numCompras,totGasto);
     }
     //QUERIE4
@@ -69,18 +69,19 @@ public class Filial implements Serializable{
                 InfoMes m = this.clientes.get(indice).get(cli).getMesIndex(i);
                 if(m!=null){
                     for(Map<String,InfoClienteProduto> p : m.getProdutos()){
-                        for(Map.Entry<String,InfoClienteProduto> entry : p.entrySet()){
-                            if(prods.containsKey(entry.getKey())){
-                                String prod = entry.getKey();
-                                Object actual = prods.get(prod);
-                                int actual2 = (int)actual + (entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1));
-                                prods.remove(prod);
-                                prods.put(prod,actual2);
+                        if(p != null){
+                            for(Map.Entry<String,InfoClienteProduto> entry : p.entrySet()){
+                                if(prods.containsKey(entry.getKey())){
+                                    String prod = entry.getKey();
+                                    Object actual = prods.get(prod);
+                                    int actual2 = (int)actual + (entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1));
+                                    prods.remove(prod);
+                                    prods.put(prod,actual2);
+                                }
+                                else{prods.put(entry.getKey(),(entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1)));}
                             }
-                            else{prods.put(entry.getKey(),(entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1)));}
                         }
                     }
-                    
                 }
             }
         }
