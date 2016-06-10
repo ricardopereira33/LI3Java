@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.TreeSet;
 
 public class Filial implements Serializable{
@@ -14,7 +15,7 @@ public class Filial implements Serializable{
         Map<String,InfoCliente> arvore;
         
         for(int i=0; i<26; i++){
-            arvore = new TreeMap<String,InfoCliente>();
+            arvore = new HashMap<String,InfoCliente>();
             this.clientes.add(i,arvore);
         }
     }
@@ -39,7 +40,7 @@ public class Filial implements Serializable{
         if(!(this.clientes.get(indice).containsKey(cli))) return new ParIntDouble(numCompras,totGasto);
         InfoCliente i = this.clientes.get(indice).get(cli);
         InfoMes m = i.getMesIndex(mes);
-        if(m!=null){numCompras += m.getNumVendas();totGasto += m.getTotGasto();m.getProdutos().forEach(x -> {if(x!=null) prods.addAll(x.keySet());});};
+        if(m!=null){numCompras += m.getNumVendas();totGasto += m.getTotGasto();prods.addAll(m.getProdutos().keySet());}
         return new ParIntDouble(numCompras,totGasto);
     }
     //QUERIE4
@@ -68,9 +69,8 @@ public class Filial implements Serializable{
             for(i=0;i<12;i++){
                 InfoMes m = this.clientes.get(indice).get(cli).getMesIndex(i);
                 if(m!=null){
-                    for(Map<String,InfoClienteProduto> p : m.getProdutos()){
-                        if(p != null){
-                            for(Map.Entry<String,InfoClienteProduto> entry : p.entrySet()){
+                   
+                            for(Map.Entry<String,InfoClienteProduto> entry : m.getProdutos().entrySet()){
                                 if(prods.containsKey(entry.getKey())){
                                     String prod = entry.getKey();
                                     Object actual = prods.get(prod);
@@ -80,8 +80,7 @@ public class Filial implements Serializable{
                                 }
                                 else{prods.put(entry.getKey(),(entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1)));}
                             }
-                        }
-                    }
+                      
                 }
             }
         }
@@ -95,9 +94,8 @@ public class Filial implements Serializable{
                 for(j=0;j<12;j++){
                     InfoMes m = clientes.getValue().getMesIndex(j);
                     if(m!=null){
-                        for(Map<String,InfoClienteProduto> p : m.getProdutos()){
-                            if(p!=null){
-                                for(Map.Entry<String,InfoClienteProduto> entry : p.entrySet()){
+                        
+                                for(Map.Entry<String,InfoClienteProduto> entry : m.getProdutos().entrySet()){
                                     String prod = entry.getKey();
                                     InfoClienteProduto info = entry.getValue(); 
                                     if(prodscli.containsKey(prod)){
@@ -110,8 +108,7 @@ public class Filial implements Serializable{
                                         prodscli.put(prod,par);
                                     }
                                 }
-                            }
-                        }
+                         
                     }
                 }
             }
@@ -136,17 +133,15 @@ public class Filial implements Serializable{
                 for(j=0;j<12;j++){
                     InfoMes m = this.clientes.get(i).get(cli).getMesIndex(j);
                     if(m!=null){
-                        for(Map<String,InfoClienteProduto> p : m.getProdutos()){
-                            if(p!=null){
-                                Set<String> prods = p.keySet();
+                        
+                                Set<String> prods = m.getProdutos().keySet();
                                 if(cliprods.containsKey(cli)){cliprods.get(cli).addAll(prods);}
                                 else {
                                       Set<String> prd = new TreeSet<String>();
                                       prd.addAll(prods);
                                       cliprods.put(cli,prd);
                                     }
-                            }
-                        }
+                          
                     }
                 }
             }
@@ -161,11 +156,10 @@ public class Filial implements Serializable{
                 for(j=0;j<12;j++){
                     InfoMes m = this.clientes.get(i).get(cli).getMesIndex(j);
                     if(m!=null){
-                        for(Map<String,InfoClienteProduto> p : m.getProdutos()){
-                            if(p!=null){
-                                Set<String> prods = p.keySet();
+                        
+                                Set<String> prods = m.getProdutos().keySet();
                                 if(prods.contains(prod)){
-                                    InfoClienteProduto info = p.get(prod);
+                                    InfoClienteProduto info = m.getProdutos().get(prod);
                                     if(cliquant.containsKey(cli)){
                                         cliquant.get(cli).addPrimeiro(info.getQuantity(0)+info.getQuantity(1));
                                         cliquant.get(cli).addSegundo(info.getTotGasto(0)+info.getTotGasto(1));
@@ -175,8 +169,7 @@ public class Filial implements Serializable{
                                         cliquant.put(cli,par);
                                     }
                                 }
-                            }
-                        }
+                           
                     }
                 }
             }

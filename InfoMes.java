@@ -2,20 +2,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.HashMap;
 import java.io.Serializable;
 
 public class InfoMes implements Serializable
 {
-    private List<Map<String,InfoClienteProduto>> produtos;
+    private Map<String,InfoClienteProduto> produtos;
     private int quantidade;
     private int numVendas;
     private double totGasto;
     
     public InfoMes (){
         int i;
-        this.produtos = new ArrayList<>(26);
-        for(i=0;i<26;i++)
-            this.produtos.add(i,null);
+        this.produtos = new HashMap<>();
+        this.produtos=null;
         this.quantidade=0;
         this.numVendas = 0;
         this.totGasto = 0;
@@ -23,20 +23,14 @@ public class InfoMes implements Serializable
     
     public InfoMes (InfoMes im){
         int indice,i;
-        this.produtos = new ArrayList<Map<String,InfoClienteProduto>>();
-        for(i=0;i<26;i++){
-            this.produtos.add(i,null);
-        }
-        for(indice=0; indice < 26; indice++){
-            if(im.getProdutos().get(indice) != null){
-                Map<String,InfoClienteProduto> arvore;
-                arvore = new TreeMap<String,InfoClienteProduto>();
-                this.produtos.add(indice,arvore);
-                for(String produto: im.getProdutos().get(indice).keySet()){
-                    this.produtos.get(indice).put(produto,im.getProdutos().get(indice).get(produto).clone());
+        this.produtos = new HashMap<>();
+
+        if(im.getProdutos() != null){
+                for(String produto: im.getProdutos().keySet()){
+                    this.produtos.put(produto,im.getProdutos().get(produto).clone());
                 }
             }
-        }
+
         
         this.quantidade = im.getQuantidade();
         this.numVendas = im.getNumVendas();
@@ -63,36 +57,34 @@ public class InfoMes implements Serializable
         String p = v.getProduto();
         int indice = calculaIndice(p.charAt(0));
         
-        if(produtos.get(indice)!=null){
-            insereProdutoQuantAux(v,indice,p);
+        if(produtos!=null){
+            insereProdutoQuantAux(v,p);
         }
         else {
-            Map<String,InfoClienteProduto> arvore;
-            arvore = new TreeMap<String,InfoClienteProduto>();
-            this.produtos.add(indice,arvore);
-            insereProdutoQuantAux(v,indice,p);
+            this.produtos= new HashMap<>();
+            insereProdutoQuantAux(v,p);
         }
     }
     
-    public void insereProdutoQuantAux(Venda v,int indice,String p){
+    public void insereProdutoQuantAux(Venda v,String p){
 
-        if(produtos.get(indice).containsKey(p))
-                produtos.get(indice).get(p).insereInfoCP(v);
+        if(produtos.containsKey(p))
+                produtos.get(p).insereInfoCP(v);
             else{ 
                     InfoClienteProduto icp = new InfoClienteProduto();
                     icp.insereInfoCP(v);
-                    produtos.get(indice).put(p,icp);
+                    produtos.put(p,icp);
                 }
     }
     
     public InfoClienteProduto getProdutoInfo(String prod){
         int indice = calculaIndice(prod.charAt(0));
-        if(produtos.get(indice)==null) return null;
-        if(!(produtos.get(indice).containsKey(prod))) return null;
-        else return produtos.get(indice).get(prod).clone();
+        if(produtos==null) return null;
+        if(!(produtos.containsKey(prod))) return null;
+        else return produtos.get(prod).clone();
     }
     
-    public List<Map<String,InfoClienteProduto>> getProdutos(){
+    public Map<String,InfoClienteProduto> getProdutos(){
         return this.produtos;
     }
     
