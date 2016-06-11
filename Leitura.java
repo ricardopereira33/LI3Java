@@ -27,7 +27,7 @@ public class Leitura implements Serializable{
        DadosEstatisticos n = readLinesWithBuffVendas(ficheiro,cli,prod,f,fil);
        Crono.stop();
        System.out.println("     Linhas lidas: "  +  (n.getVendasValidas()+n.getVendasErradas()) );
-       System.out.println("     Tempo: " + Crono.print() + "segundos.");
+       System.out.println("     Tempo: " + Crono.print() + " segundos.");
        System.out.println("_____________________________________________________________");
        return n;
    } 
@@ -44,7 +44,7 @@ public class Leitura implements Serializable{
        readLinesWithBuffCli(ficheiro,cli);
        Crono.stop();
        System.out.println("     Linhas lidas: " + cli.totalClientes());
-       System.out.println("     Tempo: " + Crono.print() + "segundos.");
+       System.out.println("     Tempo: " + Crono.print() + " segundos.");
    }
    
    /**
@@ -59,7 +59,7 @@ public class Leitura implements Serializable{
        readLinesWithBuffProd(ficheiro,prod);
        Crono.stop();
        System.out.println("     Linhas lidas: " + prod.totalProdutos());
-       System.out.println("     Tempo: " + Crono.print() + "segundos.");
+       System.out.println("     Tempo: " + Crono.print() + " segundos.");
    } 
 
    /**

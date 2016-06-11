@@ -217,7 +217,7 @@ public class HipermercadoApp{
        
        System.out.printf("|  Mês |     Filial 1      |     Filial 2      |     Filial 3      |     Total      |\n");
        for(int i=0;i<12;i++){
-           System.out.printf("|  %d  | %f | %f | %f | %f |\n",i+1,lista1[i],lista2[i],lista3[i],lista1[i]+lista2[i]+lista3[i]);
+           System.out.printf("|  %2d  | %f | %f | %f | %f |\n",i+1,lista1[i],lista2[i],lista3[i],lista1[i]+lista2[i]+lista3[i]);
        }
        
        Scanner is = new Scanner(System.in);
@@ -557,8 +557,10 @@ public class HipermercadoApp{
     */
    private static void carregarDados(){       
        criaNovoHiper();
-       String fich = "hipermercado.dat";
+       String fich;
        Scanner is = new Scanner(System.in);
+       System.out.print("Nome do ficheiro: ");
+       fich = is.nextLine();
        try {
             System.out.println("A carregar informação... Este processo pode ser demorado! ");
             hipermercado = Hipermercado.leObj(fich);
@@ -591,8 +593,9 @@ public class HipermercadoApp{
             sc.nextLine();
        }
        else{
-           String fich = "hipermercado.dat";
            Scanner is = new Scanner(System.in);
+           System.out.print("Nome do ficheiro: ");
+           String fich = is.nextLine();
            try {
                System.out.println("A gravar... Este processo pode ser demorado! ");
                hipermercado.gravaObj(fich);
