@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.io.Serializable;
 
 public class Facturacao implements Serializable{
+    
     private List<Map<String,InfoProduto>> produtos;
 
     /**
@@ -22,9 +23,18 @@ public class Facturacao implements Serializable{
         }
     }
     
-    /** Insere uma venda na Facturação.
-      * @param v
-      */
+    /**
+     * Construtor por cópia
+     * @param f
+     */
+    public Facturacao(Facturacao f){
+        this.produtos = f.getFactProdutos();
+    }
+    
+    /** 
+     * Insere uma venda na Facturação.
+     * @param v
+     */
     public void insereVenda(Venda v){ 
        String p = v.getProduto();
        int indice = calculaIndice(p.charAt(0));
@@ -37,24 +47,27 @@ public class Facturacao implements Serializable{
        }
     }
     
-    /** Verifica se um Produto existe na Facturação.
-      * @param prod
-      * @return 
-      */
+    /** 
+     * Verifica se um Produto existe na Facturação.
+     * @param prod
+     * @return 
+     */
     public boolean existeProd(String prod){
         int indice = calculaIndice(prod.charAt(0));
         return this.produtos.get(indice).containsKey(prod);
     }
     
-    /** Apaga a lista dos produtos da Facturação.
-      */
+    /** 
+     * Apaga a lista dos produtos da Facturação.
+     */
     public void limpar (){
        this.produtos.clear();
     }
     
-    /** Retorna um clone da Facturação.
-      * @return
-      */
+    /** 
+     * Retorna um clone da Facturação.
+     * @return
+     */
     public List<Map<String,InfoProduto>> getFactProdutos(){
       ArrayList<Map<String,InfoProduto>> lista = new ArrayList<>(26);
       int i;
@@ -68,17 +81,19 @@ public class Facturacao implements Serializable{
       return lista;
     }
     
-    /** Calcula o índice da lista correspondente a uma determinada letra. 
-      * @param letra
-      * @return
-      */
+    /** 
+     * Calcula o índice da lista correspondente a uma determinada letra. 
+     * @param letra
+     * @return
+     */
     private static int calculaIndice(char letra){
         return letra - 'A';
     }
     
-    /** Calcula o número de produtos diferentes comprados. 
-      * @return
-      */
+    /** 
+     * Calcula o número de produtos diferentes comprados. 
+     * @return
+     */
     public int nProdDif(){
         int total=0;
         for( Map<String,InfoProduto> lista :produtos){
@@ -87,9 +102,10 @@ public class Facturacao implements Serializable{
         return total;
     }
     
-    /** Calcula o total Facturado.
-      * @return
-      */
+    /** 
+     * Calcula o total Facturado.
+     * @return
+     */
     public double total(){
         double total=0;
         int i,o=0;
@@ -103,9 +119,10 @@ public class Facturacao implements Serializable{
         return total;
     }
     
-    /** Calcula o total de compras de valor igual a 0.
-      * @return
-      */
+    /** 
+     * Calcula o total de compras de valor igual a 0.
+     * @return
+     */
     public int zeros(){
       int total=0;
       int i,o=0;
@@ -119,10 +136,11 @@ public class Facturacao implements Serializable{
       return total;
     }
     
-    /** Calcula para cada mês, o número de vendas e o total facturado com um dado produto.
-      * @param lista
-      * @param prod
-      * @return
+    /** 
+     * Calcula para cada mês, o número de vendas e o total facturado com um dado produto.
+     * @param lista
+     * @param prod
+     * @return
       */
      public List<ParIntDouble> getNumVendasFactTotal(List<ParIntDouble> lista,String prod){
         int indice = calculaIndice(prod.charAt(0));
@@ -134,9 +152,10 @@ public class Facturacao implements Serializable{
         return lista;
     }
     
-    /** Calcula para cada Produto, o número de unidades compradas.
-      * @param prods
-      */
+    /** 
+     * Calcula para cada Produto, o número de unidades compradas.
+     * @param prods
+     */
     public void getProdMaisVendidos(Set<ParStringInt> prods){
         for(Map<String,InfoProduto> produto: this.produtos){
             for(String produtoS : produto.keySet()){
@@ -144,5 +163,22 @@ public class Facturacao implements Serializable{
                 prods.add(new ParStringInt(produtoS,ip.totalQuant()));
             }
         }
+    }
+    
+    /**
+     * Função que faz clone.
+     */
+    public Facturacao clone(){
+        return new Facturacao(this);
+    }
+    
+    /**
+     * Função que testa a igualdade.
+     */
+    public boolean equals(Object obj){
+        if(this==obj) return true;
+        if(obj == null || this.getClass()!=obj.getClass()) return false;
+        Facturacao f = (Facturacao) obj;
+        return this.produtos.equals(f.getFactProdutos());
     }
 }

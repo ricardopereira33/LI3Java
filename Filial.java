@@ -24,10 +24,19 @@ public class Filial implements Serializable{
         }
     }
     
-    /** Calcula o número de vendas num determinado mês, e guarda os clientes que as fizeram.
-      * @param clientes
-      * @param mes
-      * @return
+    /**
+     * Construtor por cópia.
+     * @param f
+     */
+    public Filial(Filial f){
+        this.clientes = f.getFilialClientes();
+    }
+    
+    /** 
+     * Calcula o número de vendas num determinado mês, e guarda os clientes que as fizeram.
+     * @param clientes
+     * @param mes
+     * @return
       */
     public int getNumVendMes(Set<String> clientes,int mes){
         int i;
@@ -42,12 +51,13 @@ public class Filial implements Serializable{
         return numVend;
     }
     
-    /** Calcula o número de compras e o total gasto por um determinado cliente, num determinado mês
-      * e guarda os respectivos produtos comprados.
-      * @param prods
-      * @param mes
-      * @param clie
-      */
+    /** 
+     * Calcula o número de compras e o total gasto por um determinado cliente, num determinado mês
+     * e guarda os respectivos produtos comprados.
+     * @param prods
+     * @param mes
+     * @param clie
+     */
     public ParIntDouble getNumCompTotMes(Set<String> prods,int mes,String cli){
         int indice = calculaIndice(cli.charAt(0));
         int numCompras = 0;
@@ -60,11 +70,12 @@ public class Filial implements Serializable{
     }
     
     //QUERIE4
-    /** Guarda numa estrutura, para cada mês, os clientes que compraram determinado produto.
-      * @param cli
-      * @param prod
-      * @param mes
-      */
+    /** 
+     * Guarda numa estrutura, para cada mês, os clientes que compraram determinado produto.
+     * @param cli
+     * @param prod
+     * @param mes
+     */
     public void getNumCompTotMesProd(List<Set<String>> cli, String prod,int mes){
         int i;
         int numVend = 0;
@@ -91,10 +102,11 @@ public class Filial implements Serializable{
         //return new ParIntDouble(numVend,totFact);
     }
     
-    /** Guarda numa estrutura os produtos e as repectivas quantidades que um determinado cliente comprou.
-      * @param cli
-      * @param prods
-      */
+    /** 
+     * Guarda numa estrutura os produtos e as repectivas quantidades que um determinado cliente comprou.
+     * @param cli
+     * @param prods
+     */
     public void getProdsMaisComp(String cli,Map<String,Object> prods){
         int i,j;
         int indice = calculaIndice(cli.charAt(0));
@@ -119,9 +131,10 @@ public class Filial implements Serializable{
         }
     }
     
-    /** Guarda numa estrutura os produtos e as respectivas quantidades compradas, assim como os clientes que os compraram.
-      * @param prodscli
-      */
+    /** 
+     * Guarda numa estrutura os produtos e as respectivas quantidades compradas, assim como os clientes que os compraram.
+     * @param prodscli
+     */
     public void getProdsMaisVend(Map<String,ParIntSet> prodscli){
         int i,j;
         for(i=0; i<26; i++){
@@ -150,9 +163,10 @@ public class Filial implements Serializable{
         }
     }
     
-    /** Guarda num estrutura cada cliente com a respectiva facturação total.
-      * @return
-      */
+    /** 
+     * Guarda num estrutura cada cliente com a respectiva facturação total.
+     * @return
+     */
     public List<ParStringDouble> getCompTot(){
         List<ParStringDouble> list = new ArrayList<>();
         int i;
@@ -162,9 +176,10 @@ public class Filial implements Serializable{
         return list;
     }
     
-    /** Guarda numa estrutura cada cliente com os respectivos produtos comprados.
-      * @param cliprods
-      */
+    /** 
+     * Guarda numa estrutura cada cliente com os respectivos produtos comprados.
+     * @param cliprods
+     */
     public void getCliMaisCompDif(Map<String,Set<String>> cliprods){
         int i,j;
          for(i=0; i<26; i++){
@@ -185,10 +200,11 @@ public class Filial implements Serializable{
         }
     }
     
-    /** Guarda numa estrutura cada cliente com a respectiva quantidade e facturação de um determinado produto.
-      * @param cliquant
-      * @param prod
-      */
+    /** 
+     * Guarda numa estrutura cada cliente com a respectiva quantidade e facturação de um determinado produto.
+     * @param cliquant
+     * @param prod
+     */
     public void getCliMaisCompProd(Map<String,ParIntDouble> cliquant, String prod){
         int i,j;
          for(i=0; i<26; i++){
@@ -214,9 +230,10 @@ public class Filial implements Serializable{
         }
     }
     
-    /** Insere uma determinada venda.
-      * @param v
-      */
+    /** 
+     * Insere uma determinada venda.
+     * @param v
+     */
     public void insereVenda(Venda v){ 
        String c = v.getCliente();
        int indice = calculaIndice(c.charAt(0));
@@ -229,13 +246,15 @@ public class Filial implements Serializable{
        }
     }
     
-    /** Apaga a estrutura da Filial.
-      */
+    /** 
+     * Apaga a estrutura da Filial.
+     */
     public void limpar (){
        this.clientes.clear();
     }
     
-    /** Retorna a estrutura da Filial.
+    /** 
+     * Retorna a estrutura da Filial.
      * @return
      */
     public List<Map<String,InfoCliente>> getFilialClientes(){
@@ -254,12 +273,29 @@ public class Filial implements Serializable{
       return lista;
     }
     
-    /** Calcula o índice correspondente a uma determinada letra.
-      * @param letra
-      * @return
-      */
+    /** 
+     * Calcula o índice correspondente a uma determinada letra.
+     * @param letra
+     * @return
+     */
     private static int calculaIndice(char letra){
         return letra - 'A';
     }
     
+    /**
+     * Função para fazer clone.
+     */
+    public Filial clone(){
+        return new Filial(this);
+    }
+    
+    /**
+     * Função que testa a igualdade.
+     */
+    public boolean equals(Object obj){
+        if(this==obj) return true;
+        if(obj == null || this.getClass()!=obj.getClass()) return false;
+        Filial f = (Filial) obj;
+        return this.clientes.equals(f.getFilialClientes());
+    }
 }

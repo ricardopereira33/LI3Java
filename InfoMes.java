@@ -42,30 +42,34 @@ public class InfoMes implements Serializable
         this.totGasto = im.getTotGasto();
     }
     
-    /** Retorna a quantidade total.
-      * @return
-      */
+    /** 
+     * Retorna a quantidade total.
+     * @return
+     */
     public int getQuantidade(){
         return this.quantidade;
     }
     
-    /** Retorna o numero de vendas.
-      * @return
-      */
+    /** 
+     * Retorna o numero de vendas.
+     * @return
+     */
     public int getNumVendas(){
         return this.numVendas;
     }
     
-    /** Retorna o total gasto.
-      * @return
-      */
+    /** 
+     * Retorna o total gasto.
+     * @return
+     */
     public double getTotGasto(){
         return this.totGasto;
     }
     
-    /** Insere uma determinada venda.
-      * @param v
-      */
+    /** 
+     * Insere uma determinada venda.
+     * @param v
+     */
     public void insereProdutoQuant(Venda v){
         this.quantidade+= v.getQuantidade();
         this.numVendas++;
@@ -99,10 +103,11 @@ public class InfoMes implements Serializable
                 }
     }
     
-    /** Retorna a informação relativa a um determinado produto.
-      * @param prod
-      * @return
-      */
+    /** 
+     * Retorna a informação relativa a um determinado produto.
+     * @param prod
+     * @return
+     */
     public InfoClienteProduto getProdutoInfo(String prod){
         int indice = calculaIndice(prod.charAt(0));
         if(produtos==null) return null;
@@ -110,14 +115,16 @@ public class InfoMes implements Serializable
         else return produtos.get(prod).clone();
     }
     
-    /** Retorna a estrutura relativa aos produtos.
-      * @return
-      */
+    /** 
+     * Retorna a estrutura relativa aos produtos.
+     * @return
+     */
     public Map<String,InfoClienteProduto> getProdutos(){
         return this.produtos;
     }
     
-    /** Calcula o indice relativo a uma determinada letra.
+    /** 
+     * Calcula o indice relativo a uma determinada letra.
      * @param letra
      * @return
      */
@@ -132,4 +139,17 @@ public class InfoMes implements Serializable
     public InfoMes clone(){
         return new InfoMes(this);
     }
+    
+    /**
+     * Função que testa a igualdade.
+     */
+    public boolean equals(Object obj){
+        if(this==obj) return true;
+        if(obj == null || this.getClass()!=obj.getClass()) return false;
+        InfoMes i = (InfoMes) obj;
+        return this.quantidade == i.getQuantidade() 
+               && this.numVendas == i.getNumVendas()
+               && this.totGasto == i.getTotGasto()
+               && this.produtos.equals(i.getProdutos());
+    } 
 }

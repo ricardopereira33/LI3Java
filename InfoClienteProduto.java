@@ -35,30 +35,50 @@ public class InfoClienteProduto implements Serializable
         this.numVendas = icp.getNumVendas();
     }
     
-    /** Retorna a quantidade presente num determinado indice da estrututa.
-      * @param indice
-      * @return
-      */
+    /**
+     * Retorna o array com as quantidades.
+     * @return
+     */
+    public int[] getQuant(){
+        return quantity;
+    }
+    
+    /** 
+     * Retorna a quantidade presente num determinado indice da estrututa.
+     * @param indice
+     * @return
+     */
     public int getQuantity(int indice){
         return this.quantity[indice];
     }
     
-    /** Retorna o total gasto presente num determinado indice da estrututa.
-      * @param indice
-      * @return
-      */
+    /**
+     * Retorna o array com o total gasto.
+     * @return
+     */
+    public double[] getGasto(){
+        return totGasto;
+    }
+    
+    /** 
+     * Retorna o total gasto presente num determinado indice da estrututa.
+     * @param indice
+     * @return
+     */
     public double getTotGasto(int indice){
         return this.totGasto[indice];
     }
     
-    /** Retorna o número de vendas.
-      * @return
-      */
+    /** 
+     * Retorna o número de vendas.
+     * @return
+     */
     public int getNumVendas(){
         return this.numVendas;
     }
     
-    /** Insere uma determinada venda.
+    /** 
+     * Insere uma determinada venda.
      * @param v 
      */
     public void insereInfoCP(Venda v){
@@ -80,4 +100,16 @@ public class InfoClienteProduto implements Serializable
     public InfoClienteProduto clone(){
         return new InfoClienteProduto(this);
     }
+    
+    /**
+     * Função que testa a igualdade.
+     */
+    public boolean equals(Object obj){
+        if(this==obj) return true;
+        if(obj == null || this.getClass()!=obj.getClass()) return false;
+        InfoClienteProduto i = (InfoClienteProduto) obj;
+        return this.numVendas == i.getNumVendas() 
+                && this.totGasto.equals(i.getGasto())
+                && this.quantity.equals(i.getQuant());
+    } 
 }

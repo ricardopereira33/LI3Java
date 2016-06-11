@@ -71,7 +71,7 @@ public class Hipermercado implements Serializable{
     * @return
     */
    public Facturacao getFacturacao(){
-       return this.facturacao; // falta clone
+       return this.facturacao.clone(); 
    }
    
    /**
@@ -79,7 +79,7 @@ public class Hipermercado implements Serializable{
     */
    public List<Filial> getFilial(){
        List<Filial> n_filiais = new ArrayList<Filial>(num_filiais);
-       for(int i=0;i<num_filiais;i++) n_filiais.add(filiais[i]); // falta clone
+       for(int i=0;i<num_filiais;i++) n_filiais.add(filiais[i].clone());
        return n_filiais;
    }
    

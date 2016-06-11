@@ -30,9 +30,10 @@ public class InfoProduto implements Serializable
        } 
    } 
    
-   /** Insere uma determinada Venda.
-     * @param v
-     */
+   /** 
+    * Insere uma determinada Venda.
+    * @param v
+    */
    public void insereInfoP(Venda v){
        if(v.getInfoPromo() == 'P'){
           if(this.P[v.getMes()-1][v.getFilial()-1]!=null)
@@ -52,6 +53,22 @@ public class InfoProduto implements Serializable
             this.N[v.getMes()-1][v.getFilial()-1]=pq;
             }
       }
+   }
+   
+   /**
+    * Retorna a matriz dos Sem-Promoção (N).
+    * @return
+    */
+   public PrecoQuantidade[][] getN(){
+       return N;
+   }
+   
+   /**
+    * Retorna a matriz dos Com-Promoção (P).
+    * @return
+    */
+   public PrecoQuantidade[][] getP(){
+       return P;
    }
    
    /** Retorna a estrutura PrecoQuantidade referente a um determinado mês, de uma determinada filial,no modo Normal.
@@ -151,6 +168,16 @@ public class InfoProduto implements Serializable
        }
        return total;
     }
+    
+    /**
+     * Função que testa a igualdade.
+     */
+    public boolean equals(Object obj){
+        if(this==obj) return true;
+        if(obj == null || this.getClass()!=obj.getClass()) return false;
+        InfoProduto i = (InfoProduto) obj;
+        return this.N.equals(i.getN()) && this.P.equals(i.getP());
+    } 
     
 }
 

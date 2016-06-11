@@ -25,9 +25,10 @@ public class InfoCliente implements Serializable
        this.totFact = ic.getTotFact();
    }
    
-   /** Insere uma determinada venda.
-     * @param v
-     */
+   /** 
+    * Insere uma determinada venda.
+    * @param v
+    */
    public void insereInfoC (Venda v){
        this.totFact += v.getPreco() * v.getQuantidade();
        if(this.meses[v.getMes()-1]!=null) 
@@ -39,14 +40,24 @@ public class InfoCliente implements Serializable
         }
     }
    
-    /** Retorna o total facturado.
-      * @return
-      */
+    /** 
+     * Retorna o total facturado.
+     * @return
+     */
    public double getTotFact(){
        return this.totFact;
     }
+    
+    /**
+     * Retorna os meses.
+     * @return
+     */
+    public InfoMes[] getMeses(){
+        return meses;
+    }
    
-   /** Retorna a informação relativa a um determinado mês.
+   /** 
+    * Retorna a informação relativa a um determinado mês.
     * @param indice
     * @return
     */
@@ -63,7 +74,18 @@ public class InfoCliente implements Serializable
        return new InfoCliente(this);
     }
     
-    /** Calcula o indice relativo a uma determinada letra.
+   /**
+     * Função que testa a igualdade.
+     */
+    public boolean equals(Object obj){
+        if(this==obj) return true;
+        if(obj == null || this.getClass()!=obj.getClass()) return false;
+        InfoCliente i = (InfoCliente) obj;
+        return this.totFact == i.getTotFact() && this.meses.equals(i.getMeses());
+    } 
+    
+    /** 
+     * Calcula o indice relativo a uma determinada letra.
      * @param letra 
      * @return
      */
