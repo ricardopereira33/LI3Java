@@ -1,15 +1,17 @@
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InfoCliente implements Serializable
 {
-   private InfoMes meses [];
+   private Map<Integer,InfoMes> meses;
    private double totFact;
    
    /**
     * Construtor vazio.
     */
    public InfoCliente(){
-       this.meses = new InfoMes [12];
+       this.meses = new HashMap<Integer,InfoMes>();
        this.totFact = 0;
     }
    
@@ -20,7 +22,7 @@ public class InfoCliente implements Serializable
    public InfoCliente(InfoCliente ic){
        int i;
        for(i=0;i<12;i++){
-            this.meses[i] = ic.getMesIndex(i);
+           this.meses.put(i,ic.getMesIndex(i));
         }
        this.totFact = ic.getTotFact();
    }
@@ -31,12 +33,12 @@ public class InfoCliente implements Serializable
     */
    public void insereInfoC (Venda v){
        this.totFact += v.getPreco() * v.getQuantidade();
-       if(this.meses[v.getMes()-1]!=null) 
-           this.meses[v.getMes()-1].insereProdutoQuant(v);
+       if(this.meses.get(v.getMes()-1)!=null) 
+           this.meses.get(v.getMes()-1).insereProdutoQuant(v);
        else{
         InfoMes im = new InfoMes();
         im.insereProdutoQuant(v);
-        this.meses[v.getMes()-1]=im;
+        this.meses.put(v.getMes()-1,im);
         }
     }
    
@@ -52,8 +54,10 @@ public class InfoCliente implements Serializable
      * Retorna os meses.
      * @return
      */
-    public InfoMes[] getMeses(){
-        return meses;
+    public Map<Integer,InfoMes> getMeses(){
+        Map<Integer,InfoMes> n = new HashMap<Integer,InfoMes>();
+        meses.forEach((k,v) -> n.put(k,v.clone()));
+        return n;
     }
    
    /** 
@@ -62,8 +66,8 @@ public class InfoCliente implements Serializable
     * @return
     */
    public InfoMes getMesIndex(int indice){
-       if(this.meses[indice]==null) return null;
-       else return this.meses[indice].clone();
+       if(this.meses.get(indice)==null) return null;
+       else return this.meses.get(indice).clone();
     }
     
    /**

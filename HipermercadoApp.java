@@ -32,6 +32,7 @@ public class HipermercadoApp{
     */
    private static void carregarMenus(){
        String[] menu0 = {"Carregar dados",
+                         "Consultas Estatísticas",
                          "Menu",
                          "Gravar dados"};
        String[] menu1 = {"Produtos nunca comprados",
@@ -62,12 +63,26 @@ public class HipermercadoApp{
            switch(menu_principal.getOpcao()){
                case 1: carregarInformacao();
                        break;
-               case 2: abrirMenu();
+               case 2: consultasEstatisticas();
                        break;
-               case 3: gravarDados();
+               case 3: abrirMenu();
+                       break;
+               case 4: gravarDados();
                        break;
            }
        }while(menu_principal.getOpcao()!=0);
+   }
+   
+   /**
+    * Função responsável por aprensentar as consultas estatísticas.
+    */
+   private static void consultasEstatisticas(){
+       if(hipermercado == null ||hipermercado.isEmpty()){
+            System.out.print("Não existem dados, por favor use a opção \"Carregar dados\"!");
+            Scanner sc = new Scanner(System.in);
+            sc.nextLine();
+       }
+       else; // fazer aqui!!
    }
    
    /**
