@@ -26,6 +26,7 @@ public class Hipermercado implements Serializable{
    private CatProdutos catalogoProdutos;
    private Facturacao facturacao;
    private Filial filiais[];
+   private DadosEstatisticos dados;
    
    /**
     * Construtor vazio.
@@ -100,11 +101,11 @@ public class Hipermercado implements Serializable{
     * @param ficheiro_produtos
     * @param ficheiro_vendas
     */
-   public ParIntInt carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
+   public DadosEstatisticos carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
        Leitura.leituraClientes(ficheiro_clientes,catalogoClientes);
        Leitura.leituraProdutos(ficheiro_produtos,catalogoProdutos);
-       ParIntInt n = Leitura.leituraVendas(ficheiro_vendas,catalogoProdutos,catalogoClientes,facturacao,filiais);
-       return n;
+       this.dados = Leitura.leituraVendas(ficheiro_vendas,catalogoProdutos,catalogoClientes,facturacao,filiais);
+       return this.dados;
    }
    
    /**
@@ -227,14 +228,13 @@ public class Hipermercado implements Serializable{
        facturacao.getNumVendasFactTotal(listaF,prod);
        
        List<Set<String>> listaC = new ArrayList<>(12);
-        for(int i=0;i<12;i++)
-           listaC.add(i,null); 
+       for(int i=0;i<12;i++)
+         listaC.add(i,null); 
 
-            for(int j=0;j<12;j++){     
-             for(int i=0;i<num_filiais;i++)
-                filiais[i].getNumCompTotMesProd(listaC,prod,j);
-            } 
-        
+       for(int j=0;j<12;j++){     
+         for(int i=0;i<num_filiais;i++)
+            filiais[i].getNumCompTotMesProd(listaC,prod,j);
+       } 
        
        for(int i=0;i<12;i++){
            Set<String> aux =listaC.get(i);

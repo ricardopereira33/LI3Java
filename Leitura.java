@@ -20,13 +20,13 @@ public class Leitura implements Serializable{
     * @param f
     * @param fil
     */
-   public static ParIntInt leituraVendas(String ficheiro, CatProdutos prod,CatClientes cli,Facturacao f,Filial fil[]){
+   public static DadosEstatisticos leituraVendas(String ficheiro, CatProdutos prod,CatClientes cli,Facturacao f,Filial fil[]){
        System.out.println("_____________________________________________________________");
        System.out.println("     Leitura do ficheiro: " + ficheiro);
        Crono.start();
-       ParIntInt n = readLinesWithBuffVendas(ficheiro,cli,prod,f,fil);
+       DadosEstatisticos n = readLinesWithBuffVendas(ficheiro,cli,prod,f,fil);
        Crono.stop();
-       System.out.println("     Linhas lidas: "  +  n.getSegundo() );
+       System.out.println("     Linhas lidas: "  +  (n.getVendasValidas()+n.getVendasErradas()) );
        System.out.println("     Tempo: " + Crono.print() + "segundos.");
        System.out.println("_____________________________________________________________");
        return n;
@@ -109,27 +109,38 @@ public class Leitura implements Serializable{
     * @param fil
     * @return
     */
-    public static ParIntInt readLinesWithBuffVendas(String fich,CatClientes cli,CatProdutos prod,Facturacao f,Filial fil[]) {
+    public static DadosEstatisticos readLinesWithBuffVendas(String fich,CatClientes cli,CatProdutos prod,Facturacao f,Filial fil[]) {
       BufferedReader inStream = null; 
       String linha = null;
       Venda v;
-      int total=0;
-      int validas=0;
+      int vendasErradas=0;
+      int vendasValidas=0;
+      Set<String> produtosDif=new HashSet<String>();
+      Set<String> clientesCompraram=new HashSet<String>();
+      int totalZeros=0;
+      double totalFacturado=0;
       try {
             inStream = new BufferedReader(new FileReader(fich));
             while( (linha = inStream.readLine()) != null ){
-                total++;
                 v = parseLinhaVenda(linha,cli,prod);
                 if(v!=null){
+                    if(v.getPreco()==0) totalZeros++;
+                    produtosDif.add(v.getProduto());
+                    clientesCompraram.add(v.getCliente());
+                    totalFacturado+=(v.getPreco()*v.getQuantidade());
+                    vendasValidas++;
                     f.insereVenda(v);
                     fil[v.getFilial()-1].insereVenda(v);
-                    validas++;
+                   
+                }
+                else{
+                    vendasErradas++;
                 }
             }
       }
       catch(IOException e) 
           { System.out.println(e.getMessage());  };
-      return new ParIntInt(total,validas);
+      return new DadosEstatisticos(fich,vendasValidas,vendasErradas,prod.totalProdutos(),produtosDif.size(),(prod.totalProdutos()-produtosDif.size()),cli.totalClientes(),clientesCompraram.size(),(cli.totalClientes()-clientesCompraram.size()),totalZeros,totalFacturado);
    }
    
    /**

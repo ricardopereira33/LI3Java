@@ -170,23 +170,8 @@ public class HipermercadoApp{
      * @param n
      * @param ficheiro
      */
-   private static void imprimeEstatisticasLeitura(ParIntInt n, String ficheiro){
-       System.out.println();
-       System.out.println("***** Informações sobre a leitura do ficheiro: "+ficheiro +" *****");
-       System.out.println("     Registos de vendas errados: "  + (n.getPrimeiro() - n.getSegundo()));
-       System.out.println("     Número de produtos: " + hipermercado.getTotProdsDif());
-       System.out.println("     Número de diferentes produtos comprados: " + hipermercado.getTotProdsComp());
-       System.out.println("     Número de diferentes produtos não comprados: " + hipermercado.getTotProdsNaoComp());
-       System.out.println("_____________________________________________________________");
-       int cli = hipermercado.getTotCliDif();
-       System.out.println("     Número de Clientes: " + cli);
-       int clii = hipermercado.getTotCliComp();
-       System.out.println("     Número de Clientes que realizaram compras: " + clii);
-       System.out.println("     Número de Clientes que não realizaram compras: " + (cli-clii));
-       System.out.println("_____________________________________________________________");
-       System.out.println("     Total de compras de valor igual a 0: " + hipermercado.getCompZero());
-       System.out.println("     Facturação total: " + hipermercado.getFactTot());
-       System.out.println("_____________________________________________________________");
+   private static void imprimeEstatisticasLeitura(DadosEstatisticos n, String ficheiro){
+       System.out.println(n.toString());
    }
    
    /**
@@ -268,7 +253,7 @@ public class HipermercadoApp{
    private static void leituraNormal(){
        for(int i=0;i<50;i++) System.out.println(); //limpar
        criaNovoHiper();
-       ParIntInt n = hipermercado.carregaDados("../Clientes.txt","../Produtos.txt","../Vendas_1M.txt");
+       DadosEstatisticos n = hipermercado.carregaDados("../Clientes.txt","../Produtos.txt","../Vendas_1M.txt");
        imprimeEstatisticasLeitura(n,"Vendas_1M.txt");
        Scanner is = new Scanner(System.in);
        System.out.print("Pressione ENTER para continuar!");
@@ -289,7 +274,7 @@ public class HipermercadoApp{
        System.out.print("Ficheiro de Vendas: ");
        String ficheiro_vendas = is.nextLine();
       
-       ParIntInt n = hipermercado.carregaDados(ficheiro_clientes,ficheiro_produtos,ficheiro_vendas);
+       DadosEstatisticos n = hipermercado.carregaDados(ficheiro_clientes,ficheiro_produtos,ficheiro_vendas);
        imprimeEstatisticasLeitura(n,ficheiro_vendas);
        System.out.print("Pressione ENTER para continuar!");
        is.nextLine();
