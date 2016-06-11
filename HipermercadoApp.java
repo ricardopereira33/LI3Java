@@ -531,10 +531,10 @@ public class HipermercadoApp{
                Collection<TriploStringIntDouble> clientes = hipermercado.getCliMaisCompProd(produto,numero);
                Crono.stop();
                List<String> lista = new ArrayList<String>();
-               String cabecalho = "|             Cliente             |             Valor gasto             |\n|_________________________________|_____________________________________|";
+               String cabecalho = "|       Cliente       |   Quantidade   |          Valor gasto             |\n|_____________________|________________|__________________________________|";
                String linha;
                for(TriploStringIntDouble triplo: clientes){
-                    linha = "              " + triplo.getPrimeiro() + "                              " + triplo.getTerceiro() + "             ";
+                    linha = "         " + triplo.getPrimeiro() + "               " + triplo.getSegundo() + "                " + triplo.getTerceiro() + "             ";
                     lista.add(linha);
                }
                ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);
