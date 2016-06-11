@@ -443,7 +443,7 @@ public class Hipermercado implements Serializable{
    /** Guarda numa estrutura a factoração de cada mês numa determinada filial.
      * @return void
      */
-   public void getFactTotalMes(int lista[],int filial){
+   public void getFactTotalMes(double lista[],int filial){
        filiais[filial].totalMes(lista);
    }
    

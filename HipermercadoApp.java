@@ -213,9 +213,9 @@ public class HipermercadoApp{
     */
    private static void imprimeEstatisticasFacturacao(){
        System.out.println("|   Facturação total por mês   |");
-       int lista1[]= new int[12];
-       int lista2[]= new int[12];
-       int lista3[]= new int[12];
+       double lista1[]= new double[12];
+       double lista2[]= new double[12];
+       double lista3[]= new double[12];
        for(int i=0;i<12;i++){
            lista1[i]=0;
            lista2[i]=0;
@@ -230,14 +230,13 @@ public class HipermercadoApp{
            }
        }
        
+       System.out.printf("|  Mês |     Filial 1      |     Filial 2      |     Filial 3      |     Total      |\n");
        for(int i=0;i<12;i++){
-           System.out.println("   Mês "+i+" : "+ hipermercado.getTotVendasMes(i));
-           System.out.println("   Filial 1: " + lista1[i]);
-           System.out.println("   Filial 2: " + lista2[i]);
-           System.out.println("   Filial 3: " + lista3[i]);
+           System.out.printf("|  %d  | %f | %f | %f | %f |\n",i+1,lista1[i],lista2[i],lista3[i],lista1[i]+lista2[i]+lista3[i]);
        }
        
        Scanner is = new Scanner(System.in);
+       System.out.println();
        System.out.print("Pressione ENTER para continuar!");
        is.nextLine();
    }

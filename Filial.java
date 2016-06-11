@@ -279,7 +279,7 @@ public class Filial implements Serializable{
     /** Guarda numa estrutura a factoração de cada mês.
      * @return void
      */
-    public void totalMes(int lista[]){
+    public void totalMes(double lista[]){
         int j;
         for(int i=0; i<26; i++){
             Map<String,InfoCliente> clientes = this.clientes.get(i);
