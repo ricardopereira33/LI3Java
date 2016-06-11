@@ -147,6 +147,7 @@ public class CatProdutos implements Serializable{
      * @return boolean
      */
     public boolean existeProduto(String produto){
+        if(produto.length() < 6) return false;
         int indice = calculaIndice(produto.charAt(0));
         if(indice < 0 || indice > 25) return false;
         else return this.catalogo.get(indice).contains(produto);
