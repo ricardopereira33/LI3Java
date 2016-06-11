@@ -46,7 +46,7 @@ public class CatClientes implements Serializable{
         Set<String> arvore;
         
         for(int i=0; i<26; i++){
-            arvore = new TreeSet<>();
+            arvore = new HashSet<>();
             this.catalogo.add(i,arvore);
         }
         
@@ -149,6 +149,27 @@ public class CatClientes implements Serializable{
     public boolean existeCliente(String cliente){
         int indice = calculaIndice(cliente.charAt(0));
         return this.catalogo.get(indice).contains(cliente);
+    }
+    
+    /**
+     * Função que testa a igualdade.
+     * @param obj
+     * @return
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        CatClientes i = (CatClientes) obj;
+
+        return this.catalogo.equals(i.getCatalogo());
     }
     
     /**

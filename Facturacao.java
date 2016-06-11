@@ -3,14 +3,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Map;
-import java.util.TreeMap;
-import java.io.Serializable;
 import java.util.HashMap;
+import java.io.Serializable;
 
 public class Facturacao implements Serializable{
     private List<Map<String,InfoProduto>> produtos;
-    
-    /*Construtor*/
+
+    /**
+     * Construtor vazio.
+     */
     public Facturacao(){
         this.produtos = new ArrayList<>(26);
         Map<String,InfoProduto> arvore;
@@ -21,6 +22,9 @@ public class Facturacao implements Serializable{
         }
     }
     
+    /** Insere uma venda na Facturação.
+      * @param v
+      */
     public void insereVenda(Venda v){ 
        String p = v.getProduto();
        int indice = calculaIndice(p.charAt(0));
@@ -33,36 +37,48 @@ public class Facturacao implements Serializable{
        }
     }
     
+    /** Verifica se um Produto existe na Facturação.
+      * @param prod
+      * @return 
+      */
     public boolean existeProd(String prod){
         int indice = calculaIndice(prod.charAt(0));
         return this.produtos.get(indice).containsKey(prod);
     }
-    //Limpar
+    
+    /** Apaga a lista dos produtos da Facturação.
+      */
     public void limpar (){
        this.produtos.clear();
     }
     
-    /*Get's*/ // ACHO QUE ESTA FUNÇÃO NÃO FUNCIONA BEM
+    /** Retorna um clone da Facturação.
+      * @return
+      */
     public List<Map<String,InfoProduto>> getFactProdutos(){
       ArrayList<Map<String,InfoProduto>> lista = new ArrayList<>(26);
       int i;
       
       for(i=0; i<26; i++){
-         Map<String,InfoProduto> arvore = new TreeMap<String,InfoProduto>();
+         Map<String,InfoProduto> arvore = new HashMap<String,InfoProduto>();
          this.produtos.get(i).forEach( (k,v) -> {arvore.put(k,v.clone());});
-         //for(String p: this.produtos.get(i).keySet()){
-           // arvore.put(p,this.produtos.get(i).get(p).clone());
-         //}
          lista.add(i,arvore);         
       }
         
       return lista;
     }
     
+    /** Calcula o índice da lista correspondente a uma determinada letra. 
+      * @param letra
+      * @return
+      */
     private static int calculaIndice(char letra){
         return letra - 'A';
     }
     
+    /** Calcula o número de produtos diferentes comprados. 
+      * @return
+      */
     public int nProdDif(){
         int total=0;
         for( Map<String,InfoProduto> lista :produtos){
@@ -71,6 +87,9 @@ public class Facturacao implements Serializable{
         return total;
     }
     
+    /** Calcula o total Facturado.
+      * @return
+      */
     public double total(){
         double total=0;
         int i,o=0;
@@ -84,6 +103,9 @@ public class Facturacao implements Serializable{
         return total;
     }
     
+    /** Calcula o total de compras de valor igual a 0.
+      * @return
+      */
     public int zeros(){
       int total=0;
       int i,o=0;
@@ -97,6 +119,11 @@ public class Facturacao implements Serializable{
       return total;
     }
     
+    /** Calcula para cada mês, o número de vendas e o total facturado com um dado produto.
+      * @param lista
+      * @param prod
+      * @return
+      */
      public List<ParIntDouble> getNumVendasFactTotal(List<ParIntDouble> lista,String prod){
         int indice = calculaIndice(prod.charAt(0));
         
@@ -107,14 +134,15 @@ public class Facturacao implements Serializable{
         return lista;
     }
     
+    /** Calcula para cada Produto, o número de unidades compradas.
+      * @param prods
+      */
     public void getProdMaisVendidos(Set<ParStringInt> prods){
-        
         for(Map<String,InfoProduto> produto: this.produtos){
             for(String produtoS : produto.keySet()){
                 InfoProduto ip = produto.get(produtoS);
                 prods.add(new ParStringInt(produtoS,ip.totalQuant()));
             }
         }
-    
     }
 }

@@ -75,6 +75,14 @@ public class TriploIntIntDouble implements Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("("+this.primeiro+","+this.segundo+","+this.terceiro+")\n");
         return sb.toString();
+    }
+    
+   /**
+    * Função que faz clone.
+    * @return
+    */
+   public TriploIntIntDouble clone(){
+       return new TriploIntIntDouble(this);
    }
 
 }

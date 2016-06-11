@@ -46,7 +46,7 @@ public class CatProdutos implements Serializable{
         Set<String> arvore;
         
         for(int i=0; i<26; i++){
-            arvore = new TreeSet<>();
+            arvore = new HashSet<>();
             this.catalogo.add(i,arvore);
         }
         
@@ -156,6 +156,27 @@ public class CatProdutos implements Serializable{
      */
     public CatProdutos clone(){
         return new CatProdutos(this);
+    }
+    
+    /**
+     * Função que testa a igualdade.
+     * @param obj
+     * @return
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        CatProdutos i = (CatProdutos) obj;
+
+        return this.catalogo.equals(i.getCatalogo());
     }
     
     /**

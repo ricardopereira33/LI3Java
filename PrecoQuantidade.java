@@ -18,20 +18,32 @@ public class PrecoQuantidade implements Serializable
        this.totalQuant = pq.getTotalQuant();
     }
    
+    /** Insere uma Venda.
+      * @return
+      */
    public void inserePrecoQuant(Venda v){
        this.totalprice += v.getPreco()*v.getQuantidade();
        this.totalVendas += v.getQuantidade();
        this.totalQuant ++;
     } 
     
+   /** Retorna o total facturado.
+     * @return
+     */
    public double getTotalPrice(){
        return this.totalprice;
     }
-    
+   
+    /** Retorna a quantidade total comprada.
+      * @return
+      */
    public int getTotalVendas(){
        return this.totalVendas;
     } 
-    
+   
+    /** Retorna o número de vendas.
+      * @return
+      */
    public int getTotalQuant(){
        return this.totalQuant;
     }

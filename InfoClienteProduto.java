@@ -6,6 +6,9 @@ public class InfoClienteProduto implements Serializable
     private double totGasto[];
     private int numVendas;
     
+    /**
+     * Construtor vazio.
+     */
     public InfoClienteProduto(){
         int i;
         this.quantity= new int [2];
@@ -17,6 +20,10 @@ public class InfoClienteProduto implements Serializable
         this.numVendas = 0;
     }
     
+    /**
+     * Construtor por cópia.
+     * @param icp
+     */
     public InfoClienteProduto(InfoClienteProduto icp){
         int i;
         this.quantity= new int [2];
@@ -28,18 +35,32 @@ public class InfoClienteProduto implements Serializable
         this.numVendas = icp.getNumVendas();
     }
     
+    /** Retorna a quantidade presente num determinado indice da estrututa.
+      * @param indice
+      * @return
+      */
     public int getQuantity(int indice){
         return this.quantity[indice];
     }
     
+    /** Retorna o total gasto presente num determinado indice da estrututa.
+      * @param indice
+      * @return
+      */
     public double getTotGasto(int indice){
         return this.totGasto[indice];
     }
     
+    /** Retorna o número de vendas.
+      * @return
+      */
     public int getNumVendas(){
         return this.numVendas;
     }
     
+    /** Insere uma determinada venda.
+     * @param v 
+     */
     public void insereInfoCP(Venda v){
         this.numVendas++;
         if(v.getInfoPromo() == 'P'){
@@ -52,6 +73,10 @@ public class InfoClienteProduto implements Serializable
             }
     } 
     
+    /**
+     * Função responsável por fazer clone.
+     * @return
+     */
     public InfoClienteProduto clone(){
         return new InfoClienteProduto(this);
     }

@@ -77,4 +77,12 @@ public class TriploStringIntInt implements Serializable
         sb.append("("+this.primeiro+","+this.segundo+","+this.terceiro+")\n");
         return sb.toString();
    }
+   
+   /**
+    * Função que faz clone.
+    * @return
+    */
+   public TriploStringIntInt clone(){
+       return new TriploStringIntInt(this);
+   }
 }

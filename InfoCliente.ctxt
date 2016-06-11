@@ -1,16 +1,23 @@
 #BlueJ class context
 comment0.params=
 comment0.target=InfoCliente()
+comment0.text=\r\n\ Construtor\ vazio.\r\n
 comment1.params=ic
 comment1.target=InfoCliente(InfoCliente)
+comment1.text=\r\n\ Construtor\ por\ c\u00F3pia.\r\n\ @param\ ic\r\n
 comment2.params=v
 comment2.target=void\ insereInfoC(Venda)
+comment2.text=\ Insere\ uma\ determinada\ venda.\r\n\ @param\ v\r\n
 comment3.params=
 comment3.target=double\ getTotFact()
+comment3.text=\ Retorna\ o\ total\ facturado.\r\n\ @return\r\n
 comment4.params=indice
 comment4.target=InfoMes\ getMesIndex(int)
+comment4.text=\ Retorna\ a\ informa\u00E7\u00E3o\ relativa\ a\ um\ determinado\ m\u00EAs.\r\n\ @param\ indice\r\n\ @return\r\n
 comment5.params=
 comment5.target=InfoCliente\ clone()
+comment5.text=\r\n\ Fun\u00E7\u00E3o\ que\ faz\ clone.\r\n\ @return\r\n
 comment6.params=letra
 comment6.target=int\ calculaIndice(char)
+comment6.text=\ Calcula\ o\ indice\ relativo\ a\ uma\ determinada\ letra.\r\n\ @param\ letra\ \r\n\ @return\r\n
 numComments=7

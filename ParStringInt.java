@@ -48,7 +48,7 @@ public class ParStringInt implements Serializable
    }
    
    /**
-    * Função que retorna um clone.
+    * Função que testa a igualdade.
     * @param obj
     * @return
     */

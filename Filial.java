@@ -11,7 +11,10 @@ import java.util.HashSet;
 public class Filial implements Serializable{
     private List<Map<String,InfoCliente>> clientes;
     
-     public Filial(){
+    /**
+     * Construtor vazio.
+     */
+    public Filial(){
         this.clientes = new ArrayList<>(26);
         Map<String,InfoCliente> arvore;
         
@@ -20,7 +23,12 @@ public class Filial implements Serializable{
             this.clientes.add(i,arvore);
         }
     }
-    //QUERIE2
+    
+    /** Calcula o número de vendas num determinado mês, e guarda os clientes que as fizeram.
+      * @param clientes
+      * @param mes
+      * @return
+      */
     public int getNumVendMes(Set<String> clientes,int mes){
         int i;
         int numVend=0;
@@ -33,7 +41,13 @@ public class Filial implements Serializable{
         }
         return numVend;
     }
-    //QUERIE3
+    
+    /** Calcula o número de compras e o total gasto por um determinado cliente, num determinado mês
+      * e guarda os respectivos produtos comprados.
+      * @param prods
+      * @param mes
+      * @param clie
+      */
     public ParIntDouble getNumCompTotMes(Set<String> prods,int mes,String cli){
         int indice = calculaIndice(cli.charAt(0));
         int numCompras = 0;
@@ -44,25 +58,13 @@ public class Filial implements Serializable{
         if(m!=null){numCompras += m.getNumVendas();totGasto += m.getTotGasto();prods.addAll(m.getProdutos().keySet());}
         return new ParIntDouble(numCompras,totGasto);
     }
-    //QUERIE4
-    /*public ParIntDouble getNumCompTotMesProd(Set<String> cli, int mes,String prod){
-        int i;
-        int numVend = 0;
-        int totFact = 0;
-        for(i=0; i<26; i++){
-            for(Map.Entry<String,InfoCliente> entry : this.clientes.get(i).entrySet()){
-                InfoMes m = entry.getValue().getMesIndex(mes);
-                if(m!=null){InfoClienteProduto h = m.getProdutoInfo(prod);
-                            if(h!=null){cli.add(entry.getKey());
-                                        numVend += h.getNumVendas();
-                                        totFact += (h.getTotGasto(0)+h.getTotGasto(1));
-                            }
-                } 
-            }
-        }
-        return new ParIntDouble(numVend,totFact);
-    }*/
     
+    //QUERIE4
+    /** Guarda numa estrutura, para cada mês, os clientes que compraram determinado produto.
+      * @param cli
+      * @param prod
+      * @param mes
+      */
     public void getNumCompTotMesProd(List<Set<String>> cli, String prod,int mes){
         int i;
         int numVend = 0;
@@ -88,7 +90,11 @@ public class Filial implements Serializable{
         }
         //return new ParIntDouble(numVend,totFact);
     }
-    //QUERIE5
+    
+    /** Guarda numa estrutura os produtos e as repectivas quantidades que um determinado cliente comprou.
+      * @param cli
+      * @param prods
+      */
     public void getProdsMaisComp(String cli,Map<String,Object> prods){
         int i,j;
         int indice = calculaIndice(cli.charAt(0));
@@ -113,7 +119,9 @@ public class Filial implements Serializable{
         }
     }
     
-    //QUERIE6
+    /** Guarda numa estrutura os produtos e as respectivas quantidades compradas, assim como os clientes que os compraram.
+      * @param prodscli
+      */
     public void getProdsMaisVend(Map<String,ParIntSet> prodscli){
         int i,j;
         for(i=0; i<26; i++){
@@ -142,7 +150,9 @@ public class Filial implements Serializable{
         }
     }
     
-    //QUERIE7
+    /** Guarda num estrutura cada cliente com a respectiva facturação total.
+      * @return
+      */
     public List<ParStringDouble> getCompTot(){
         List<ParStringDouble> list = new ArrayList<>();
         int i;
@@ -152,7 +162,9 @@ public class Filial implements Serializable{
         return list;
     }
     
-    //QUERIE8
+    /** Guarda numa estrutura cada cliente com os respectivos produtos comprados.
+      * @param cliprods
+      */
     public void getCliMaisCompDif(Map<String,Set<String>> cliprods){
         int i,j;
          for(i=0; i<26; i++){
@@ -173,7 +185,10 @@ public class Filial implements Serializable{
         }
     }
     
-    //QUERIE9
+    /** Guarda numa estrutura cada cliente com a respectiva quantidade e facturação de um determinado produto.
+      * @param cliquant
+      * @param prod
+      */
     public void getCliMaisCompProd(Map<String,ParIntDouble> cliquant, String prod){
         int i,j;
          for(i=0; i<26; i++){
@@ -199,6 +214,9 @@ public class Filial implements Serializable{
         }
     }
     
+    /** Insere uma determinada venda.
+      * @param v
+      */
     public void insereVenda(Venda v){ 
        String c = v.getCliente();
        int indice = calculaIndice(c.charAt(0));
@@ -211,18 +229,21 @@ public class Filial implements Serializable{
        }
     }
     
-    //Limpar
+    /** Apaga a estrutura da Filial.
+      */
     public void limpar (){
        this.clientes.clear();
     }
     
-    /*Get's*/
+    /** Retorna a estrutura da Filial.
+     * @return
+     */
     public List<Map<String,InfoCliente>> getFilialClientes(){
       ArrayList<Map<String,InfoCliente>> lista = new ArrayList<>(26);
       int i;  
       
       for(i=0; i<26; i++){
-         Map<String,InfoCliente> arvore = new TreeMap<String,InfoCliente>();
+         Map<String,InfoCliente> arvore = new HashMap<String,InfoCliente>();
          this.clientes.get(i).forEach( (k,v) -> arvore.put(k,v.clone()));
          //for(String c: this.clientes.get(i).keySet()){
            // arvore.put(c,this.clientes.get(i).get(c));
@@ -233,6 +254,10 @@ public class Filial implements Serializable{
       return lista;
     }
     
+    /** Calcula o índice correspondente a uma determinada letra.
+      * @param letra
+      * @return
+      */
     private static int calculaIndice(char letra){
         return letra - 'A';
     }

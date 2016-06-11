@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 public class Hipermercado implements Serializable{
     
+   private static final int num_filiais = 3;
    private CatClientes catalogoClientes;
    private CatProdutos catalogoProdutos;
    private Facturacao facturacao;
@@ -34,9 +35,19 @@ public class Hipermercado implements Serializable{
        this.catalogoClientes = new CatClientes();
        this.catalogoProdutos = new CatProdutos();
        this.facturacao = new Facturacao();
-       this.filiais = new Filial [3];
-       for(i=0;i<3;i++)
+       this.filiais = new Filial [num_filiais];
+       for(i=0;i<num_filiais;i++)
             filiais[i]= new Filial();
+   }
+   
+   /**
+    * Construtor por cópia.
+    * @param h
+    */
+   public Hipermercado(Hipermercado h){
+       this.catalogoClientes = h.getCatClientes();
+       this.catalogoProdutos = h.getCatProdutos();
+       this.facturacao = h.getFacturacao();
    }
    
    /**
@@ -61,6 +72,15 @@ public class Hipermercado implements Serializable{
     */
    public Facturacao getFacturacao(){
        return this.facturacao; // falta clone
+   }
+   
+   /**
+    * Função que retorna as filiais.
+    */
+   public List<Filial> getFilial(){
+       List<Filial> n_filiais = new ArrayList<Filial>(num_filiais);
+       for(int i=0;i<num_filiais;i++) n_filiais.add(filiais[i]); // falta clone
+       return n_filiais;
    }
    
    /**
@@ -150,7 +170,7 @@ public class Hipermercado implements Serializable{
        
        Set<String> clientes = new TreeSet<String>();
        
-       for(int i=0;i<3;i++){
+       for(int i=0;i<num_filiais;i++){
            numVendas += filiais[i].getNumVendMes(clientes,mes);
        }
        numClientes = clientes.size();
@@ -178,7 +198,7 @@ public class Hipermercado implements Serializable{
            numProds = 0;
            totGasto = 0;
            Set<String> prods = new TreeSet<String>();
-           for(int j=0;j<3;j++){
+           for(int j=0;j<num_filiais;j++){
                ParIntDouble p = filiais[j].getNumCompTotMes(prods,i,cli);
                numCompras += p.getPrimeiro();
                totGasto += p.getSegundo();
@@ -210,7 +230,7 @@ public class Hipermercado implements Serializable{
            listaC.add(i,null); 
 
             for(int j=0;j<12;j++){     
-             for(int i=0;i<3;i++)
+             for(int i=0;i<num_filiais;i++)
                 filiais[i].getNumCompTotMesProd(listaC,prod,j);
             } 
         
@@ -237,7 +257,7 @@ public class Hipermercado implements Serializable{
        if(!catalogoClientes.existeCliente(cli)) throw new ClienteInexistenteException("O cliente " + cli + " não se encontra no Catálogo!");
        
        Map<String,Object> prods = new HashMap<String,Object>();
-       for(int j=0;j<3;j++){
+       for(int j=0;j<num_filiais;j++){
                filiais[j].getProdsMaisComp(cli,prods);
        }
        TreeSet<ParStringInt> inf = new TreeSet<ParStringInt>(new ComparatorParStringInt());
@@ -256,7 +276,7 @@ public class Hipermercado implements Serializable{
        int j;
        TreeSet<TriploStringIntInt> prods = new TreeSet<TriploStringIntInt>(new ComparatorTriploStringIntInt());
        Map<String,ParIntSet> prodscli = new HashMap<String,ParIntSet>();
-       for(j=0;j<3;j++){
+       for(j=0;j<num_filiais;j++){
                filiais[j].getProdsMaisVend(prodscli);
        }
        prodscli.forEach((k,v)->{prods.add(new TriploStringIntInt(k,v.getPrimeiro(),v.getTamanhoSegundo()));});
@@ -274,11 +294,11 @@ public class Hipermercado implements Serializable{
     * @return
     */
    public List<List<ParStringDouble>> getMaioresComp(){
-       List<List<ParStringDouble>> list = new ArrayList<>(3);
-       for(int j=0;j<3;j++){
+       List<List<ParStringDouble>> list = new ArrayList<>(num_filiais);
+       for(int j=0;j<num_filiais;j++){
                List<ParStringDouble> fil = filiais[j].getCompTot();
                Collections.sort(fil,new ComparatorParStringDouble());
-               list.add(j,fil.subList(0,3));
+               list.add(j,fil.subList(0,num_filiais));
        }
        return list;
    }
@@ -293,7 +313,7 @@ public class Hipermercado implements Serializable{
        int j;
        TreeSet<ParStringInt> cli = new TreeSet<ParStringInt>(new ComparatorParStringInt());
        Map<String,Set<String>> cliprods = new HashMap<String,Set<String>>();
-       for(j=0;j<3;j++){
+       for(j=0;j<num_filiais;j++){
            filiais[j].getCliMaisCompDif(cliprods);
        }
        cliprods.forEach((k,v)->{cli.add(new ParStringInt(k,v.size()));});
@@ -317,7 +337,7 @@ public class Hipermercado implements Serializable{
        int j;
        TreeSet<ParStringDouble> cli = new TreeSet<ParStringDouble>(new ComparatorParStringDouble());
        Map<String,ParIntDouble> cliquant = new HashMap<String,ParIntDouble>();
-       for(j=0;j<3;j++){
+       for(j=0;j<num_filiais;j++){
            filiais[j].getCliMaisCompProd(cliquant,prod);
        }
        cliquant.forEach((k,v)->{cli.add(new ParStringDouble(k,v.getSegundo()));});
@@ -327,6 +347,14 @@ public class Hipermercado implements Serializable{
            clii.add(it.next());
        }
        return clii;
+   }
+   
+   /**
+    * Função que faz um clone.
+    * @return
+    */
+   public Hipermercado clone(){
+       return new Hipermercado(this);
    }
    
    /*CONSULTAS ESTATISTICAS*/

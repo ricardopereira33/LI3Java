@@ -81,4 +81,12 @@ public class ParIntDouble implements Serializable
         sb.append("("+this.primeiro+","+this.segundo+")\n");
         return sb.toString();
    }
+   
+   /**
+    * Função que faz um clone.
+    * @return
+    */
+   public ParIntDouble clone(){
+       return new ParIntDouble(this);
+   }
 }

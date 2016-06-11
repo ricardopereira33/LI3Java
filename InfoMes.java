@@ -12,14 +12,22 @@ public class InfoMes implements Serializable
     private int numVendas;
     private double totGasto;
     
+    /**
+     * Construtor vazio.
+     */
     public InfoMes (){
         int i;
         this.produtos = new HashMap<>();
+        this.produtos=null;
         this.quantidade=0;
         this.numVendas = 0;
         this.totGasto = 0;
     }
     
+    /**
+     * Construtor por cópia.
+     * @param im
+     */
     public InfoMes (InfoMes im){
         int indice,i;
         this.produtos = new HashMap<>();
@@ -28,26 +36,36 @@ public class InfoMes implements Serializable
                 for(String produto: im.getProdutos().keySet()){
                     this.produtos.put(produto,im.getProdutos().get(produto).clone());
                 }
-            }
-
-        
+        }
         this.quantidade = im.getQuantidade();
         this.numVendas = im.getNumVendas();
         this.totGasto = im.getTotGasto();
     }
     
+    /** Retorna a quantidade total.
+      * @return
+      */
     public int getQuantidade(){
         return this.quantidade;
     }
     
+    /** Retorna o numero de vendas.
+      * @return
+      */
     public int getNumVendas(){
         return this.numVendas;
     }
     
+    /** Retorna o total gasto.
+      * @return
+      */
     public double getTotGasto(){
         return this.totGasto;
     }
     
+    /** Insere uma determinada venda.
+      * @param v
+      */
     public void insereProdutoQuant(Venda v){
         this.quantidade+= v.getQuantidade();
         this.numVendas++;
@@ -65,6 +83,11 @@ public class InfoMes implements Serializable
         }
     }
     
+    /**
+     * Função para inserir um InfoClienteProduto.
+     * @param v
+     * @param p
+     */
     public void insereProdutoQuantAux(Venda v,String p){
 
         if(produtos.containsKey(p))
@@ -76,6 +99,10 @@ public class InfoMes implements Serializable
                 }
     }
     
+    /** Retorna a informação relativa a um determinado produto.
+      * @param prod
+      * @return
+      */
     public InfoClienteProduto getProdutoInfo(String prod){
         int indice = calculaIndice(prod.charAt(0));
         if(produtos==null) return null;
@@ -83,14 +110,25 @@ public class InfoMes implements Serializable
         else return produtos.get(prod).clone();
     }
     
+    /** Retorna a estrutura relativa aos produtos.
+      * @return
+      */
     public Map<String,InfoClienteProduto> getProdutos(){
         return this.produtos;
     }
     
+    /** Calcula o indice relativo a uma determinada letra.
+     * @param letra
+     * @return
+     */
     private static int calculaIndice(char letra){
         return letra - 'A';
     }
     
+    /**
+     * Função que faz clone.
+     * @return
+     */
     public InfoMes clone(){
         return new InfoMes(this);
     }

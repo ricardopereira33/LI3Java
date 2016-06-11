@@ -64,4 +64,11 @@ public class ParIntInt implements Serializable
         sb.append("("+this.primeiro+","+this.segundo+")\n");
         return sb.toString();
    }
+   
+   /**
+    * Função que faz um clone.
+    */
+   public ParIntInt clone(){
+       return new ParIntInt(this);
+   }
 }
