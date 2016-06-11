@@ -21,14 +21,14 @@ public class Leitura implements Serializable{
     * @param fil
     */
    public static ParIntInt leituraVendas(String ficheiro, CatProdutos prod,CatClientes cli,Facturacao f,Filial fil[]){
-       System.out.println("--------------------------------------------------------");
-       System.out.println("Leitura do ficheiro: " + ficheiro);
+       System.out.println("_____________________________________________________________");
+       System.out.println("     Leitura do ficheiro: " + ficheiro);
        Crono.start();
        ParIntInt n = readLinesWithBuffVendas(ficheiro,cli,prod,f,fil);
        Crono.stop();
-       System.out.println("Linhas lidas: "  +  n.getSegundo() );
-       System.out.println("Tempo: " + Crono.print() + "segundos.");
-       System.out.println("--------------------------------------------------------");
+       System.out.println("     Linhas lidas: "  +  n.getSegundo() );
+       System.out.println("     Tempo: " + Crono.print() + "segundos.");
+       System.out.println("_____________________________________________________________");
        return n;
    } 
    
@@ -38,14 +38,13 @@ public class Leitura implements Serializable{
     * @param cli
     */
    public static void leituraClientes(String ficheiro, CatClientes cli){
-       System.out.println("--------------------------------------------------------");
-       System.out.println("Leitura do ficheiro: " + ficheiro);
+       System.out.println("_____________________________________________________________");
+       System.out.println("     Leitura do ficheiro: " + ficheiro);
        Crono.start();
        readLinesWithBuffCli(ficheiro,cli);
        Crono.stop();
-       System.out.println("Linhas lidas: " + cli.totalClientes());
-       System.out.println("Tempo: " + Crono.print() + "segundos.");
-       System.out.println("--------------------------------------------------------");
+       System.out.println("     Linhas lidas: " + cli.totalClientes());
+       System.out.println("     Tempo: " + Crono.print() + "segundos.");
    }
    
    /**
@@ -54,14 +53,13 @@ public class Leitura implements Serializable{
     * @param prod
     */
    public static void leituraProdutos(String ficheiro, CatProdutos prod){
-       System.out.println("--------------------------------------------------------");
-       System.out.println("Leitura do ficheiro: " + ficheiro);
+       System.out.println("_____________________________________________________________");
+       System.out.println("     Leitura do ficheiro: " + ficheiro);
        Crono.start();
        readLinesWithBuffProd(ficheiro,prod);
        Crono.stop();
-       System.out.println("Linhas lidas: " + prod.totalProdutos());
-       System.out.println("Tempo: " + Crono.print() + "segundos.");
-       System.out.println("--------------------------------------------------------");
+       System.out.println("     Linhas lidas: " + prod.totalProdutos());
+       System.out.println("     Tempo: " + Crono.print() + "segundos.");
    } 
 
    /**
