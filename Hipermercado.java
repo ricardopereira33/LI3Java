@@ -336,19 +336,19 @@ public class Hipermercado implements Serializable{
     * @param x
     * @return TreeSet<ParStringDouble>
     */
-   public TreeSet<ParStringDouble> getCliMaisCompProd(String prod, int x) throws ProdutoInexistenteException{
+   public TreeSet<TriploStringIntDouble> getCliMaisCompProd(String prod, int x) throws ProdutoInexistenteException{
        
        if(!catalogoProdutos.existeProduto(prod)) throw new ProdutoInexistenteException("O produto " + prod + " não se encontra no Catálogo!");
        
        int j;
-       TreeSet<ParStringDouble> cli = new TreeSet<ParStringDouble>(new ComparatorParStringDouble());
+       TreeSet<TriploStringIntDouble> cli = new TreeSet<TriploStringIntDouble>(new ComparatorTriploStringIntDouble());
        Map<String,ParIntDouble> cliquant = new HashMap<String,ParIntDouble>();
        for(j=0;j<num_filiais;j++){
            filiais[j].getCliMaisCompProd(cliquant,prod);
        }
-       cliquant.forEach((k,v)->{cli.add(new ParStringDouble(k,v.getSegundo()));});
-       TreeSet<ParStringDouble> clii = new TreeSet<ParStringDouble>(new ComparatorParStringDouble());
-       Iterator<ParStringDouble> it = cli.iterator();
+       cliquant.forEach((k,v)->{cli.add(new TriploStringIntDouble(k,v.getPrimeiro(),v.getSegundo()));});
+       TreeSet<TriploStringIntDouble> clii = new TreeSet<TriploStringIntDouble>(new ComparatorTriploStringIntDouble());
+       Iterator<TriploStringIntDouble> it = cli.iterator();
        for(j=0;j<x && it.hasNext();j++){
            clii.add(it.next());
        }

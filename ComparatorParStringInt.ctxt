@@ -1,5 +1,5 @@
 #BlueJ class context
 comment0.params=i1\ i2
 comment0.target=int\ compare(ParStringInt,\ ParStringInt)
-comment0.text=\n\ Fun\u00E7\u00E3o\ que\ compara\ duas\ classes\ ParStringInt\n\ @return\ int\n
+comment0.text=\r\n\ Fun\u00E7\u00E3o\ que\ compara\ duas\ classes\ ParStringInt\r\n\ @return\ int\r\n
 numComments=1

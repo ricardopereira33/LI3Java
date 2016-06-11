@@ -528,13 +528,13 @@ public class HipermercadoApp{
            try{
                Scanner is = new Scanner(System.in);
                Crono.start();
-               Collection<ParStringDouble> clientes = hipermercado.getCliMaisCompProd(produto,numero);
+               Collection<TriploStringIntDouble> clientes = hipermercado.getCliMaisCompProd(produto,numero);
                Crono.stop();
                List<String> lista = new ArrayList<String>();
                String cabecalho = "|             Cliente             |             Valor gasto             |\n|_________________________________|_____________________________________|";
                String linha;
-               for(ParStringDouble par: clientes){
-                    linha = "              " + par.getString() + "                              " + par.getNumero() + "             ";
+               for(TriploStringIntDouble triplo: clientes){
+                    linha = "              " + triplo.getPrimeiro() + "                              " + triplo.getTerceiro() + "             ";
                     lista.add(linha);
                }
                ConjuntoPaginas conjunto = new ConjuntoPaginas(lista,20);

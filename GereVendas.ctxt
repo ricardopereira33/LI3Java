@@ -3,5 +3,5 @@ comment0.params=
 comment0.target=GereVendas()
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
-comment1.text=\n\ Fun\u00E7\u00E3o\ main\ do\ programa.\n\ @param\ args\n
+comment1.text=\r\n\ Fun\u00E7\u00E3o\ main\ do\ programa.\r\n\ @param\ args\r\n
 numComments=2
