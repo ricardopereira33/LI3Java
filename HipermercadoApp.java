@@ -11,7 +11,7 @@ import java.util.List;
 public class HipermercadoApp{
     
    private static Hipermercado hipermercado = null;
-   private static Menu menu_principal, menu_queries, menu_leitura;
+   private static Menu menu_principal, menu_queries, menu_leitura, menu_consultas;
    private static MenuPaginas menu_paginas;
    
    private HipermercadoApp() {}
@@ -21,7 +21,7 @@ public class HipermercadoApp{
     * @param args
     */
    
-   public static void main(String[] agrs){
+   public static void startApp(){
        carregarMenus();
        apresentarMenu();
        if(hipermercado != null)
@@ -49,10 +49,14 @@ public class HipermercadoApp{
        String[] menu2 = {"Ler ficheiros default",
                          "Escolher ficheiros a ler",
                          "Carregar dados já existentes"}; 
+       String[] menu3 = {"Número total de compras por mês",
+                         "Facturação por mês",
+                         "Número de clientes que compraram em cada mês"};
        
        menu_principal = new Menu(menu0,0);
        menu_queries = new Menu(menu1,1);
        menu_leitura = new Menu(menu2,2);
+       menu_consultas = new Menu(menu3,3);
    }
    
    /**
@@ -83,7 +87,19 @@ public class HipermercadoApp{
             Scanner sc = new Scanner(System.in);
             sc.nextLine();
        }
-       else{imprimeEstatisticasActual();}
+       else{
+           do{
+               menu_consultas.executa();
+               switch(menu_consultas.getOpcao()){
+                   case 1: imprimeEstatisticasComprasMes();
+                           break;
+                   case 2: imprimeEstatisticasFacturacao();
+                           break;
+                   case 3: imprimeEstatisticasClientesCompras();
+                           break;
+               }
+           }while(menu_consultas.getOpcao()!=0);
+       }
    }
    
    /**
@@ -173,18 +189,29 @@ public class HipermercadoApp{
        System.out.println("_____________________________________________________________");
    }
    
-   /** 
-     * Função que imprime as consultas estatisticas dos dados actuais do Hipermercado.
-     *  
-     */
-   private static void imprimeEstatisticasActual(){
-       System.out.println("|   Número total de compras por mês   |");
+   /**
+    * Função que imprimie as consultas estatísticas - Compras por mês.
+    */
+   private static void imprimeEstatisticasComprasMes(){
+       for(int i=0;i<50;i++) System.out.println(); //limpar
+       System.out.println("|   Número total de compras por mês    |");
        for(int i=0; i<12;i++){
            try{
-               System.out.println(" Mês "+i+": " +hipermercado.getNumVendNumCliMes(i).getPrimeiro());
+               System.out.printf("|     Mês %2d |       %6d            | \n",i+1,hipermercado.getNumVendNumCliMes(i).getPrimeiro());
             }
             catch(Exception e){e.getMessage();}
        }
+       
+       Scanner is = new Scanner(System.in);
+       System.out.println();
+       System.out.print("Pressione ENTER para continuar!");
+       is.nextLine();
+   }
+   
+   /**
+    * Função que imprime as consultas estatísticas - Facturação total por mês.
+    */
+   private static void imprimeEstatisticasFacturacao(){
        System.out.println("|   Facturação total por mês   |");
        int lista1[]= new int[12];
        int lista2[]= new int[12];
@@ -210,16 +237,28 @@ public class HipermercadoApp{
            System.out.println("   Filial 3: " + lista3[i]);
        }
        
+       Scanner is = new Scanner(System.in);
+       System.out.print("Pressione ENTER para continuar!");
+       is.nextLine();
+   }
+   
+   /** 
+     * Função que imprime as consultas estatisticas dos dados actuais do Hipermercado.
+     *  
+     */
+   private static void imprimeEstatisticasClientesCompras(){
+       for(int i=0;i<50;i++) System.out.println(); //limpar
        System.out.println("|   Número de clientes que compraram em cada mês   |");
        for(int i=0; i<12;i++){
            Set<String> cli = new HashSet<>();
            for(int j=0; j<3;j++){
                hipermercado.getCliMes(cli,i,j);
            }
-           System.out.println("Mes"+i+": " +cli.size());
+           System.out.printf("|     Mês %2d |                %7d              |\n",i+1,cli.size());
        }
        
        Scanner is = new Scanner(System.in);
+       System.out.println();
        System.out.print("Pressione ENTER para continuar!");
        is.nextLine();
    }

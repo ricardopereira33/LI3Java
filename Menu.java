@@ -43,6 +43,8 @@ public class Menu implements Serializable{
             System.out.println("\n********************************* Queries *********************************");
         else if(menu_type == 2)
             System.out.println("\n******************************* Menu Leitura *******************************");
+        else if(menu_type == 3)
+             System.out.println("\n******************************* Menu Consultas *******************************");
             
         for (int i=0; i<this.opcoes.size(); i++) {
             System.out.print("   "+(i+1));
@@ -51,7 +53,7 @@ public class Menu implements Serializable{
         }
         if(menu_type == 0)
             System.out.println("                                                          0 - Sair");
-        else if(menu_type == 1 || menu_type == 2)
+        else if(menu_type == 1 || menu_type == 2 || menu_type == 3)
             System.out.println("                                                      0 - Anterior");
         System.out.println("****************************************************************************");
     }
