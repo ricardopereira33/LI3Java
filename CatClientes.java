@@ -148,7 +148,8 @@ public class CatClientes implements Serializable{
      */
     public boolean existeCliente(String cliente){
         int indice = calculaIndice(cliente.charAt(0));
-        return this.catalogo.get(indice).contains(cliente);
+        if(indice < 0 || indice > 25) return false;
+        else return this.catalogo.get(indice).contains(cliente);
     }
     
     /**
