@@ -43,7 +43,7 @@ public class ParIntSet implements Serializable
    
    /**
     * Função que retorna o primeiro.
-    * @return
+    * @return int
     */
    public int getPrimeiro(){
        return this.primeiro;
@@ -51,7 +51,7 @@ public class ParIntSet implements Serializable
    
    /**
     * Função que retorna o segundo.
-    * @return
+    * @return Set<String>
     */
    public Set<String> getSegundo(){
         return this.segundo;
@@ -59,7 +59,7 @@ public class ParIntSet implements Serializable
    
    /**
     * Função que retorna o tamanho do segundo(lista).
-    * @return
+    * @return int
     */
    public int getTamanhoSegundo(){
        return this.segundo.size();
@@ -68,7 +68,7 @@ public class ParIntSet implements Serializable
      /**
     * Função que testa a igualdade.
     * @param obj
-    * @return
+    * @return boolean
     */
    public boolean equals(Object obj) {
         if(obj == this) {
@@ -83,7 +83,7 @@ public class ParIntSet implements Serializable
    
    /**
     * Função para imprimir.
-    * @return
+    * @return String
     */
    public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -93,6 +93,7 @@ public class ParIntSet implements Serializable
    
    /**
     * Função que faz um clone.
+    * @return ParIntSet
     */
    public ParIntSet clone(){
        return new ParIntSet(this);

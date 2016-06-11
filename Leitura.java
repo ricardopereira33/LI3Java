@@ -107,7 +107,7 @@ public class Leitura implements Serializable{
     * @param prod
     * @param f
     * @param fil
-    * @return
+    * @return DadosEstatisticos
     */
     public static DadosEstatisticos readLinesWithBuffVendas(String fich,CatClientes cli,CatProdutos prod,Facturacao f,Filial fil[]) {
       BufferedReader inStream = null; 
@@ -148,7 +148,7 @@ public class Leitura implements Serializable{
     * @param linha
     * @param cli
     * @param prod
-    * @return
+    * @return Venda
     */
    public static Venda parseLinhaVenda(String linha,CatClientes cli,CatProdutos prod){
        

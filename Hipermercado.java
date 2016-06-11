@@ -53,7 +53,7 @@ public class Hipermercado implements Serializable{
    
    /**
     * Função que retorna o Catálogo de Clientes.
-    * @return
+    * @return CatClientes
     */
    public CatClientes getCatClientes(){
        return this.catalogoClientes.clone();
@@ -61,7 +61,7 @@ public class Hipermercado implements Serializable{
    
    /**
     * Função que retorna o Catálogo de Produtos.
-    * @return
+    * @return CatProdutos
     */
    public CatProdutos getCatProdutos(){
        return this.catalogoProdutos.clone();
@@ -69,7 +69,7 @@ public class Hipermercado implements Serializable{
    
    /**
     * Função que retorna a facturação.
-    * @return
+    * @return Facturacao
     */
    public Facturacao getFacturacao(){
        return this.facturacao.clone(); 
@@ -77,6 +77,7 @@ public class Hipermercado implements Serializable{
    
    /**
     * Função que retorna as filiais.
+    * @return List<Filial>
     */
    public List<Filial> getFilial(){
        List<Filial> n_filiais = new ArrayList<Filial>(num_filiais);
@@ -86,7 +87,7 @@ public class Hipermercado implements Serializable{
    
    /**
     * Função que testa se o Hipermercado se encontra vazio.
-    * @return
+    * @return boolean
     */
    public boolean isEmpty(){
        boolean result = true;
@@ -100,6 +101,7 @@ public class Hipermercado implements Serializable{
     * @param ficheiro_clientes
     * @param ficheiro_produtos
     * @param ficheiro_vendas
+    * @return DadosEstatisticos
     */
    public DadosEstatisticos carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
        Leitura.leituraClientes(ficheiro_clientes,catalogoClientes);
@@ -135,7 +137,7 @@ public class Hipermercado implements Serializable{
     /**
      * Iniciar a aplicação com o estado guardado num determinado ficheiro.
      * @param fich
-     * @return
+     * @return Hipermercado
      */
     public static Hipermercado leObj(String fich) throws IOException, ClassNotFoundException {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fich));
@@ -148,7 +150,7 @@ public class Hipermercado implements Serializable{
    /**
     * Função que retorna uma lista ordenada alfabeticamente com os códigos dos produtos
     * nunca comprados e o seu respectivo total.
-    * @return
+    * @return Set<String>
     */
    public Set<String> getProdsNaoComp(){
        Set<String> prods = new TreeSet<String>();
@@ -163,7 +165,7 @@ public class Hipermercado implements Serializable{
     * Função que dado um mês válido, determina o número total de vendas realizadas
     * e o número total de clientes distintos que as fizeram.
     * @param mes
-    * @return
+    * @return ParIntInt
     */
    public ParIntInt getNumVendNumCliMes(int mes) throws MesInvalidoException{
        int numVendas=0;
@@ -184,7 +186,7 @@ public class Hipermercado implements Serializable{
     * Função que dado um código de cliente determina, para cada mês,
     * quantas compras este fez, quantos produtos distintos comprou e quando gastou no total.
     * @param cli
-    * @return
+    * @return  List<TriploIntIntDouble>
     */
    public List<TriploIntIntDouble> getNumCompNumProdTot(String cli) throws ClienteInexistenteException {
        
@@ -216,7 +218,7 @@ public class Hipermercado implements Serializable{
     * Função que dado o código de um produto existente determina, mês a mês
     * quantas vezes foi comprado, por quantos clientes diferentes e o total facturado.
     * @param prod
-    * @return
+    * @return List<TriploIntIntDouble>
     */   
    public List<TriploIntIntDouble> getNumCompNumCliTot(String prod) throws ProdutoInexistenteException{
        
@@ -251,7 +253,7 @@ public class Hipermercado implements Serializable{
     * que mais comprou, ordenada por ordem decrescente de quantidade e, para quantidades iguais
     * por ordem alfabética.
     * @param cli
-    * @return
+    * @return TreeSet<ParStringInt>
     */
    public TreeSet<ParStringInt> getProdsMaisComprados(String cli) throws ClienteInexistenteException{
        
@@ -271,7 +273,7 @@ public class Hipermercado implements Serializable{
     * Determina o conjunto dos N produtos mais vendido em todo o ano, indicando o número total
     * de clientes distintos que o compraram.
     * @param x
-    * @return
+    * @return TreeSet<TriploStringIntInt>
     */
    public TreeSet<TriploStringIntInt> getProdsMaisVend(int x){
        int j;
@@ -292,7 +294,7 @@ public class Hipermercado implements Serializable{
    //QUERIE7
    /**
     * Determina para cada filial, a lista dos três maiores compradores em termos de dinheiro facturado.
-    * @return
+    * @return List<List<ParStringDouble>>
     */
    public List<List<ParStringDouble>> getMaioresComp(){
        List<List<ParStringDouble>> list = new ArrayList<>(num_filiais);
@@ -308,7 +310,7 @@ public class Hipermercado implements Serializable{
    /**
     * Determina os códigos dos N clientes que compraram mais produtos diferentes.
     * @param x
-    * @return
+    * @return TreeSet<ParStringInt>
     */
    public TreeSet<ParStringInt> getCliMaisCompDif(int x){
        int j;
@@ -330,6 +332,9 @@ public class Hipermercado implements Serializable{
    /**
     * Dado o código de um produto, determinar o conjunto dos N clientes que mais o compraram, e para cada um
     * indicar o valor gasto.
+    * @param prod
+    * @param x
+    * @return TreeSet<ParStringDouble>
     */
    public TreeSet<ParStringDouble> getCliMaisCompProd(String prod, int x) throws ProdutoInexistenteException{
        
@@ -352,7 +357,7 @@ public class Hipermercado implements Serializable{
    
    /**
     * Função que faz um clone.
-    * @return
+    * @return Hipermercado
     */
    public Hipermercado clone(){
        return new Hipermercado(this);
@@ -360,22 +365,18 @@ public class Hipermercado implements Serializable{
    
    /*CONSULTAS ESTATISTICAS*/
    
-   /** Calcula o total de vendas num determinado mês.
-     * @return int
-     */
-   public int getTotVendasMes(int mes){
-       return this.facturacao.totalVendas(mes);
-   }
-   
    /** Guarda numa estrutura a factoração de cada mês numa determinada filial.
-     * @return void
+     * @param lista[]
+     * @param filial
      */
    public void getFactTotalMes(double lista[],int filial){
        filiais[filial].totalMes(lista);
    }
    
    /** Guarda numa estrutura os clientes que compraram num determinado mês, numa determinada filial.
-     * @return void
+     * @param cli
+     * @param mes
+     * @param filial
      */
    public void getCliMes(Set<String> cli,int mes,int filial){
        filiais[filial].getCliMes(cli,mes);

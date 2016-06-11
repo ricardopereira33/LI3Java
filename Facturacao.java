@@ -50,7 +50,7 @@ public class Facturacao implements Serializable{
     /** 
      * Verifica se um Produto existe na Facturação.
      * @param prod
-     * @return 
+     * @return boolean
      */
     public boolean existeProd(String prod){
         int indice = calculaIndice(prod.charAt(0));
@@ -66,7 +66,7 @@ public class Facturacao implements Serializable{
     
     /** 
      * Retorna um clone da Facturação.
-     * @return
+     * @return List<Map<String,InfoProduto>>
      */
     public List<Map<String,InfoProduto>> getFactProdutos(){
       ArrayList<Map<String,InfoProduto>> lista = new ArrayList<>(26);
@@ -84,7 +84,7 @@ public class Facturacao implements Serializable{
     /** 
      * Calcula o índice da lista correspondente a uma determinada letra. 
      * @param letra
-     * @return
+     * @return int
      */
     private static int calculaIndice(char letra){
         return letra - 'A';
@@ -92,7 +92,7 @@ public class Facturacao implements Serializable{
     
     /** 
      * Calcula o número de produtos diferentes comprados. 
-     * @return
+     * @return int
      */
     public int nProdDif(){
         int total=0;
@@ -104,7 +104,7 @@ public class Facturacao implements Serializable{
     
     /** 
      * Calcula o total Facturado.
-     * @return
+     * @return double
      */
     public double total(){
         double total=0;
@@ -121,7 +121,7 @@ public class Facturacao implements Serializable{
     
     /** 
      * Calcula o total de compras de valor igual a 0.
-     * @return
+     * @return int
      */
     public int zeros(){
       int total=0;
@@ -140,7 +140,7 @@ public class Facturacao implements Serializable{
      * Calcula para cada mês, o número de vendas e o total facturado com um dado produto.
      * @param lista
      * @param prod
-     * @return
+     * @return List<ParIntDouble>
       */
      public List<ParIntDouble> getNumVendasFactTotal(List<ParIntDouble> lista,String prod){
         int indice = calculaIndice(prod.charAt(0));
@@ -166,7 +166,7 @@ public class Facturacao implements Serializable{
     }
     
     /** Calcula o numero de produtos diferentes. 
-      * @return
+      * @return int
       */
     public int totalProdutos(){
       int total=0;
@@ -180,7 +180,7 @@ public class Facturacao implements Serializable{
     
     /** Calcula o numero de vendas num determinado mes.
       * @param mes 
-      * @return
+      * @return int
       */
       public int totalVendas(int mes){
       int total=0;
@@ -197,6 +197,7 @@ public class Facturacao implements Serializable{
     
     /**
      * Função que faz clone.
+     * @return Facturacao
      */
     public Facturacao clone(){
         return new Facturacao(this);
@@ -204,6 +205,7 @@ public class Facturacao implements Serializable{
     
     /**
      * Função que testa a igualdade.
+     * @return boolean
      */
     public boolean equals(Object obj){
         if(this==obj) return true;

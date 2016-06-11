@@ -59,7 +59,7 @@ public class CatClientes implements Serializable{
     
     /**
      * Função que retorna o catálogo.
-     * @return
+     * @return List<Set<String>> 
      */
     public List<Set<String>> getCatalogo(){//retornar um clone??
         return this.catalogo;
@@ -67,7 +67,7 @@ public class CatClientes implements Serializable{
    
     /**
      * Função que retorna a lista de Clientes.
-     * @return
+     * @return List<String>
      */
     public List<String> getClientes(){
         List<String> lista = new ArrayList<String>();
@@ -83,7 +83,7 @@ public class CatClientes implements Serializable{
     /**
      * Função que retorna uma lista de Clientes começados por uma determinada letra.
      * @param letra
-     * @return
+     * @return List<String>
      */
     public List<String> getClientesLetra(char letra){
         int indice = calculaIndice(letra);
@@ -96,7 +96,7 @@ public class CatClientes implements Serializable{
     /**
      * Função que calcula o índice dado a primeira letra de um cliente.
      * @param letra
-     * @return
+     * @return int
      */
     private static int calculaIndice(char letra){
         letra = Character.toUpperCase(letra);
@@ -105,7 +105,7 @@ public class CatClientes implements Serializable{
     
     /**
      * Função que retorna o total de clientes presentes no Catálogo.
-     * @return
+     * @return int
      */
     public int totalClientes(){
         int total=0;
@@ -117,7 +117,7 @@ public class CatClientes implements Serializable{
     /**
      * Função que retorna o total de clientes de uma determinada letra presentes no Catálogo.
      * @param letra
-     * @return 
+     * @return int
      */
     public int totalClientesLetra(char letra){
         return this.catalogo.get(calculaIndice(letra)).size();
@@ -144,7 +144,7 @@ public class CatClientes implements Serializable{
     /**
      * Função que determina a existência ou não de um cliente no catálogo.
      * @param cliente
-     * @return
+     * @return boolean
      */
     public boolean existeCliente(String cliente){
         int indice = calculaIndice(cliente.charAt(0));
@@ -154,7 +154,7 @@ public class CatClientes implements Serializable{
     /**
      * Função que testa a igualdade.
      * @param obj
-     * @return
+     * @return boolean
      */
     public boolean equals(Object obj) {
         if (this == obj) {

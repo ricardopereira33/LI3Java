@@ -25,7 +25,7 @@ public class ParIntInt implements Serializable
    
    /**
     * Função que retorna o primeiro elemento.
-    * @return
+    * @return int
     */
    public int getPrimeiro(){
        return this.primeiro;
@@ -33,7 +33,7 @@ public class ParIntInt implements Serializable
    
    /**
     * Função que retorna o segundo elemento.
-    * @return
+    * @return int
     */
    public int getSegundo(){
        return this.segundo;
@@ -42,7 +42,7 @@ public class ParIntInt implements Serializable
    /**
     * Função que testa a igualdade.
     * @param obj
-    * @return
+    * @return boolean
     */
    public boolean equals(Object obj) {
         if(obj == this) {
@@ -57,7 +57,7 @@ public class ParIntInt implements Serializable
    
    /**
     * Função para imprimir.
-    * @return
+    * @return String
     */
    public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -67,6 +67,7 @@ public class ParIntInt implements Serializable
    
    /**
     * Função que faz um clone.
+    * @return ParIntInt
     */
    public ParIntInt clone(){
        return new ParIntInt(this);

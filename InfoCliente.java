@@ -44,7 +44,7 @@ public class InfoCliente implements Serializable
    
     /** 
      * Retorna o total facturado.
-     * @return
+     * @return double
      */
    public double getTotFact(){
        return this.totFact;
@@ -52,7 +52,7 @@ public class InfoCliente implements Serializable
     
     /**
      * Retorna os meses.
-     * @return
+     * @return Map<Integer,InfoMes>
      */
     public Map<Integer,InfoMes> getMeses(){
         Map<Integer,InfoMes> n = new HashMap<Integer,InfoMes>();
@@ -63,7 +63,7 @@ public class InfoCliente implements Serializable
    /** 
     * Retorna a informação relativa a um determinado mês.
     * @param indice
-    * @return
+    * @return InfoMes
     */
    public InfoMes getMesIndex(int indice){
        if(this.meses.get(indice)==null) return null;
@@ -72,7 +72,7 @@ public class InfoCliente implements Serializable
     
    /**
     * Função que faz clone.
-    * @return
+    * @return InfoCliente
     */
    public InfoCliente clone(){
        return new InfoCliente(this);
@@ -80,6 +80,8 @@ public class InfoCliente implements Serializable
     
    /**
      * Função que testa a igualdade.
+     * @param obj
+     * @return boolean 
      */
     public boolean equals(Object obj){
         if(this==obj) return true;
@@ -91,7 +93,7 @@ public class InfoCliente implements Serializable
     /** 
      * Calcula o indice relativo a uma determinada letra.
      * @param letra 
-     * @return
+     * @return int
      */
     private static int calculaIndice(char letra){
         return letra - 'A';

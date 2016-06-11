@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class ComparatorParStringInt implements Comparator<ParStringInt>, Serializable
 {
+     /**
+    * Função que compara duas classes ParStringInt
+    * @return int
+    */
     public int compare(ParStringInt i1, ParStringInt i2) {
         if(i1.getNumero()>i2.getNumero()) return -1;
         if(i1.getNumero()<i2.getNumero()) return 1;

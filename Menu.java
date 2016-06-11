@@ -12,6 +12,8 @@ public class Menu implements Serializable{
 
     /**
      * Construtor para objetos da classe Menu
+     * @param opcoes
+     * @param type
      */
     public Menu(String[] opcoes, int type){
         this.opcoes = new ArrayList<String>();
@@ -67,7 +69,7 @@ public class Menu implements Serializable{
     
     /**
      * Função ler uma opção do menu.
-     * @return
+     * @return int
      */
     private int lerOpcao() {
         int op; 
@@ -91,7 +93,7 @@ public class Menu implements Serializable{
     
     /**
      * Obter opção selecionada.
-     * @return 
+     * @return int
      */
     public int getOpcao() {
         return this.op;

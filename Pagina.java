@@ -16,7 +16,7 @@ public class Pagina implements Serializable{
     
     /**
      * Função que retorna os elementos da página.
-     * @return
+     * @return  List<String>
      */
     public List<String> getElementos(){
         return elementos;

@@ -57,7 +57,7 @@ public class InfoProduto implements Serializable
    
    /**
     * Retorna a matriz dos Sem-Promoção (N).
-    * @return
+    * @return PrecoQuantidade[][]
     */
    public PrecoQuantidade[][] getN(){
        return N;
@@ -65,7 +65,7 @@ public class InfoProduto implements Serializable
    
    /**
     * Retorna a matriz dos Com-Promoção (P).
-    * @return
+    * @return PrecoQuantidade[][]
     */
    public PrecoQuantidade[][] getP(){
        return P;
@@ -74,7 +74,7 @@ public class InfoProduto implements Serializable
    /** Retorna a estrutura PrecoQuantidade referente a um determinado mês, de uma determinada filial,no modo Normal.
      * @param mes
      * @param filial
-     * @return
+     * @return PrecoQuantidade
      */
    public PrecoQuantidade getPromoN(int mes, int filial){
        return N[mes][filial].clone();
@@ -83,7 +83,7 @@ public class InfoProduto implements Serializable
    /** Retorna a estrutura PrecoQuantidade referente a um determinado mês, de uma determinada filial,no modo Promoção.
      * @param mes
      * @param filial
-     * @return
+     * @return PrecoQuantidade
      */
     public PrecoQuantidade getPromoP(int mes, int filial){
        return P[mes][filial].clone();
@@ -91,14 +91,14 @@ public class InfoProduto implements Serializable
    
    /**
     * Função responsável por fazer clone.
-    * @return
+    * @return InfoProduto
     */
    public InfoProduto clone(){
        return new InfoProduto(this);
    } 
    
    /** Calcula o total Facturado.
-      * @return
+      * @return double
       */
    public double total(){
        int i,j;
@@ -114,7 +114,7 @@ public class InfoProduto implements Serializable
     }
     
    /** Calcula o total de compras de valor igual a 0.
-     * @return
+     * @return int
      */
    public int zero(){
        int i,j;
@@ -134,7 +134,7 @@ public class InfoProduto implements Serializable
    
    /** Calcula para cada mês, o número de unidades compradas e a facturação total(de um dado produto).
      * @param lista
-     * @return
+     * @return List<ParIntDouble>
      */
     public List<ParIntDouble> NumVendasFactTotal(List<ParIntDouble> lista){
        int i,j;
@@ -155,7 +155,7 @@ public class InfoProduto implements Serializable
     }
     
     /** Calcula a quantidade total vendida(de um determinado produto).
-      * @return
+      * @return int
       */
     public int totalQuant(){
        int i,j;
@@ -170,7 +170,8 @@ public class InfoProduto implements Serializable
     }
     
     /** Calcula o número de vendas num determinado mês.
-      * @return
+      * @param mes
+      * @return int
       */
      public int numVendasTotal(int mes){
        int i,j;
@@ -186,6 +187,8 @@ public class InfoProduto implements Serializable
     }
     /**
      * Função que testa a igualdade.
+     * @param obj
+     * @return boolean
      */
     public boolean equals(Object obj){
         if(this==obj) return true;

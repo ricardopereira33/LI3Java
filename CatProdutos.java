@@ -59,7 +59,7 @@ public class CatProdutos implements Serializable{
     
     /**
      * Função que retorna o catálogo.
-     * @return
+     * @return List<Set<String>>
      */
     public List<Set<String>> getCatalogo(){
         return this.catalogo;
@@ -67,7 +67,7 @@ public class CatProdutos implements Serializable{
    
     /**
      * Função que retorna a lista de Produtos.
-     * @return
+     * @return  List<String>
      */
     public List<String> getProdutos(){
         List<String> lista = new ArrayList<String>();
@@ -83,7 +83,7 @@ public class CatProdutos implements Serializable{
     /**
      * Função que retorna uma lista de Produtos começados por uma determinada letra.
      * @param letra
-     * @return
+     * @return List<String>
      */
     public List<String> getProdutosLetra(char letra){
         int indice = calculaIndice(letra);
@@ -96,7 +96,7 @@ public class CatProdutos implements Serializable{
     /**
      * Função que calcula o índice dado a primeira letra de um produto.
      * @param letra
-     * @return
+     * @return int
      */
     private static int calculaIndice(char letra){
         letra = Character.toUpperCase(letra);
@@ -105,7 +105,7 @@ public class CatProdutos implements Serializable{
     
     /**
      * Função que retorna o total de produtos presentes no Catálogo.
-     * @return
+     * @return int
      */
     public int totalProdutos(){
         int total=0;
@@ -117,7 +117,7 @@ public class CatProdutos implements Serializable{
     /**
      * Função que retorna o total de produtos de uma determinada letra presentes no Catálogo.
      * @param letra
-     * @return 
+     * @return int
      */
     public int totalProdutosLetra(char letra){
         return this.catalogo.get(calculaIndice(letra)).size();
@@ -144,7 +144,7 @@ public class CatProdutos implements Serializable{
     /**
      * Função que determina a existência ou não de um produto no catálogo.
      * @param produto
-     * @return
+     * @return boolean
      */
     public boolean existeProduto(String produto){
         int indice = calculaIndice(produto.charAt(0));
@@ -153,6 +153,7 @@ public class CatProdutos implements Serializable{
     
     /**
      * Função que faz clone do Catálogo de Produtos.
+     * @return CatProdutos
      */
     public CatProdutos clone(){
         return new CatProdutos(this);
@@ -161,7 +162,7 @@ public class CatProdutos implements Serializable{
     /**
      * Função que testa a igualdade.
      * @param obj
-     * @return
+     * @return booelan
      */
     public boolean equals(Object obj) {
         if (this == obj) {

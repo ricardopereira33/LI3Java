@@ -36,7 +36,7 @@ public class Filial implements Serializable{
      * Calcula o número de vendas num determinado mês, e guarda os clientes que as fizeram.
      * @param clientes
      * @param mes
-     * @return
+     * @return int
       */
     public int getNumVendMes(Set<String> clientes,int mes){
         int i;
@@ -56,6 +56,7 @@ public class Filial implements Serializable{
      * @param prods
      * @param mes
      * @param clie
+     * @return ParIntDouble
      */
     public ParIntDouble getNumCompTotMes(Set<String> prods,int mes,String cli){
         int indice = calculaIndice(cli.charAt(0));
@@ -157,7 +158,7 @@ public class Filial implements Serializable{
     
     /** 
      * Guarda num estrutura cada cliente com a respectiva facturação total.
-     * @return
+     * @return List<ParStringDouble>
      */
     public List<ParStringDouble> getCompTot(){
         List<ParStringDouble> list = new ArrayList<>();
@@ -247,7 +248,7 @@ public class Filial implements Serializable{
     
     /** 
      * Retorna a estrutura da Filial.
-     * @return
+     * @return List<Map<String,InfoCliente>>
      */
     public List<Map<String,InfoCliente>> getFilialClientes(){
       ArrayList<Map<String,InfoCliente>> lista = new ArrayList<>(26);
@@ -266,7 +267,7 @@ public class Filial implements Serializable{
     }
     
     /** Guarda numa estrutura todos os clientes que fizeram compras na Filial.
-     * @return void
+     * @param lista
      */
     public void total(Set<String> lista){
         for(int i=0; i<26; i++){
@@ -277,7 +278,7 @@ public class Filial implements Serializable{
     }
     
     /** Guarda numa estrutura a factoração de cada mês.
-     * @return void
+     * @param lista
      */
     public void totalMes(double lista[]){
         int j;
@@ -298,7 +299,8 @@ public class Filial implements Serializable{
     }
     
     /** Guarda numa estrutura os clientes que compraram num determinado mês.
-     * @return void
+     * @param clie
+     * @param mes
      */
     public void getCliMes(Set<String> clie, int mes){
         int j;
@@ -319,7 +321,7 @@ public class Filial implements Serializable{
     /** 
      * Calcula o índice correspondente a uma determinada letra.
      * @param letra
-     * @return
+     * @return int
      */
     private static int calculaIndice(char letra){
         return letra - 'A';
@@ -327,6 +329,7 @@ public class Filial implements Serializable{
     
     /**
      * Função para fazer clone.
+     * @return Filial
      */
     public Filial clone(){
         return new Filial(this);
@@ -334,6 +337,7 @@ public class Filial implements Serializable{
     
     /**
      * Função que testa a igualdade.
+     * @return boolean
      */
     public boolean equals(Object obj){
         if(this==obj) return true;

@@ -27,7 +27,7 @@ public class PrecoQuantidade implements Serializable
    
    /** 
      * Insere uma Venda.
-     * @return
+     * @param v
      */
    public void inserePrecoQuant(Venda v){
        this.totalprice += v.getPreco()*v.getQuantidade();
@@ -37,7 +37,7 @@ public class PrecoQuantidade implements Serializable
     
    /** 
     * Retorna o total facturado.
-    * @return
+    * @return double
     */
    public double getTotalPrice(){
        return this.totalprice;
@@ -45,7 +45,7 @@ public class PrecoQuantidade implements Serializable
    
     /** 
      * Retorna a quantidade total comprada.
-     * @return
+     * @return int
      */
    public int getTotalVendas(){
        return this.totalVendas;
@@ -53,7 +53,7 @@ public class PrecoQuantidade implements Serializable
    
     /** 
      * Retorna o número de vendas.
-     * @return
+     * @return int
      */
    public int getTotalQuant(){
        return this.totalQuant;
@@ -61,7 +61,7 @@ public class PrecoQuantidade implements Serializable
     
    /**
     * Função que faz o clone.
-    * @return
+    * @return PrecoQuantidade
     */
    public PrecoQuantidade clone(){
        return new PrecoQuantidade(this);
@@ -69,6 +69,8 @@ public class PrecoQuantidade implements Serializable
     
    /**
      * Função que testa a igualdade.
+     * @param obj
+     * @return boolean
      */
     public boolean equals(Object obj){
         if(this==obj) return true;

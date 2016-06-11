@@ -29,7 +29,7 @@ public class TriploIntIntDouble implements Serializable{
    
    /**
     * Função que retorna o primeiro elemento.
-    * @return
+    * @return int
     */
    public int getPrimeiro(){
        return this.primeiro;
@@ -37,7 +37,7 @@ public class TriploIntIntDouble implements Serializable{
    
    /**
     * Função que retorna o segundo elemento.
-    * @return
+    * @return int
     */
    public int getSegundo(){
        return this.segundo;
@@ -45,7 +45,7 @@ public class TriploIntIntDouble implements Serializable{
    
    /**
     * Função que retorna o terceiro elemento.
-    * @return
+    * @return double
     */
    public double getTerceiro(){
        return this.terceiro;
@@ -54,7 +54,7 @@ public class TriploIntIntDouble implements Serializable{
    /**
     * Função que testa a igualdade.
     * @param obj
-    * @return
+    * @return boolean
     */
    public boolean equals(Object obj) {
         if(obj == this) {
@@ -69,7 +69,7 @@ public class TriploIntIntDouble implements Serializable{
     
    /**
     * Função para imprimir.
-    * @return
+    * @return String
     */
    public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -79,7 +79,7 @@ public class TriploIntIntDouble implements Serializable{
     
    /**
     * Função que faz clone.
-    * @return
+    * @return TriploIntIntDouble
     */
    public TriploIntIntDouble clone(){
        return new TriploIntIntDouble(this);

@@ -54,7 +54,7 @@ public class Venda implements Serializable{
     
     /**
      * Função que retorna o Produto.
-     * @return
+     * @return String
      */
     public String getProduto(){
         return this.produto;
@@ -62,7 +62,7 @@ public class Venda implements Serializable{
     
     /**
      * Função que retorna o Cliente.
-     * @return
+     * @return String
      */
     public String getCliente(){
         return this.cliente;
@@ -70,7 +70,7 @@ public class Venda implements Serializable{
     
     /**
      * Função que retorna o preço.
-     * @return 
+     * @return double
      */
     public double getPreco(){
         return this.preco;
@@ -78,7 +78,7 @@ public class Venda implements Serializable{
     
     /**
      * Função que retorna a quantidade.
-     * @return
+     * @return int
      */
     public int getQuantidade(){
         return this.quantidade;
@@ -86,7 +86,7 @@ public class Venda implements Serializable{
     
     /**
      * Função que retorna a informação (Promoção ou não).
-     * @return
+     * @return char 
      */
     public char getInfoPromo(){
         return this.infoPromo;
@@ -94,7 +94,7 @@ public class Venda implements Serializable{
     
     /**
      * Função que retorna o mês.
-     * @return
+     * @return int
      */
     public int getMes(){
         return this.mes;
@@ -102,7 +102,7 @@ public class Venda implements Serializable{
     
     /**
      * Função que retorna a filial.
-     * @return
+     * @return int
      */
     public int getFilial(){
         return this.filial;
@@ -110,7 +110,7 @@ public class Venda implements Serializable{
     
     /**
      * Função responsável por retornar um clone.
-     * @return
+     * @return Venda
      */
     public Venda clone() {
         return new Venda(this);
@@ -119,7 +119,7 @@ public class Venda implements Serializable{
     /**
      * Função responsável por testar a igualdade.
      * @param obj
-     * @return
+     * @return boolean
      */
     public boolean equals(Object obj) {
         if(obj == this) {
@@ -140,7 +140,7 @@ public class Venda implements Serializable{
     
     /**
      * Função responsável por imprimir.
-     * @return
+     * @return String
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -167,10 +167,9 @@ public class Venda implements Serializable{
     
     /**
      * Função responsável por calcular o hashCode.
-     * @return
+     * @return int
      */
     public int hashCode(){
-        //return produto.hashCode()+cliente.hashCode()+quantidade+(int)preco+(String.valueOf(infoPromo)).hashCode()+mes;
         return Arrays.hashCode(new Object[]{produto,cliente,preco,quantidade,infoPromo,mes,filial});
     }
 }

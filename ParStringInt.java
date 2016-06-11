@@ -25,7 +25,7 @@ public class ParStringInt implements Serializable
    
    /**
     * Função que retorna a string.
-    * @return
+    * @return String
     */
    public String getString(){
         return this.str;
@@ -33,7 +33,7 @@ public class ParStringInt implements Serializable
    
    /**
     * Função que retorna o número.
-    * @return
+    * @return int
     */
    public int getNumero(){
         return this.num;
@@ -41,7 +41,7 @@ public class ParStringInt implements Serializable
    
    /**
     * Função que retorna um clone.
-    * @return
+    * @return ParStringInt
     */
    public ParStringInt clone() {
         return new ParStringInt(this);
@@ -50,7 +50,7 @@ public class ParStringInt implements Serializable
    /**
     * Função que testa a igualdade.
     * @param obj
-    * @return
+    * @return boolean
     */
    public boolean equals(Object obj) {
         if(obj == this) {
@@ -65,7 +65,7 @@ public class ParStringInt implements Serializable
    
    /**
     * Função para imprimir.
-    * @return
+    * @return String
     */
    public String toString() {
         StringBuilder sb = new StringBuilder();

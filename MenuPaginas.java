@@ -65,7 +65,7 @@ public class MenuPaginas implements Serializable{
     
     /**
      * Função ler uma opção do menu.
-     * @return
+     * @return int
      */
     private int lerPagina() {
         int p; 
@@ -90,7 +90,7 @@ public class MenuPaginas implements Serializable{
     
     /**
      * Obter opção selecionada.
-     * @return
+     * @return int
      */
     public int getPagina() {
         return this.pagina;

@@ -1,14 +1,14 @@
 #BlueJ class context
 comment0.params=elementos
 comment0.target=Pagina(java.util.List)
-comment0.text=\r\n\ Construtor\ de\ uma\ p\u00E1gina.\r\n\ @param\ elementos\r\n
+comment0.text=\n\ Construtor\ de\ uma\ p\u00E1gina.\n\ @param\ elementos\n
 comment1.params=
 comment1.target=java.util.List\ getElementos()
-comment1.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ os\ elementos\ da\ p\u00E1gina.\r\n\ @return\r\n
+comment1.text=\n\ Fun\u00E7\u00E3o\ que\ retorna\ os\ elementos\ da\ p\u00E1gina.\n\ @return\ \ List<String>\n
 comment2.params=elementos
 comment2.target=void\ setElementos(java.util.List)
-comment2.text=\r\n\ Fun\u00E7\u00E3o\ que\ define\ os\ elementos\ da\ p\u00E1gina.\r\n\ @param\ elementos\r\n
+comment2.text=\n\ Fun\u00E7\u00E3o\ que\ define\ os\ elementos\ da\ p\u00E1gina.\n\ @param\ elementos\n
 comment3.params=elemento
 comment3.target=void\ addElemento(java.lang.String)
-comment3.text=\r\n\ Fun\u00E7\u00E3o\ que\ adiciona\ um\ elemento\ a\ uma\ p\u00E1gina.\r\n\ @param\ elemento\r\n
+comment3.text=\n\ Fun\u00E7\u00E3o\ que\ adiciona\ um\ elemento\ a\ uma\ p\u00E1gina.\n\ @param\ elemento\n
 numComments=4

@@ -1,5 +1,5 @@
 #BlueJ class context
 comment0.params=msg
 comment0.target=ProdutoInexistenteException(java.lang.String)
-comment0.text=\r\n\ Exce\u00E7\u00E3o\ para\ um\ produto\ que\ n\u00E3o\ est\u00E1\ presente\ no\ Cat\u00E1logo\ de\ produtos.\r\n
+comment0.text=\n\ Exce\u00E7\u00E3o\ para\ um\ produto\ que\ n\u00E3o\ est\u00E1\ presente\ no\ Cat\u00E1logo\ de\ produtos.\n\ @param\ msg\n
 numComments=1

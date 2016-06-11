@@ -612,7 +612,7 @@ public class HipermercadoApp{
     
    /**
     * Função responsável pelo input do mês.
-    * @return
+    * @return int
     */
    private static int inputMes(){
         int mes;
@@ -632,7 +632,7 @@ public class HipermercadoApp{
    
    /**
     * Função responsável pelo input de um número.
-    * @return
+    * @return int
     */
    private static int inputNumero(){
         int numero;
@@ -651,7 +651,7 @@ public class HipermercadoApp{
    
    /**
     * Função responsável pelo input de um Cliente.
-    * @return
+    * @return String
     */
    private static String inputCliente(){
        String cliente;
@@ -664,7 +664,7 @@ public class HipermercadoApp{
    
    /**
     * Função responsável pelo input de um Produto.
-    * @return
+    * @return String
     */
    private static String inputProduto(){
        String produto;

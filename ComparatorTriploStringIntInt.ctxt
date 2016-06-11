@@ -1,4 +1,5 @@
 #BlueJ class context
 comment0.params=i1\ i2
 comment0.target=int\ compare(TriploStringIntInt,\ TriploStringIntInt)
+comment0.text=\n\ Fun\u00E7\u00E3o\ que\ compara\ duas\ classes\ TriploStringIntInt.\n\ @return\ int\n
 numComments=1

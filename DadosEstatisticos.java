@@ -79,7 +79,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o Nome do ficheiro.
-     * @return
+     * @return String
      */
    public String getFicheiro(){
     return this.ficheiro;
@@ -87,7 +87,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o numero de Vendas validas.
-     * @return
+     * @return int
    */
    public int getVendasValidas(){
       return this.vendasValidas;
@@ -95,7 +95,7 @@ public class DadosEstatisticos implements Serializable
     
    /**
      * Função que retorna o numero de Vendas invalidas.
-     * @return
+     * @return int
    */
    public int getVendasErradas(){
       return this.vendasErradas;
@@ -103,7 +103,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o numero de Produtos diferentes.
-     * @return
+     * @return int
      */
     public int getProdutos(){
       return this.produtos;
@@ -111,7 +111,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o numero de Produtos diferentes que foram comprados.
-     * @return
+     * @return int
      */
    public int getProdutosDif(){
       return this.produtosDif;
@@ -119,7 +119,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna numero de Produtos diferentes que nao foram comprados.
-     * @return
+     * @return int
      */
    public int getProdutosNaoComprados(){
       return this.produtosNaoComprados;
@@ -127,7 +127,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o numero de Clientes diferentes.
-     * @return
+     * @return int
      */
    public int getClientes(){
       return this.clientes;
@@ -135,7 +135,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o numero de Clientes diferentes que compraram.
-     * @return
+     * @return int
      */
    public int getClientesCompraram(){
       return  this.clientesCompraram;
@@ -143,7 +143,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o numero de Clientes diferentes nao que compraram.
-     * @return
+     * @return int
      */
    public int getClientesNaoCompraram(){
       return this.clientesNaoCompraram;
@@ -151,7 +151,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o numero de Vendas com o preco a 0.
-     * @return
+     * @return int
      */
    public int getTotalZeros(){
       return  this.totalZeros;
@@ -159,7 +159,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função que retorna o total facturado.
-     * @return
+     * @return int
      */
    public double getTotalFacturado(){
       return this.totalFacturado;
@@ -167,7 +167,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função responsável por retornar um clone.
-     * @return
+     * @return int
      */
    public DadosEstatisticos clone (){
        return new DadosEstatisticos(this);
@@ -176,7 +176,7 @@ public class DadosEstatisticos implements Serializable
    /**
      * Função que testa a igualdade.
      * @param obj
-     * @return
+     * @return int
      */
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -201,7 +201,7 @@ public class DadosEstatisticos implements Serializable
    
    /**
      * Função responsável por imprimir.
-     * @return
+     * @return String
      */
    public String toString(){
        StringBuilder str = new StringBuilder();

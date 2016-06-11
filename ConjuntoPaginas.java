@@ -38,7 +38,7 @@ public class ConjuntoPaginas implements Serializable{
     /**
      * Função para retornar uma página.
      * @param pagina
-     * @return
+     * @return Pagina
      */
     public Pagina getPagina(int pagina){
         if(pagina <= totalPaginas && pagina>0)
@@ -48,7 +48,7 @@ public class ConjuntoPaginas implements Serializable{
     
     /**
      * Função que retorna o número total de páginas presentes no conjunto.
-     * @return 
+     * @return int
      */
     public int getTotalPaginas(){
         return totalPaginas;

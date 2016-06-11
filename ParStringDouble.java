@@ -28,7 +28,7 @@ public class ParStringDouble implements Serializable{
     
     /**
      * Função que retorna a String.
-     * @return
+     * @return String
      */
     public String getString(){
         return this.string;
@@ -36,7 +36,7 @@ public class ParStringDouble implements Serializable{
     
     /**
      * Função que retorna o número.
-     * @return
+     * @return Double
      */
     public Double getNumero(){
         return this.numero;
@@ -44,7 +44,7 @@ public class ParStringDouble implements Serializable{
     
     /**
      * Função que faz um clone.
-     * @return
+     * @return ParStringDouble
      */
     public ParStringDouble clone() {
         return new ParStringDouble(this);
@@ -53,7 +53,7 @@ public class ParStringDouble implements Serializable{
     /** 
      * Função que testa a igualdade.
      * @param obj
-     * @return
+     * @return boolean
      */
     public boolean equals(Object obj) {
         if(obj == this) {
@@ -68,7 +68,7 @@ public class ParStringDouble implements Serializable{
     
     /**
      * Função para imprimir.
-     * @return
+     * @return String
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();

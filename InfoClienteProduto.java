@@ -37,7 +37,7 @@ public class InfoClienteProduto implements Serializable
     
     /**
      * Retorna o array com as quantidades.
-     * @return
+     * @return int[]
      */
     public int[] getQuant(){
         return quantity;
@@ -46,7 +46,7 @@ public class InfoClienteProduto implements Serializable
     /** 
      * Retorna a quantidade presente num determinado indice da estrututa.
      * @param indice
-     * @return
+     * @return int
      */
     public int getQuantity(int indice){
         return this.quantity[indice];
@@ -54,7 +54,7 @@ public class InfoClienteProduto implements Serializable
     
     /**
      * Retorna o array com o total gasto.
-     * @return
+     * @return double[]
      */
     public double[] getGasto(){
         return totGasto;
@@ -63,7 +63,7 @@ public class InfoClienteProduto implements Serializable
     /** 
      * Retorna o total gasto presente num determinado indice da estrututa.
      * @param indice
-     * @return
+     * @return double[]
      */
     public double getTotGasto(int indice){
         return this.totGasto[indice];
@@ -71,7 +71,7 @@ public class InfoClienteProduto implements Serializable
     
     /** 
      * Retorna o número de vendas.
-     * @return
+     * @return int
      */
     public int getNumVendas(){
         return this.numVendas;
@@ -95,7 +95,7 @@ public class InfoClienteProduto implements Serializable
     
     /**
      * Função responsável por fazer clone.
-     * @return
+     * @return InfoClienteProduto
      */
     public InfoClienteProduto clone(){
         return new InfoClienteProduto(this);
@@ -103,6 +103,8 @@ public class InfoClienteProduto implements Serializable
     
     /**
      * Função que testa a igualdade.
+     * @param obj
+     * @return boolean
      */
     public boolean equals(Object obj){
         if(this==obj) return true;

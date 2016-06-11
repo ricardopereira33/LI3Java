@@ -1,20 +1,20 @@
 #BlueJ class context
 comment0.params=opcoes\ type
 comment0.target=Menu(java.lang.String[],\ int)
-comment0.text=\r\n\ Construtor\ para\ objetos\ da\ classe\ Menu\r\n
+comment0.text=\n\ Construtor\ para\ objetos\ da\ classe\ Menu\n\ @param\ opcoes\n\ @param\ type\n
 comment1.params=
 comment1.target=void\ executa()
-comment1.text=\r\n\ Fun\u00E7\u00E3o\ para\ executar\ o\ menu.\r\n
+comment1.text=\n\ Fun\u00E7\u00E3o\ para\ executar\ o\ menu.\n
 comment2.params=
 comment2.target=void\ showMenu()
-comment2.text=\r\n\ Fun\u00E7\u00E3o\ para\ mostrar\ o\ menu.\r\n
+comment2.text=\n\ Fun\u00E7\u00E3o\ para\ mostrar\ o\ menu.\n
 comment3.params=
 comment3.target=void\ clearConsole()
-comment3.text=\r\n\ Fun\u00E7\u00E3o\ para\ limpar\ a\ consola.\r\n
+comment3.text=\n\ Fun\u00E7\u00E3o\ para\ limpar\ a\ consola.\n
 comment4.params=
 comment4.target=int\ lerOpcao()
-comment4.text=\r\n\ Fun\u00E7\u00E3o\ ler\ uma\ op\u00E7\u00E3o\ do\ menu.\r\n\ @return\r\n
+comment4.text=\n\ Fun\u00E7\u00E3o\ ler\ uma\ op\u00E7\u00E3o\ do\ menu.\n\ @return\ int\n
 comment5.params=
 comment5.target=int\ getOpcao()
-comment5.text=\r\n\ Obter\ op\u00E7\u00E3o\ selecionada.\r\n\ @return\ \r\n
+comment5.text=\n\ Obter\ op\u00E7\u00E3o\ selecionada.\n\ @return\ int\n
 numComments=6
