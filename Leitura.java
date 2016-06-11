@@ -20,16 +20,16 @@ public class Leitura implements Serializable{
     * @param f
     * @param fil
     */
-   public static void leituraVendas(String ficheiro, CatProdutos prod,CatClientes cli,Facturacao f,Filial fil[]){
+   public static ParIntInt leituraVendas(String ficheiro, CatProdutos prod,CatClientes cli,Facturacao f,Filial fil[]){
        System.out.println("--------------------------------------------------------");
        System.out.println("Leitura do ficheiro: " + ficheiro);
        Crono.start();
-       int n=readLinesWithBuffVendas(ficheiro,cli,prod,f,fil);
+       ParIntInt n = readLinesWithBuffVendas(ficheiro,cli,prod,f,fil);
        Crono.stop();
-       System.out.println("Linhas lidas: "  + n );
+       System.out.println("Linhas lidas: "  +  n.getSegundo() );
        System.out.println("Tempo: " + Crono.print() + "segundos.");
        System.out.println("--------------------------------------------------------");
-   
+       return n;
    } 
    
    /**
@@ -111,25 +111,27 @@ public class Leitura implements Serializable{
     * @param fil
     * @return
     */
-    public static int readLinesWithBuffVendas(String fich,CatClientes cli,CatProdutos prod,Facturacao f,Filial fil[]) {
+    public static ParIntInt readLinesWithBuffVendas(String fich,CatClientes cli,CatProdutos prod,Facturacao f,Filial fil[]) {
       BufferedReader inStream = null; 
       String linha = null;
       Venda v;
       int total=0;
+      int validas=0;
       try {
             inStream = new BufferedReader(new FileReader(fich));
             while( (linha = inStream.readLine()) != null ){
+                total++;
                 v = parseLinhaVenda(linha,cli,prod);
                 if(v!=null){
                     f.insereVenda(v);
                     fil[v.getFilial()-1].insereVenda(v);
-                    total++;
+                    validas++;
                 }
             }
       }
       catch(IOException e) 
           { System.out.println(e.getMessage());  };
-      return total;
+      return new ParIntInt(total,validas);
    }
    
    /**

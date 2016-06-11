@@ -46,7 +46,6 @@ public class Filial implements Serializable{
                 InfoMes m = entry.getValue().getMesIndex(mes);
                 if(m!=null){numVend += m.getNumVendas();clientes.add(entry.getKey());}; 
             }
-            //this.clientes.get(i).forEach((k,v)->{InfoMes m = v.getMesIndex(mes); if(m!=null){numVend += m.getNumVendas();clientes.add(k);};});
         }
         return numVend;
     }
@@ -114,18 +113,13 @@ public class Filial implements Serializable{
             for(i=0;i<12;i++){
                 InfoMes m = this.clientes.get(indice).get(cli).getMesIndex(i);
                 if(m!=null){
-                   
-                            for(Map.Entry<String,InfoClienteProduto> entry : m.getProdutos().entrySet()){
-                                if(prods.containsKey(entry.getKey())){
-                                    String prod = entry.getKey();
-                                    Object actual = prods.get(prod);
-                                    int actual2 = (int)actual + (entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1));
-                                    prods.remove(prod);
-                                    prods.put(prod,actual2);
-                                }
-                                else{prods.put(entry.getKey(),(entry.getValue().getQuantity(0)+entry.getValue().getQuantity(1)));}
-                            }
-                      
+                            m.getProdutos().forEach((k,v)-> {if(prods.containsKey(k)){
+                                                                Object actual = prods.get(k);
+                                                                int actual2 = (int)actual + (v.getQuantity(0)+v.getQuantity(1));
+                                                                prods.remove(k);
+                                                                prods.put(k,actual2);
+                                                             }
+                                                             else{prods.put(k,(v.getQuantity(0)+v.getQuantity(1)));}});
                 }
             }
         }
@@ -142,7 +136,6 @@ public class Filial implements Serializable{
                 for(j=0;j<12;j++){
                     InfoMes m = clientes.getValue().getMesIndex(j);
                     if(m!=null){
-                        
                                 for(Map.Entry<String,InfoClienteProduto> entry : m.getProdutos().entrySet()){
                                     String prod = entry.getKey();
                                     InfoClienteProduto info = entry.getValue(); 
@@ -156,7 +149,6 @@ public class Filial implements Serializable{
                                         prodscli.put(prod,par);
                                     }
                                 }
-                         
                     }
                 }
             }
@@ -271,6 +263,57 @@ public class Filial implements Serializable{
       }
         
       return lista;
+    }
+    
+    /** Guarda numa estrutura todos os clientes que fizeram compras na Filial.
+     * @return void
+     */
+    public void total(Set<String> lista){
+        for(int i=0; i<26; i++){
+            for( String cliente : this.clientes.get(i).keySet()){
+                lista.add(cliente);
+            }
+        }
+    }
+    
+    /** Guarda numa estrutura a factoração de cada mês.
+     * @return void
+     */
+    public void totalMes(int lista[]){
+        int j;
+        for(int i=0; i<26; i++){
+            Map<String,InfoCliente> clientes = this.clientes.get(i);
+            for(String cli : clientes.keySet()){
+                for(j=0;j<12;j++){
+                    InfoCliente ic = clientes.get(cli);
+                    if(ic!=null){
+                        InfoMes m = ic.getMesIndex(j);
+                        if(m!=null){
+                            lista[j]+=m.getTotGasto();
+                        }
+                    }
+                }
+                }
+        }
+    }
+    
+    /** Guarda numa estrutura os clientes que compraram num determinado mês.
+     * @return void
+     */
+    public void getCliMes(Set<String> clie, int mes){
+        int j;
+        for(int i=0; i<26; i++){
+            Map<String,InfoCliente> clientes = this.clientes.get(i);
+            for(String cli : this.clientes.get(i).keySet()){
+                 InfoCliente ic = clientes.get(cli);
+                 if(ic!=null){
+                     InfoMes m = ic.getMesIndex(mes);
+                     if(m!=null){
+                         clie.add(cli);
+                     }
+                 }
+            }
+        }
     }
     
     /** 

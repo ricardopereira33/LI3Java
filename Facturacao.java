@@ -165,6 +165,36 @@ public class Facturacao implements Serializable{
         }
     }
     
+    /** Calcula o numero de produtos diferentes. 
+      * @return
+      */
+    public int totalProdutos(){
+      int total=0;
+      
+      for(Map<String,InfoProduto> lista : produtos){
+            total += lista.size();
+      }
+        
+      return total;
+    }
+    
+    /** Calcula o numero de vendas num determinado mes.
+      * @param mes 
+      * @return
+      */
+      public int totalVendas(int mes){
+      int total=0;
+      
+      for(Map<String,InfoProduto> lista : produtos){
+          for(String produto : lista.keySet()){
+                InfoProduto ip = lista.get(produto);
+                total+=ip.numVendasTotal(mes);
+            }     
+      }
+        
+      return total;
+    }
+    
     /**
      * Função que faz clone.
      */

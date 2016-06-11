@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.HashSet;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -82,7 +83,7 @@ public class HipermercadoApp{
             Scanner sc = new Scanner(System.in);
             sc.nextLine();
        }
-       else; // fazer aqui!!
+       else{imprimeEstatisticasActual();}
    }
    
    /**
@@ -149,11 +150,79 @@ public class HipermercadoApp{
     }
    
    /**
+     * Fucção que imprime as consultas estatisticas após leitura de ficheiro.
+     * @param n
+     * @param ficheiro
+     */
+   private static void imprimeEstatisticasLeitura(ParIntInt n, String ficheiro){
+       System.out.println("Nome do ficheiro: "+ficheiro);
+       System.out.println("Registos de vendas errados: "  + (n.getPrimeiro() - n.getSegundo()));
+       System.out.println("Número de produtos: " + hipermercado.getTotProdsDif());
+       System.out.println("Número de diferentes produtos comprados: " + hipermercado.getTotProdsComp());
+       System.out.println("Número de diferentes produtos não comprados: " + hipermercado.getTotProdsNaoComp());
+       int cli = hipermercado.getTotCliDif();
+       System.out.println("Número de Clientes: " + cli);
+       int clii = hipermercado.getTotCliComp();
+       System.out.println("Número de Clientes que realizaram compras: " + clii);
+       System.out.println("Número de Clientes que nada compraram: " + (cli-clii));
+       System.out.println("Total de compras de valor igual a 0: " + hipermercado.getCompZero());
+       System.out.println("Facturação total: " + hipermercado.getFactTot());
+   }
+   
+   /** 
+     * Função que imprime as consultas estatisticas dos dados actuais do Hipermercado.
+     *  
+     */
+   private static void imprimeEstatisticasActual(){
+       System.out.println("|Número total de compras por mês|");
+       for(int i=0; i<12;i++){
+           try{
+               System.out.println("Mes"+i+": " +hipermercado.getNumVendNumCliMes(i).getPrimeiro());
+            }
+            catch(Exception e){e.getMessage();}
+       }
+       System.out.println("|Facturação total por mês|");
+       int lista1[]= new int[12];
+       int lista2[]= new int[12];
+       int lista3[]= new int[12];
+       for(int i=0;i<12;i++){
+           lista1[i]=0;
+           lista2[i]=0;
+           lista3[i]=0;
+       }
+       
+       for(int i=0; i<3;i++){
+           switch(i){ 
+               case 0:  hipermercado.getFactTotalMes(lista1,i);break;
+               case 1:  hipermercado.getFactTotalMes(lista2,i);break;
+               case 2:  hipermercado.getFactTotalMes(lista3,i);break;
+           }
+       }
+       
+       for(int i=0;i<12;i++){
+           System.out.println("Mes "+i+" : "+ hipermercado.getTotVendasMes(i));
+           System.out.println("Filial 1: " + lista1[i]);
+           System.out.println("Filial 2: " + lista2[i]);
+           System.out.println("Filial 3: " + lista3[i]);
+       }
+       
+       System.out.println("|Numero de clientes que compraram em cada mês|");
+       for(int i=0; i<12;i++){
+           Set<String> cli = new HashSet<>();
+           for(int j=0; j<3;j++){
+               hipermercado.getCliMes(cli,i,j);
+           }
+           System.out.println("Mes"+i+": " +cli.size());
+       }
+   }
+   
+   /**
     * Responsável pela leitura dos ficheiros default.
     */
    private static void leituraNormal(){
        criaNovoHiper();
-       hipermercado.carregaDados("../Clientes.txt","../Produtos.txt","../Vendas_1M.txt");
+       ParIntInt n = hipermercado.carregaDados("../Clientes.txt","../Produtos.txt","../Vendas_1M.txt");
+       imprimeEstatisticasLeitura(n,"Vendas_1M.txt");
        Scanner is = new Scanner(System.in);
        System.out.print("Pressione ENTER para continuar!");
        is.nextLine();
@@ -172,7 +241,8 @@ public class HipermercadoApp{
        System.out.print("Ficheiro de Vendas: ");
        String ficheiro_vendas = is.nextLine();
       
-       hipermercado.carregaDados(ficheiro_clientes,ficheiro_produtos,ficheiro_vendas);
+       ParIntInt n = hipermercado.carregaDados(ficheiro_clientes,ficheiro_produtos,ficheiro_vendas);
+       imprimeEstatisticasLeitura(n,ficheiro_vendas);
        System.out.print("Pressione ENTER para continuar!");
        is.nextLine();
    }

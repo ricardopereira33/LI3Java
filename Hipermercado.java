@@ -100,10 +100,11 @@ public class Hipermercado implements Serializable{
     * @param ficheiro_produtos
     * @param ficheiro_vendas
     */
-   public void carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
+   public ParIntInt carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
        Leitura.leituraClientes(ficheiro_clientes,catalogoClientes);
        Leitura.leituraProdutos(ficheiro_produtos,catalogoProdutos);
-       Leitura.leituraVendas(ficheiro_vendas,catalogoProdutos,catalogoClientes,facturacao,filiais);
+       ParIntInt n = Leitura.leituraVendas(ficheiro_vendas,catalogoProdutos,catalogoClientes,facturacao,filiais);
+       return n;
    }
    
    /**
@@ -358,15 +359,98 @@ public class Hipermercado implements Serializable{
    }
    
    /*CONSULTAS ESTATISTICAS*/
+   /** Calcula o número total de Produtos diferentes comprados.
+     * @return
+     */
    public int numeroProdutosDif(){
        return facturacao.nProdDif();       
     }
-    
+   
+   /** Calcula a facturação total.
+     * @return
+     */
    public double facturacaoTotal(){
        return facturacao.total();
     } 
    
+   /** Calcula o número de vendas com valor igual a 0.
+     * @return
+     */
    public int zeros(){
        return facturacao.zeros();
+   }
+   
+   /** Calcula o número total de Produtos diferentes.
+     * @return int
+     */
+   public int getTotProdsDif(){
+       return catalogoProdutos.totalProdutos();
+   }
+   
+   /** Calcula o número total de Produtos diferentes comprados.
+     * @return int
+     */
+   public int getTotProdsComp(){
+       return facturacao.totalProdutos();
+   }
+   
+   /** Calcula o número total de Produtos não comprados.
+     * @return int
+     */
+   public int getTotProdsNaoComp(){
+       return getProdsNaoComp().size();
+   }
+   
+   /** Calcula o número total de Clientes diferentes.
+     * @return int
+     */
+   public int getTotCliDif(){
+       return catalogoClientes.totalClientes();
+   }
+   
+   /** Calcula o número total de Clientes que realizaram compras.
+     * @return int
+     */
+   public int getTotCliComp(){
+       Set<String> clientes = new HashSet<>();
+       for(int i =0;i<3;i++){
+           this.filiais[i].total(clientes);
+       }
+       return clientes.size();
+   }
+   
+    /** Calcula o total de compras igual a 0.
+     * @return int
+     */
+   public int getCompZero(){
+        return facturacao.zeros();
+   }
+   
+   /** Calcula a facturação total.
+     * @return double
+     */
+   public double getFactTot(){
+       return facturacao.total();
+    }
+    
+   /** Calcula o total de vendas num determinado mês.
+     * @return int
+     */
+   public int getTotVendasMes(int mes){
+       return this.facturacao.totalVendas(mes);
+   }
+   
+   /** Guarda numa estrutura a factoração de cada mês numa determinada filial.
+     * @return void
+     */
+   public void getFactTotalMes(int lista[],int filial){
+       filiais[filial].totalMes(lista);
+   }
+   
+   /** Guarda numa estrutura os clientes que compraram num determinado mês, numa determinada filial.
+     * @return void
+     */
+   public void getCliMes(Set<String> cli,int mes,int filial){
+       filiais[filial].getCliMes(cli,mes);
    }
 }

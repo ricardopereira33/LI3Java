@@ -169,6 +169,21 @@ public class InfoProduto implements Serializable
        return total;
     }
     
+    /** Calcula o número de vendas num determinado mês.
+      * @return
+      */
+     public int numVendasTotal(int mes){
+       int i,j;
+       int total=0;
+       
+        for(j=0;j<3;j++){
+            if(this.P[mes][j]!=null){total+=this.P[mes][j].getTotalQuant();} 
+            if(this.N[mes][j]!=null){total+=this.N[mes][j].getTotalQuant();}
+        }
+       
+
+       return total;
+    }
     /**
      * Função que testa a igualdade.
      */
