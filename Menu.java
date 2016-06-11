@@ -4,8 +4,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.Serializable;
 
-// IMPORTANTE: ESTÁ A USAR SCANNER!! 
-
 public class Menu implements Serializable{
    
     private List<String> opcoes;
@@ -58,12 +56,16 @@ public class Menu implements Serializable{
         System.out.println("****************************************************************************");
     }
     
+    /**
+     * Função para limpar a consola.
+     */
     private void clearConsole(){
         for(int i=0;i<50;i++) System.out.println();
     }
     
     /**
      * Função ler uma opção do menu.
+     * @return
      */
     private int lerOpcao() {
         int op; 

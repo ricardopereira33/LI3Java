@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.Map;
 import java.util.TreeMap;
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class Facturacao implements Serializable{
     private List<Map<String,InfoProduto>> produtos;
@@ -15,7 +16,7 @@ public class Facturacao implements Serializable{
         Map<String,InfoProduto> arvore;
         
         for(int i=0; i<26; i++){
-            arvore = new TreeMap<String,InfoProduto>();
+            arvore = new HashMap<String,InfoProduto>();
             this.produtos.add(i,arvore);
         }
     }

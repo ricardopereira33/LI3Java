@@ -12,6 +12,12 @@ public class MenuPaginas implements Serializable{
     private int pagina;
     private int menu_type;
     
+    /**
+     * Construtor para objetos da classe Menu Páginas
+     * @param conjuntoPaginas
+     * @param type
+     * @param cabecalho
+     */
     public MenuPaginas(ConjuntoPaginas conjuntoPaginas, int type, String cabecalho){
         this.conjuntoPaginas = conjuntoPaginas;
         this.pagina = 1;
@@ -19,6 +25,9 @@ public class MenuPaginas implements Serializable{
         this.cabecalho = cabecalho;
     }
 
+    /**
+     * Função para executar o menu das páginas.
+     */
     public void executa(){
         do {
             showPagina();
@@ -27,6 +36,9 @@ public class MenuPaginas implements Serializable{
         while(this.pagina != 0);
     }
     
+    /**
+     * Função para mostrar uma página.
+     */
     private void showPagina() {
         clearConsole();
         
@@ -35,18 +47,26 @@ public class MenuPaginas implements Serializable{
         if(cabecalho != null){
             System.out.println(cabecalho);
         }
-        for(String elemento: conjuntoPaginas.getPagina(pagina).getElementos())
-            System.out.println(elemento);
+        if(conjuntoPaginas.getPagina(pagina).getElementos()!=null)
+            for(String elemento: conjuntoPaginas.getPagina(pagina).getElementos())
+                System.out.println(elemento);
         
         if(menu_type == 0)
             System.out.println("                                                          0 - Sair");
         System.out.println("****************************************************************************");
     }
     
+    /**
+     * Função para limpar a consola.
+     */
     private void clearConsole(){
         for(int i=0;i<50;i++) System.out.println();
     }
     
+    /**
+     * Função ler uma opção do menu.
+     * @return
+     */
     private int lerPagina() {
         int p; 
         Scanner is = new Scanner(System.in);
@@ -68,6 +88,10 @@ public class MenuPaginas implements Serializable{
         return pagina;
     }
     
+    /**
+     * Obter opção selecionada.
+     * @return
+     */
     public int getPagina() {
         return this.pagina;
     }

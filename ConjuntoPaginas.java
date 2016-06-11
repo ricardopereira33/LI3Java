@@ -9,6 +9,11 @@ public class ConjuntoPaginas implements Serializable{
     private int tamanho;
     private int totalPaginas = 0;
     
+    /**
+     * Construtor de um conjunto de páginas.
+     * @param lista
+     * @param tamanho
+     */
     public ConjuntoPaginas(Collection<String> lista, int tamanho){
         int indice = 0;
         paginas = new ArrayList<Pagina>();
@@ -30,12 +35,21 @@ public class ConjuntoPaginas implements Serializable{
         this.totalPaginas = indice+1;
     }
     
+    /**
+     * Função para retornar uma página.
+     * @param pagina
+     * @return
+     */
     public Pagina getPagina(int pagina){
         if(pagina <= totalPaginas && pagina>0)
             return paginas.get(pagina-1);
         else return null;
     }
     
+    /**
+     * Função que retorna o número total de páginas presentes no conjunto.
+     * @return 
+     */
     public int getTotalPaginas(){
         return totalPaginas;
     }

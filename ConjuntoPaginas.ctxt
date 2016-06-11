@@ -1,8 +1,11 @@
 #BlueJ class context
 comment0.params=lista\ tamanho
 comment0.target=ConjuntoPaginas(java.util.Collection,\ int)
+comment0.text=\r\n\ Construtor\ de\ um\ conjunto\ de\ p\u00E1ginas.\r\n\ @param\ lista\r\n\ @param\ tamanho\r\n
 comment1.params=pagina
 comment1.target=Pagina\ getPagina(int)
+comment1.text=\r\n\ Fun\u00E7\u00E3o\ para\ retornar\ uma\ p\u00E1gina.\r\n\ @param\ pagina\r\n\ @return\r\n
 comment2.params=
 comment2.target=int\ getTotalPaginas()
+comment2.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ o\ n\u00FAmero\ total\ de\ p\u00E1ginas\ presentes\ no\ conjunto.\r\n\ @return\ \r\n
 numComments=3

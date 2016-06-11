@@ -1,4 +1,5 @@
 #BlueJ class context
 comment0.params=msg
 comment0.target=MesInvalidoException(java.lang.String)
+comment0.text=\r\n\ Exce\u00E7\u00E3o\ para\ um\ m\u00EAs\ inv\u00E1lido.\r\n
 numComments=1

@@ -1,14 +1,20 @@
 #BlueJ class context
 comment0.params=conjuntoPaginas\ type\ cabecalho
 comment0.target=MenuPaginas(ConjuntoPaginas,\ int,\ java.lang.String)
+comment0.text=\r\n\ Construtor\ para\ objetos\ da\ classe\ Menu\ P\u00E1ginas\r\n\ @param\ conjuntoPaginas\r\n\ @param\ type\r\n\ @param\ cabecalho\r\n
 comment1.params=
 comment1.target=void\ executa()
+comment1.text=\r\n\ Fun\u00E7\u00E3o\ para\ executar\ o\ menu\ das\ p\u00E1ginas.\r\n
 comment2.params=
 comment2.target=void\ showPagina()
+comment2.text=\r\n\ Fun\u00E7\u00E3o\ para\ mostrar\ uma\ p\u00E1gina.\r\n
 comment3.params=
 comment3.target=void\ clearConsole()
+comment3.text=\r\n\ Fun\u00E7\u00E3o\ para\ limpar\ a\ consola.\r\n
 comment4.params=
 comment4.target=int\ lerPagina()
+comment4.text=\r\n\ Fun\u00E7\u00E3o\ ler\ uma\ op\u00E7\u00E3o\ do\ menu.\r\n\ @return\r\n
 comment5.params=
 comment5.target=int\ getPagina()
+comment5.text=\r\n\ Obter\ op\u00E7\u00E3o\ selecionada.\r\n\ @return\r\n
 numComments=6

@@ -1,12 +1,17 @@
 #BlueJ class context
 comment0.params=primeiro
 comment0.target=ParIntSet(int)
+comment0.text=\r\n\ Construtor\ por\ par\u00E2metros.\r\n\ @param\ primeiro\r\n
 comment1.params=x
 comment1.target=void\ addPrimeiro(int)
+comment1.text=\r\n\ Fun\u00E7\u00E3o\ que\ aumenta\ o\ primeiro\ elemento.\r\n\ @param\ x\r\n
 comment2.params=str
 comment2.target=void\ addSegundo(java.lang.String)
+comment2.text=\r\n\ Fun\u00E7\u00E3o\ que\ adiciona\ ao\ segundo.\r\n\ @param\ str\r\n
 comment3.params=
 comment3.target=int\ getPrimeiro()
+comment3.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ o\ primeiro.\r\n\ @return\r\n
 comment4.params=
 comment4.target=int\ getTamanhoSegundo()
+comment4.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ o\ tamanho\ do\ segundo(lista).\r\n\ @return\r\n
 numComments=5

@@ -1,16 +1,23 @@
 #BlueJ class context
 comment0.params=str\ num
 comment0.target=ParStringInt(java.lang.String,\ int)
+comment0.text=\r\n\ Construtor\ por\ par\u00E2metros.\r\n\ @param\ str\r\n\ @param\ num\r\n
 comment1.params=a
 comment1.target=ParStringInt(ParStringInt)
+comment1.text=\r\n\ Constutor\ por\ c\u00F3pia.\r\n\ @param\ a\r\n
 comment2.params=
 comment2.target=java.lang.String\ getString()
+comment2.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ a\ string.\r\n\ @return\r\n
 comment3.params=
 comment3.target=int\ getNumero()
+comment3.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ o\ n\u00FAmero.\r\n\ @return\r\n
 comment4.params=
 comment4.target=ParStringInt\ clone()
+comment4.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ um\ clone.\r\n\ @return\r\n
 comment5.params=obj
 comment5.target=boolean\ equals(java.lang.Object)
+comment5.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ um\ clone.\r\n\ @param\ obj\r\n\ @return\r\n
 comment6.params=
 comment6.target=java.lang.String\ toString()
+comment6.text=\r\n\ Fun\u00E7\u00E3o\ para\ imprimir.\r\n\ @return\r\n
 numComments=7

@@ -15,7 +15,6 @@ public class InfoMes implements Serializable
     public InfoMes (){
         int i;
         this.produtos = new HashMap<>();
-        this.produtos=null;
         this.quantidade=0;
         this.numVendas = 0;
         this.totGasto = 0;

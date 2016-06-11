@@ -1,17 +1,23 @@
 #BlueJ class context
 comment0.params=ficheiro\ prod\ cli\ f\ fil
 comment0.target=void\ leituraVendas(java.lang.String,\ CatProdutos,\ CatClientes,\ Facturacao,\ Filial[])
+comment0.text=\r\n\ Fun\u00E7\u00E3o\ que\ faz\ a\ leitura\ e\ cronometragem\ do\ ficheiro\ das\ Vendas.\r\n\ @param\ ficheiro\r\n\ @param\ prod\r\n\ @param\ cli\r\n\ @param\ f\r\n\ @param\ fil\r\n
 comment1.params=ficheiro\ cli
 comment1.target=void\ leituraClientes(java.lang.String,\ CatClientes)
+comment1.text=\r\n\ Fun\u00E7\u00E3o\ que\ faz\ a\ leitura\ e\ cronometragem\ do\ ficheiro\ dos\ Clientes.\r\n\ @param\ ficheiro\r\n\ @param\ cli\r\n
 comment2.params=ficheiro\ prod
 comment2.target=void\ leituraProdutos(java.lang.String,\ CatProdutos)
+comment2.text=\r\n\ Fun\u00E7\u00E3o\ que\ faz\ a\ leitura\ e\ cronometragem\ do\ ficheiros\ dos\ Produtos.\r\n\ @param\ ficheiro\r\n\ @param\ prod\r\n
 comment3.params=fich\ cli
 comment3.target=void\ readLinesWithBuffCli(java.lang.String,\ CatClientes)
-comment3.text=public\ static\ ArrayList<String>\ readLinesArrayWithScanner(String\ ficheiro)\ {\r\n\ \ \ \ \ \ \ \ ArrayList<String>\ linhas\ \=\ new\ ArrayList<>();\r\n\ \ \ \ \ \ \ \ Scanner\ scanFile\ \=\ null;\r\n\ \ \ \ \ \ \ \ try\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ scanFile\ \=\ new\ Scanner(new\ FileReader(ficheiro));\r\n\ \ \ \ \ \ \ \ \ \ \ \ scanFile.useDelimiter("\\n\\r");\r\n\ \ \ \ \ \ \ \ \ \ \ \ while(scanFile.hasNext())\ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ linhas.add(scanFile.nextLine());\r\n\ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ catch(IOException\ ioExc)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ {\ System.out.println(ioExc.getMessage());\ return\ null;\ }\r\n\ \ \ \ \ \ \ \ finally\ {\ if(scanFile\ \!\=\ null)\ scanFile.close();\ }\r\n\ \ \ \ \ \ \ \ return\ linhas;\r\n}
+comment3.text=\r\n\ Fun\u00E7\u00E3o\ que\ faz\ a\ leitura\ do\ ficheiro\ dos\ Clientes.\r\n\ @param\ fich\r\n\ @param\ cli\r\n
 comment4.params=fich\ prod
 comment4.target=void\ readLinesWithBuffProd(java.lang.String,\ CatProdutos)
+comment4.text=\r\n\ Fun\u00E7\u00E3o\ que\ faz\ a\ leitura\ do\ ficheiro\ dos\ Produtos.\r\n\ @param\ fich\r\n\ @param\ prod\r\n
 comment5.params=fich\ cli\ prod\ f\ fil
 comment5.target=int\ readLinesWithBuffVendas(java.lang.String,\ CatClientes,\ CatProdutos,\ Facturacao,\ Filial[])
+comment5.text=\r\n\ Fun\u00E7\u00E3o\ que\ faz\ a\ leitura\ do\ ficheiro\ das\ Vendas.\r\n\ @param\ fich\r\n\ @param\ cli\r\n\ @param\ prod\r\n\ @param\ f\r\n\ @param\ fil\r\n\ @return\r\n
 comment6.params=linha\ cli\ prod
 comment6.target=Venda\ parseLinhaVenda(java.lang.String,\ CatClientes,\ CatProdutos)
+comment6.text=\r\n\ Fun\u00E7\u00E3o\ que\ faz\ parsing\ das\ linhas\ do\ ficheiro\ Vendas.\r\n\ @param\ linha\r\n\ @param\ cli\r\n\ @param\ prod\r\n\ @return\r\n
 numComments=7

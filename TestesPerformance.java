@@ -14,14 +14,14 @@ public class TestesPerformance implements Serializable
    public static void main(String [ ] args){
        System.out.println("Leitura com Scanner(sem parsing):");
        Crono.start();
-       List<String> listaScanner= readLinesWithScanner("../Vendas_5M.txt");
+       List<String> listaScanner= readLinesWithScanner("../Vendas_1M.txt");
        Crono.stop();
        System.out.println("Linhas lidas: "+listaScanner.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.\n");
        listaScanner.clear();
        System.out.println("Leitura com Buffer(sem parsing):");
        Crono.start();
-       List<String> listaBuffer= readLinesWithBuff("../Vendas_5M.txt");
+       List<String> listaBuffer= readLinesWithBuff("../Vendas_1M.txt");
        Crono.stop();
        System.out.println("Linhas lidas: "+listaBuffer.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");
@@ -29,14 +29,14 @@ public class TestesPerformance implements Serializable
        listaBuffer.clear();
        System.out.println("Leitura com Scanner(com parsing):");
        Crono.start();
-       List<Venda> listaScanner2= readLinesWithScannerVendas("../Vendas_5M.txt");
+       List<Venda> listaScanner2= readLinesWithScannerVendas("../Vendas_1M.txt");
        Crono.stop();
        System.out.println("Vendas criadas: "+listaScanner2.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.\n");
        listaScanner2.clear();
        System.out.println("Leitura com Buffer(com parsing):");
        Crono.start();
-       List<Venda> listaBuffer2= readLinesWithBuffVendas("../Vendas_5M.txt");
+       List<Venda> listaBuffer2= readLinesWithBuffVendas("../Vendas_1M.txt");
        Crono.stop();
        System.out.println("Vendas criadas: "+listaBuffer2.size());
        System.out.println("Tempo: " + Crono.print() + "segundos.");

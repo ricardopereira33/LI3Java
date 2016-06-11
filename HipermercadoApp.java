@@ -15,21 +15,21 @@ public class HipermercadoApp{
    
    private HipermercadoApp() {}
    
-   public static void main(String[] args){
+   /**
+    * Função principal de toda a aplicação.
+    * @param args
+    */
+   
+   public static void main(String[] agrs){
        carregarMenus();
        apresentarMenu();
-       
-       /*System.out.println("---------------------------");
-       System.out.println("Nª total de produtos diferentes comprados:" + hipermercado.numeroProdutosDif());
-       System.out.println("Nª total 0 :" + hipermercado.zeros());
-       System.out.println("Nª total :" + hipermercado.facturacaoTotal());
-       System.out.println("");
-       System.out.println("----------------------------");*/
-       
-       if(hipermercado != null) hipermercado.limpar();
+       if(hipermercado != null)
+           hipermercado.limpar();
    }
    
-   
+   /**
+    * Função responsável por carregar os Menus.
+    */
    private static void carregarMenus(){
        String[] menu0 = {"Carregar dados",
                          "Menu",
@@ -53,6 +53,9 @@ public class HipermercadoApp{
        menu_leitura = new Menu(menu2,2);
    }
    
+   /**
+    * Função responsável por aprensentar o Menu Principal.
+    */
    private static void apresentarMenu(){
        do{
            menu_principal.executa();
@@ -67,6 +70,9 @@ public class HipermercadoApp{
        }while(menu_principal.getOpcao()!=0);
    }
    
+   /**
+    * Função responsável por aprensentar, se possível, o Menu das Queries.
+    */
    private static void abrirMenu(){
        
        if(hipermercado == null ||hipermercado.isEmpty()){
@@ -101,6 +107,9 @@ public class HipermercadoApp{
        }
    }
    
+   /**
+    * Função responsável por apresentar o Menu de carregamento de dados.
+    */
    private static void carregarInformacao(){
        int ready = 0;
        do{
@@ -116,11 +125,17 @@ public class HipermercadoApp{
        }while(menu_leitura.getOpcao()!=0 && ready==0);
    }
    
+   /**
+    * Função que cria uma nova classe Hipermercado.
+    */
    private static void criaNovoHiper(){
        if(hipermercado!=null)hipermercado.limpar();
        hipermercado = new Hipermercado();
     }
    
+   /**
+    * Responsável pela leitura dos ficheiros default.
+    */
    private static void leituraNormal(){
        criaNovoHiper();
        hipermercado.carregaDados("../Clientes.txt","../Produtos.txt","../Vendas_1M.txt");
@@ -129,6 +144,9 @@ public class HipermercadoApp{
        is.nextLine();
    }
    
+   /**
+    * Responsável pela leitura de ficheiros opcionais.
+    */
    private static void leituraOpcional(){
        Scanner is = new Scanner(System.in);
        criaNovoHiper();
@@ -144,7 +162,10 @@ public class HipermercadoApp{
        is.nextLine();
    }
    
-   /* querie 1 */
+   // querie 1 
+   /**
+    * Responsável por apresentar uma lista ordenada alfabeticamente dos produtos não comprados.
+    */
    private static void produtosNaoComprados(){
        Scanner is = new Scanner(System.in);
        Crono.start();
@@ -167,7 +188,10 @@ public class HipermercadoApp{
       
    }
    
-   /* querie 2 */
+   // querie 2
+   /**
+    * Responsável por apresentar informações relativas às vendas de um determinado mês.
+    */
    private static void vendasMes(){
        int mes = inputMes();
        if(mes == 0); // sair
@@ -193,7 +217,10 @@ public class HipermercadoApp{
        }
    }
    
-   /* querie 3 */
+   // querie 3
+   /**
+    * Responsável por apresentar informações relativas a cada mês sobre as compras de um determinado cliente.
+    */
    private static void comprasCliente(){
        String cliente = inputCliente();
        if(!cliente.equals("0")){
@@ -224,7 +251,10 @@ public class HipermercadoApp{
        }
    }
    
-   /* querie 4 */
+   // querie 4
+   /**
+    * Responsável por apresentar as informações sobre as compras de um determinado produto durante o ano.
+    */
    private static void vendasProduto(){
        String produto = inputProduto();
        if(!produto.equals("0")){
@@ -255,7 +285,10 @@ public class HipermercadoApp{
        }
    }
    
-   /* querie 5 */
+   // querie 5
+   /**
+    * Responsável por apresentar os produtos mais comprados por um determinado cliente.
+    */
    private static void produtosMaisCompradosCliente(){
        String cliente = inputCliente();
        if(!cliente.equals("0")){
@@ -285,7 +318,10 @@ public class HipermercadoApp{
        }
    }
    
-   /* querie 6 */ 
+   // querie 6
+   /**
+    * Responsável por apresentar os N produtos mais vendidos.
+    */
    private static void produtosMaisVendidos(){
        int numero = inputNumero();
        Scanner is = new Scanner(System.in);
@@ -307,7 +343,10 @@ public class HipermercadoApp{
        menu_paginas.executa();
    }
    
-   /* querie 7 */
+   // querie 7
+   /**
+    * Responsável por determinar para cada filial os três maiores compradores.
+    */
    private static void produtosFilial(){
        Scanner is = new Scanner(System.in);
        Crono.start();
@@ -336,7 +375,10 @@ public class HipermercadoApp{
        is.close();
    }
    
-   /* querie 8 */
+   // querie 8
+   /**
+    * Responsável por apresentar os N clientes que compraram mais produtos diferentes.
+    */
    private static void clientesComMaisProdutosDiferentes(){
        int numero = inputNumero(); Scanner is = new Scanner(System.in);
        Crono.start();
@@ -357,7 +399,10 @@ public class HipermercadoApp{
        menu_paginas.executa();
    }
    
-   /* querie 9 */
+   // querie 9
+   /**
+    * Responsável por apresentar os N clientes que mais compraram um determinado produto.
+    */
    private static void clientesCompraramProduto(){
        String produto = inputProduto();
        if(!produto.equals("0")){
@@ -389,6 +434,9 @@ public class HipermercadoApp{
        
    }
    
+   /**
+    * Função responsável por fazer o carregamento de dados através de um dado ficheiro.
+    */
    private static void carregarDados(){       
        criaNovoHiper();
        String fich = "hipermercado.dat";
@@ -415,6 +463,9 @@ public class HipermercadoApp{
        is.close();
    }
    
+   /**
+    * Função responsável por guardar o estado do Hipermercado num ficheiro binário.
+    */
    private static void gravarDados(){
         if(hipermercado == null || hipermercado.isEmpty()){
             System.out.print("Não existem dados, por favor use a opção \"Carregar dados\"!");
@@ -438,7 +489,10 @@ public class HipermercadoApp{
        }
     }
     
-   // INPUTS
+   /**
+    * Função responsável pelo input do mês.
+    * @return
+    */
    private static int inputMes(){
         int mes;
         System.out.print("Mês: ");
@@ -455,6 +509,10 @@ public class HipermercadoApp{
         return mes;
    }
    
+   /**
+    * Função responsável pelo input de um número.
+    * @return
+    */
    private static int inputNumero(){
         int numero;
         System.out.print("Número: ");
@@ -470,6 +528,10 @@ public class HipermercadoApp{
         return numero;
    }
    
+   /**
+    * Função responsável pelo input de um Cliente.
+    * @return
+    */
    private static String inputCliente(){
        String cliente;
        System.out.print("Cliente: ");
@@ -479,6 +541,10 @@ public class HipermercadoApp{
        return cliente;
    }
    
+   /**
+    * Função responsável pelo input de um Produto.
+    * @return
+    */
    private static String inputProduto(){
        String produto;
        System.out.print("Produto: ");

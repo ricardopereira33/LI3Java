@@ -26,6 +26,9 @@ public class Hipermercado implements Serializable{
    private Facturacao facturacao;
    private Filial filiais[];
    
+   /**
+    * Construtor vazio.
+    */
    public Hipermercado(){
        int i;
        this.catalogoClientes = new CatClientes();
@@ -36,18 +39,34 @@ public class Hipermercado implements Serializable{
             filiais[i]= new Filial();
    }
    
+   /**
+    * Função que retorna o Catálogo de Clientes.
+    * @return
+    */
    public CatClientes getCatClientes(){
        return this.catalogoClientes.clone();
    }
    
+   /**
+    * Função que retorna o Catálogo de Produtos.
+    * @return
+    */
    public CatProdutos getCatProdutos(){
        return this.catalogoProdutos.clone();
    }
    
+   /**
+    * Função que retorna a facturação.
+    * @return
+    */
    public Facturacao getFacturacao(){
        return this.facturacao; // falta clone
    }
    
+   /**
+    * Função que testa se o Hipermercado se encontra vazio.
+    * @return
+    */
    public boolean isEmpty(){
        boolean result = true;
        if(catalogoClientes.totalClientes()>0 && catalogoProdutos.totalProdutos()>0 && facturacao.nProdDif() >0)
@@ -55,36 +74,21 @@ public class Hipermercado implements Serializable{
        return result;
    }
    
+   /**
+    * Função que faz a leitura dos ficheiros, carregando a informação para o Hipermercado.
+    * @param ficheiro_clientes
+    * @param ficheiro_produtos
+    * @param ficheiro_vendas
+    */
    public void carregaDados(String ficheiro_clientes, String ficheiro_produtos, String ficheiro_vendas){
        Leitura.leituraClientes(ficheiro_clientes,catalogoClientes);
        Leitura.leituraProdutos(ficheiro_produtos,catalogoProdutos);
-       /*this.carregarcatalogoProdutos(produtos);
-       this.carregarcatalogoClientes(clientes);
-       clientes.clear();
-       produtos.clear();*/
        Leitura.leituraVendas(ficheiro_vendas,catalogoProdutos,catalogoClientes,facturacao,filiais);
-       /*this.carregarFacturacao(vendas);
-       vendas.clear();*/
    }
    
-   public void carregarcatalogoProdutos(ArrayList<String> produtos){
-       for(String p: produtos){
-           catalogoProdutos.insereProduto(p);
-       }
-   }
-   
-    public void carregarcatalogoClientes(ArrayList<String> clientes){
-       for(String c: clientes){
-           catalogoClientes.insereCliente(c);
-       }
-   }
-   
-   public void carregarFacturacao(ArrayList<Venda> vendas){
-       for(Venda v : vendas){
-           facturacao.insereVenda(v);
-        }
-   }
-   
+   /**
+    * Função para limpar o Hipermercado.
+    */
    public void limpar (){
        catalogoClientes.limpar();
        catalogoProdutos.limpar();
@@ -92,19 +96,6 @@ public class Hipermercado implements Serializable{
        for(Filial f:filiais){
            f.limpar();
         }
-   }
-   
-   /*CONSULTAS ESTATISTICAS*/
-   public int numeroProdutosDif(){
-       return facturacao.nProdDif();       
-    }
-    
-   public double facturacaoTotal(){
-       return facturacao.total();
-    } 
-   
-   public int zeros(){
-       return facturacao.zeros();
    }
    
    // GRAVAR && CARREGAR
@@ -132,11 +123,13 @@ public class Hipermercado implements Serializable{
     }
    
    //QUERIE1
-   /*Lista ordenada alfabeticamente com os códigos dos produtos nunca comprados e o
-   seu respectivo total;*/
-   
+   /**
+    * Função que retorna uma lista ordenada alfabeticamente com os códigos dos produtos
+    * nunca comprados e o seu respectivo total.
+    * @return
+    */
    public Set<String> getProdsNaoComp(){
-       Set<String> prods = new TreeSet<String>(new ComparatorByString());
+       Set<String> prods = new TreeSet<String>();
        for(String prod : this.catalogoProdutos.getProdutos()){
            if(!this.facturacao.existeProd(prod)) prods.add(prod);
        }
@@ -144,15 +137,18 @@ public class Hipermercado implements Serializable{
    }
    
    //QUERIE2
-   /*Dado um mês válido, determinar o número total global de vendas realizadas e o
-   número total de clientes distintos que as fizeram;*/
-   
+   /**
+    * Função que dado um mês válido, determina o número total de vendas realizadas
+    * e o número total de clientes distintos que as fizeram.
+    * @param mes
+    * @return
+    */
    public ParIntInt getNumVendNumCliMes(int mes) throws MesInvalidoException{
        int numVendas=0;
        int numClientes=0;
        if(mes < 0 || mes > 12 ) throw new MesInvalidoException("Més inválido! Por favor introduzia um mês válido (1-12).");
        
-       Set<String> clientes = new TreeSet<String>(new ComparatorByString());
+       Set<String> clientes = new TreeSet<String>();
        
        for(int i=0;i<3;i++){
            numVendas += filiais[i].getNumVendMes(clientes,mes);
@@ -162,8 +158,12 @@ public class Hipermercado implements Serializable{
    }
    
    //QUERIE3
-   /*Dado um código de cliente, determinar, para cada mês, quantas compras fez,
-    * quantos produtos distintos comprou e quanto gastou no total. ; */
+   /**
+    * Função que dado um código de cliente determina, para cada mês,
+    * quantas compras este fez, quantos produtos distintos comprou e quando gastou no total.
+    * @param cli
+    * @return
+    */
    public List<TriploIntIntDouble> getNumCompNumProdTot(String cli) throws ClienteInexistenteException {
        
        if(!catalogoClientes.existeCliente(cli)) throw new ClienteInexistenteException("O cliente " + cli + " não se encontra no Catálogo!");
@@ -177,7 +177,7 @@ public class Hipermercado implements Serializable{
            numCompras = 0;
            numProds = 0;
            totGasto = 0;
-           Set<String> prods = new TreeSet<String>(new ComparatorByString());
+           Set<String> prods = new TreeSet<String>();
            for(int j=0;j<3;j++){
                ParIntDouble p = filiais[j].getNumCompTotMes(prods,i,cli);
                numCompras += p.getPrimeiro();
@@ -190,32 +190,12 @@ public class Hipermercado implements Serializable{
    }
    
    //QUERIE4
-   /*Dado o código de um produto existente, determinar, mês a mês, quantas vezes foi
-    * comprado, por quantos clientes diferentes e o total facturado;*/
-   /*public List<TriploIntIntDouble> getNumCompNumCliTot(String prod) throws ProdutoInexistenteException{
-       
-       if(!catalogoProdutos.existeProduto(prod)) throw new ProdutoInexistenteException("O produto " + prod + " não se encontra no Catálogo!");
-       
-       List<TriploIntIntDouble> lista = new ArrayList<>(12);
-       int numCompras = 0;
-       int numCli = 0;
-       double totFact = 0;
-       for(int i=0;i<12;i++){
-           numCompras = 0;
-           numCli = 0;
-           totFact = 0;
-           Set<String> cli = new TreeSet<String>(new ComparatorByString());
-           for(int j=0;j<3;j++){
-               ParIntDouble p = filiais[j].getNumCompTotMesProd(cli,i,prod);
-               numCompras += p.getPrimeiro();
-               totFact += p.getSegundo();
-           }
-           numCli = cli.size();
-           lista.add(i,new TriploIntIntDouble(numCompras,numCli,totFact));
-       }
-       return lista;
-   }*/
-   
+   /**
+    * Função que dado o código de um produto existente determina, mês a mês
+    * quantas vezes foi comprado, por quantos clientes diferentes e o total facturado.
+    * @param prod
+    * @return
+    */   
    public List<TriploIntIntDouble> getNumCompNumCliTot(String prod) throws ProdutoInexistenteException{
        
        if(!catalogoProdutos.existeProduto(prod)) throw new ProdutoInexistenteException("O produto " + prod + " não se encontra no Catálogo!");
@@ -245,9 +225,13 @@ public class Hipermercado implements Serializable{
    }
    
    //QUERIE5
-   /*Dado o código de um cliente determinar a lista de códigos de produtos que mais
-    * comprou (e quantos), ordenada por ordem decrescente de quantidade e, para
-    * quantidades iguais, por ordem alfabética dos códigos;*/
+   /**
+    * Função que dado o código de um cliente determina a lista de códigos de produtos
+    * que mais comprou, ordenada por ordem decrescente de quantidade e, para quantidades iguais
+    * por ordem alfabética.
+    * @param cli
+    * @return
+    */
    public TreeSet<ParStringInt> getProdsMaisComprados(String cli) throws ClienteInexistenteException{
        
        if(!catalogoClientes.existeCliente(cli)) throw new ClienteInexistenteException("O cliente " + cli + " não se encontra no Catálogo!");
@@ -262,9 +246,12 @@ public class Hipermercado implements Serializable{
    }
    
    //QUERIE6
-   /*Determinar o conjunto dos X produtos mais vendidos em todo o ano (em número de
-    * unidades vendidas) indicando o número total de distintos clientes que o
-    * compraram (X é um inteiro dado pelo utilizador);*/
+   /**
+    * Determina o conjunto dos N produtos mais vendido em todo o ano, indicando o número total
+    * de clientes distintos que o compraram.
+    * @param x
+    * @return
+    */
    public TreeSet<TriploStringIntInt> getProdsMaisVend(int x){
        int j;
        TreeSet<TriploStringIntInt> prods = new TreeSet<TriploStringIntInt>(new ComparatorTriploStringIntInt());
@@ -282,8 +269,10 @@ public class Hipermercado implements Serializable{
    }
    
    //QUERIE7
-   /*Determinar, para cada filial, a lista dos três maiores compradores em termos de
-    * dinheiro facturado;*/ 
+   /**
+    * Determina para cada filial, a lista dos três maiores compradores em termos de dinheiro facturado.
+    * @return
+    */
    public List<List<ParStringDouble>> getMaioresComp(){
        List<List<ParStringDouble>> list = new ArrayList<>(3);
        for(int j=0;j<3;j++){
@@ -295,10 +284,11 @@ public class Hipermercado implements Serializable{
    }
    
    //QUERIE8
-   /*Determinar os códigos dos X clientes (sendo X dado pelo utilizador) que compraram
-    * mais produtos diferentes (não interessa a quantidade nem o valor), indicando 
-    * quantos, sendo o critério de ordenação a ordem decrescente do número de
-    * produtos; */
+   /**
+    * Determina os códigos dos N clientes que compraram mais produtos diferentes.
+    * @param x
+    * @return
+    */
    public TreeSet<ParStringInt> getCliMaisCompDif(int x){
        int j;
        TreeSet<ParStringInt> cli = new TreeSet<ParStringInt>(new ComparatorParStringInt());
@@ -316,8 +306,10 @@ public class Hipermercado implements Serializable{
    }
    
    //QUERIE9
-   /*Dado o código de um produto que deve existir, determinar o conjunto dos X clientes
-    * que mais o compraram e, para cada um, qual o valor gasto (ordenação cf. 5);*/
+   /**
+    * Dado o código de um produto, determinar o conjunto dos N clientes que mais o compraram, e para cada um
+    * indicar o valor gasto.
+    */
    public TreeSet<ParStringDouble> getCliMaisCompProd(String prod, int x) throws ProdutoInexistenteException{
        
        if(!catalogoProdutos.existeProduto(prod)) throw new ProdutoInexistenteException("O produto " + prod + " não se encontra no Catálogo!");
@@ -335,5 +327,18 @@ public class Hipermercado implements Serializable{
            clii.add(it.next());
        }
        return clii;
+   }
+   
+   /*CONSULTAS ESTATISTICAS*/
+   public int numeroProdutosDif(){
+       return facturacao.nProdDif();       
+    }
+    
+   public double facturacaoTotal(){
+       return facturacao.total();
+    } 
+   
+   public int zeros(){
+       return facturacao.zeros();
    }
 }

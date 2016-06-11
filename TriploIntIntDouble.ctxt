@@ -1,16 +1,23 @@
 #BlueJ class context
 comment0.params=primeiro\ segundo\ terceiro
 comment0.target=TriploIntIntDouble(int,\ int,\ double)
+comment0.text=\r\n\ Construtor\ por\ par\u00E2metros.\r\n\ @param\ primeiro\r\n\ @param\ segundo\r\n\ @param\ terceiro\r\n
 comment1.params=p
 comment1.target=TriploIntIntDouble(TriploIntIntDouble)
+comment1.text=\r\n\ Construtor\ por\ c\u00F3pia.\r\n\ @param\ p\r\n
 comment2.params=
 comment2.target=int\ getPrimeiro()
+comment2.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ o\ primeiro\ elemento.\r\n\ @return\r\n
 comment3.params=
 comment3.target=int\ getSegundo()
+comment3.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ o\ segundo\ elemento.\r\n\ @return\r\n
 comment4.params=
 comment4.target=double\ getTerceiro()
+comment4.text=\r\n\ Fun\u00E7\u00E3o\ que\ retorna\ o\ terceiro\ elemento.\r\n\ @return\r\n
 comment5.params=obj
 comment5.target=boolean\ equals(java.lang.Object)
+comment5.text=\r\n\ Fun\u00E7\u00E3o\ que\ testa\ a\ igualdade.\r\n\ @param\ obj\r\n\ @return\r\n
 comment6.params=
 comment6.target=java.lang.String\ toString()
+comment6.text=\r\n\ Fun\u00E7\u00E3o\ para\ imprimir.\r\n\ @return\r\n
 numComments=7

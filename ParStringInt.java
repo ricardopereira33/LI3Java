@@ -5,28 +5,54 @@ public class ParStringInt implements Serializable
    private String str;
    private int num;
    
+   /**
+    * Construtor por parâmetros.
+    * @param str
+    * @param num
+    */
    public ParStringInt(String str, int num){
         this.str = str;
         this.num = num;
     }
-    
-    public ParStringInt(ParStringInt a){
+   
+   /**
+    * Constutor por cópia.
+    * @param a
+    */
+   public ParStringInt(ParStringInt a){
         this(a.getString(),a.getNumero());
-    }
-    
-    public String getString(){
+   }
+   
+   /**
+    * Função que retorna a string.
+    * @return
+    */
+   public String getString(){
         return this.str;
-    }
-    
-    public int getNumero(){
+   }
+   
+   /**
+    * Função que retorna o número.
+    * @return
+    */
+   public int getNumero(){
         return this.num;
-    }    
-    
-    public ParStringInt clone() {
+   }    
+   
+   /**
+    * Função que retorna um clone.
+    * @return
+    */
+   public ParStringInt clone() {
         return new ParStringInt(this);
-    }
-    
-    public boolean equals(Object obj) {
+   }
+   
+   /**
+    * Função que retorna um clone.
+    * @param obj
+    * @return
+    */
+   public boolean equals(Object obj) {
         if(obj == this) {
             return true;
         }
@@ -35,14 +61,18 @@ public class ParStringInt implements Serializable
         }
         ParStringInt hi = (ParStringInt) obj;
         return hi.getString().equals(this.str) && hi.getNumero() == this.num;
-    }
-    
-    public String toString() {
+   }
+   
+   /**
+    * Função para imprimir.
+    * @return
+    */
+   public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(str);
         sb.append("\n");
         sb.append(num);
         sb.append("\n");
         return sb.toString();
-    }
+   }
 }
