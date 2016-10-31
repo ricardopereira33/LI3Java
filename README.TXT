@@ -5,7 +5,7 @@ ele/ela precisa saber. Os comentários devem incluir, pelo menos:
 ------------------------------------------------------------------------
 
 TITULO DO PROJETO: LI3 - Java
-OBJETIVO DO PROJETO:
+OBJETIVO DO PROJETO: Ter boa nota na cadeira de LI3 (não aconteceu).
 VERSÃO ou DATA:
 COMO INICIAR O PROJETO:
 AUTORES:
