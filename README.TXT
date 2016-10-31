@@ -8,5 +8,5 @@ TITULO DO PROJETO: LI3 - Java
 OBJETIVO DO PROJETO: Ter boa nota na cadeira de LI3 (não aconteceu).
 VERSÃO ou DATA:
 COMO INICIAR O PROJETO:
-AUTORES:
+AUTORES: Dinis Peixoto, Ricardo Pereira e Marcelo Lima
 INSTRUÇÕES PARA O USUÁRIO:
